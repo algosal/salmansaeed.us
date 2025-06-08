@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="The personal site of Salman Saeed, a believer in Neville Goddard's principles, highlighting the power of imagination and building a lasting legacy."
+    />
+    <meta
+      name="keywords"
+      content="power of imagination, built to last, Neville Goddard principles, manifestation, personal growth, inner power"
+    />
+    <title>Salman Saeed | Gallery</title>
+    <link rel="icon" type="image/jpeg" href="salman.jpg" />
+
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #000;
+        color: #fff;
+      }
+
+      .sidebar {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 200px;
+        background-color: #111;
+        padding: 20px;
+        box-sizing: border-box;
+        overflow-y: auto;
+        z-index: 1000;
+      }
+
+      .sidebar a {
+        color: #fff;
+        text-decoration: none;
+        padding: 12px 0;
+        margin: 0;
+        font-weight: 600;
+        text-align: center;
+        transition: background-color 0.3s;
+        border-bottom: 1px solid #222;
+      }
+
+      .sidebar a:hover {
+        background-color: #333;
+      }
+
+      .sidebar a:active,
+      .sidebar a:focus {
+        background-color: #333;
+        outline: none;
+        border: none;
+        padding: 12px 0;
+      }
+
+      .sidebar a.active {
+        color: #aaa;
+        pointer-events: none;
+      }
+
+      .content {
+        margin-left: 200px;
+        padding: 50px;
+        box-sizing: border-box;
+        min-height: 100vh;
+        overflow-y: auto;
+      }
+
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        text-align: center;
+      }
+
+      .gallery-item {
+        border-radius: 8px;
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+        overflow: hidden;
+        background-color: #111;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .gallery-item img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        display: block;
+      }
+
+      .caption {
+        padding: 10px;
+        font-size: 14px;
+        color: #ccc;
+      }
+
+      @media (max-width: 768px) {
+        .sidebar {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 50px;
+          flex-direction: row;
+          justify-content: space-around;
+          align-items: center;
+          padding: 0;
+          overflow-x: auto;
+          overflow-y: hidden;
+          white-space: nowrap;
+        }
+
+        .sidebar a {
+          margin: 0 8px;
+          padding: 8px 12px;
+          font-size: 14px;
+          white-space: nowrap;
+        }
+
+        .content {
+          margin-left: 0;
+          margin-top: 50px;
+          padding: 20px 10px;
+          min-height: calc(100vh - 50px);
+        }
+
+        .gallery-grid {
+          grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+          gap: 15px;
+        }
+
+        .gallery-item img {
+          height: 120px;
+        }
+
+        .caption {
+          font-size: 12px;
+          padding: 6px 8px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="sidebar">
+      <a href="index.html">Meet Salman</a>
+      <a href="corporate.html">Corporate</a>
+      <a href="gallery.html" class="active">Gallery</a>
+    </nav>
+    <main class="content">
+      <h1>Gallery</h1>
+      <div class="gallery-grid">
+        <!-- Existing companies -->
+        <div class="gallery-item">
+          <img
+            src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80"
+            alt="FinSln Holdings"
+          />
+          <div class="caption">FinSln Holdings (Parent Holding Company)</div>
+        </div>
+
+        <div class="gallery-item">
+          <img
+            src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=400&q=80"
+            alt="FinSln LLC"
+          />
+          <div class="caption">
+            FinSln LLC – Financial & Accounting Solutions
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img
+            src="https://images.unsplash.com/photo-1506765515384-028b60a970df?auto=format&fit=crop&w=400&q=80"
+            alt="Conscience Neurons LLC"
+          />
+          <div class="caption">
+            Conscience Neurons LLC – AI & Neural Integrations
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img
+            src="https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=400&q=80"
+            alt="Mellow Enclave LLC"
+          />
+          <div class="caption">Mellow Enclave LLC – Billionaires Club</div>
+        </div>
+
+        <div class="gallery-item">
+          <img
+            src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=400&q=80"
+            alt="Suit De Vital LLC"
+          />
+          <div class="caption">Suit De Vital LLC – Elite Custom Suiting</div>
+        </div>
+
+        <div class="gallery-item">
+          <img
+            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=400&q=80"
+            alt="Budson Valley Smokehouse"
+          />
+          <div class="caption">Budson Valley Smokehouse – THC Dispensary</div>
+        </div>
+
+        <div class="gallery-item">
+          <img
+            src="https://images.unsplash.com/photo-1549924231-f129b911e442?auto=format&fit=crop&w=400&q=80"
+            alt="420 CannaCore LLC"
+          />
+          <div class="caption">420 CannaCore LLC – THC Dispensary</div>
+        </div>
+
+        <div class="gallery-item">
+          <img
+            src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=400&q=80"
+            alt="Floating Koala LLC"
+          />
+          <div class="caption">Floating Koala LLC – THC Dispensary</div>
+        </div>
+
+        <div class="gallery-item">
+          <img
+            src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
+            alt="Wellness & Beyond"
+          />
+          <div class="caption">Wellness & Beyond – Wellness Products</div>
+        </div>
+
+        <div class="gallery-item">
+          <img
+            src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=400&q=80"
+            alt="Alba Gold Systems LLC"
+          />
+          <div class="caption">Alba Gold Systems LLC – Software Company</div>
+        </div>
+
+        <div class="gallery-item">
+          <img
+            src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=400&q=80"
+            alt="Alba Points LLC"
+          />
+          <div class="caption">Alba Points LLC – Blockchain Point System</div>
+        </div>
+
+        <div class="gallery-item">
+          <img
+            src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80"
+            alt="Mergers and Acquisitions"
+          />
+          <div class="caption">Mergers & Acquisitions for Salman Saeed LLC</div>
+        </div>
+
+        <div class="gallery-item">
+          <img src="salman.jpg" alt="Salman Saeed Corporate Solutions" />
+          <div class="caption">
+            Salman Saeed Corporate Solutions – Original Entity
+          </div>
+        </div>
+
+        <!-- Newly added companies -->
+        <div class="gallery-item">
+          <img
+            src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=400&q=80"
+            alt="Savvy Inventory LLC"
+          />
+          <div class="caption">
+            Savvy Inventory LLC – Retail Inventory Management
+          </div>
+        </div>
+
+        <div class="gallery-item">
+          <img
+            src="https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=400&q=80"
+            alt="Financial Data LLC"
+          />
+          <div class="caption">
+            Financial Data LLC – Data Analytics & Reporting
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
