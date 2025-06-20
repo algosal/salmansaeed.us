@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import profileImage from "../assets/profile.jpg"; // Replace with actual image path
+import profileImage from "../assets/profile.jpg";
 
 const containerStyle = {
   display: "flex",
@@ -46,14 +46,25 @@ const contentStyle = {
 const contentFlexStyle = {
   display: "flex",
   gap: "40px",
-  alignItems: "center",
+  alignItems: "flex-start",
   flexWrap: "wrap",
 };
 
 const paragraphStyle = {
   maxWidth: "600px",
-  lineHeight: 1.6,
+  lineHeight: 1.8,
   marginTop: "50px",
+  textIndent: "2em",
+  textAlign: "justify",
+};
+
+const lastParagraphStyle = {
+  ...paragraphStyle,
+  marginTop: "40px",
+  paddingTop: "30px",
+  borderTop: "1px solid #333",
+  fontStyle: "italic",
+  fontFamily: "'Georgia', serif",
 };
 
 const imageStyle = {
@@ -131,19 +142,28 @@ const MeetSalman = () => {
               strategic visionary shaping the future across multiple sectors.
               Leveraging deep expertise in artificial intelligence, finance, and
               software architecture, he designs integrated business ecosystems
-              that harmonize innovation with operational excellence. From
-              crafting cutting-edge ERP (Enterprise Resource Planning) and
-              financial platforms to pioneering ventures in cannabis retail,
-              luxury fashion, and social media applications, Salman's work
-              embodies a commitment to scalable growth, transformative
-              partnerships, and impactful technology. His unique blend of
-              programming mastery, financial insight, and corporate foresight
-              positions him as a dynamic force driving sustainable success and
-              market leadership.
+              that harmonize innovation with operational excellence.
+            </p>
+            <p style={paragraphStyle}>
+              Mr. Saeed is an avid believer in the power of imagination and the
+              laws of manifestation. Deeply influenced by the teachings of
+              Neville Goddard and the philosophy of abundance, he has cultivated
+              a life and business style that emerges from inner conviction,
+              creative visualization, and unwavering self-belief. To him, the
+              outer world is merely a reflection of the inner state, and true
+              transformation begins with thought.
             </p>
           </div>
           <img src={profileImage} alt="Salman Saeed" style={imageStyle} />
         </div>
+
+        <p style={lastParagraphStyle}>
+          “Imagine better than the best you know,” Neville Goddard once said — a
+          principle Salman lives by. His work and character are testimony to the
+          transformative power of belief and the creative command of the mind.
+          He doesn't just build businesses — he builds realities, one thought at
+          a time.
+        </p>
       </div>
 
       {/* Responsive Styles */}

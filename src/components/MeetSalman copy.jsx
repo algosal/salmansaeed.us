@@ -2,8 +2,6 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import profileImage from "../assets/profile.jpg"; // Replace with actual image path
 
-// const sidebarWidth = 220;
-
 const containerStyle = {
   display: "flex",
   minHeight: "100vh",
@@ -102,32 +100,31 @@ const MeetSalman = () => {
           <h2 className="arabic-name">سلمان سعید</h2>
 
           <style>{`
+            .arabic-name {
+              margin: 0;
+              position: absolute;
+              top: 100%;
+              right: 0;
+              font-size: 1.5rem;
+              color: #ffcc00;
+              direction: rtl;
+              transition: all 0.3s ease;
+            }
 
-    .arabic-name {
-      margin: 0;
-      position: absolute;
-      top: 100%;
-      right: 0;
-      font-size: 1.5rem;
-      color: #ffcc00;
-      direction: rtl;
-      transition: all 0.3s ease;
-    }
-    @media (min-width: 769px) {
-              .main-heading{
-          font-size: 2.5rem !important;
-          }
-      .arabic-name {
-        right: auto !important;
-        left: 0 !important;
-        margin-left: 300px !important;
-        
-      }
-    }
-  `}</style>
+            @media (min-width: 769px) {
+              .main-heading {
+                font-size: 2.5rem !important;
+              }
+              .arabic-name {
+                right: auto !important;
+                left: 0 !important;
+                margin-left: 300px !important;
+              }
+            }
+          `}</style>
         </header>
 
-        <div style={contentFlexStyle}>
+        <div className="content-flex" style={contentFlexStyle}>
           <div>
             <p style={paragraphStyle}>
               Salman Saeed is a pioneering entrepreneur, technologist, and
@@ -155,9 +152,24 @@ const MeetSalman = () => {
           .sidebar {
             display: none !important;
           }
+
           .content {
             margin-left: 0 !important;
-            margin-top: 60px; /* height of your mobile navbar */
+            margin-top: 60px;
+          }
+
+          .content-flex {
+            flex-direction: column;
+            align-items: center !important;
+            text-align: center;
+          }
+
+          .content-flex img {
+            margin-top: 20px;
+          }
+
+          .content-flex p {
+            margin-top: 20px;
           }
         }
       `}</style>
