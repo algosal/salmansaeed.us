@@ -56,4 +56,4 @@ Visit: [https://salmansaeed.us](https://salmansaeed.us)
 
 **Salman Saeed**
 Business strategist | Developer | Visionary
-📫 [Contact Salman](mailto:hello@salmansaeed.us)
+📫 [Contact Salman](mailto:salman@salmansaeed.us)
