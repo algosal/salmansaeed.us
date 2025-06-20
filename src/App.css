@@ -36,3 +36,44 @@
     transform: rotate(360deg);
   }
 }
+
+/* Hide mobile-navbar on desktop */
+.mobile-navbar {
+  display: none;
+}
+
+/* Show only on small screens */
+@media (max-width: 768px) {
+  .mobile-navbar {
+    display: block;
+    position: sticky;
+    top: 0;
+    background: #111;
+    z-index: 1000;
+  }
+
+  .mobile-navbar .navbar {
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
+  }
+
+  .mobile-navbar .navbar ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .mobile-navbar .navbar a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .mobile-navbar .navbar a.active {
+    color: #00f0ff;
+    border-bottom: 2px solid #00f0ff;
+  }
+}

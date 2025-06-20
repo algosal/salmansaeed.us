@@ -1,24 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import MeetSalman from "./components/MeetSalman";
+import Gallery from "./components/Gallery";
+import Corporate from "./components/Corporate";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      {/* ✅ Router context starts here */}
+
+      {/* Mobile-only navbar inside the router */}
+      <div className="mobile-navbar">
+        <Navbar />
+      </div>
+
+      <Routes>
+        <Route path="/" element={<MeetSalman />} />
+        <Route path="/gallery" element={<Gallery />} />
+        <Route path="/corporate" element={<Corporate />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
