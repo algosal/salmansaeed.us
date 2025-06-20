@@ -37,7 +37,7 @@ To build for production:
 npm run build
 ```
 
-Then deploy the `dist/` folder to any static hosting (e.g. GitHub Pages, Vercel, Netlify).
+Then deploy the `build/` folder to any static hosting (e.g. GitHub Pages, Vercel, Netlify).
 
 > Ensure `"homepage": "."` is set in `package.json` for proper asset path resolution in GitHub Pages.
 
