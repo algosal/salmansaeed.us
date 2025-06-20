@@ -1,0 +1,182 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+/* Chrome, Safari, Edge */
+/* ::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+} */
+
+/* Firefox */
+/* html {
+  scrollbar-width: none; /* hides scrollbar in Firefox */
+/*  } */
+
+/* Corporate.css */
+
+* {
+  box-sizing: border-box;
+}
+
+/* Hide scrollbars but allow scrolling */
+
+/* Chrome, Safari, Edge */
+::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Firefox */
+html {
+  scrollbar-width: none;
+}
+
+html,
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #000;
+  color: #fff;
+  height: 100%;
+}
+
+/* Layout */
+.container {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+}
+
+/* Sidebar Navigation - Desktop */
+.sidebar {
+  width: 220px; /* your sidebarWidth */
+  background-color: #1e1e1e;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  flex-shrink: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 999;
+}
+
+/* Sidebar links */
+.sidebar a {
+  color: #bbb;
+  text-decoration: none;
+  padding: 8px 12px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 18px;
+  display: inline-block;
+  transition: background-color 0.3s;
+  text-align: center;
+}
+.sidebar a.active,
+.sidebar a:hover {
+  color: #00f0ff;
+  background-color: #333;
+}
+
+/* Main Content */
+.content {
+  margin-left: 220px; /* same as sidebar width */
+  padding: 30px;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+/* Sticky Header */
+.content-header {
+  position: fixed;
+  top: 0;
+  left: 220px;
+  right: 0;
+  background-color: #000;
+  z-index: 10;
+  padding: 20px 30px;
+  border-bottom: 1px solid #333;
+}
+
+.content-header h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  color: #ffcc00;
+}
+
+/* Company blocks */
+.company {
+  margin-bottom: 30px;
+  padding: 20px;
+  background-color: #1a1a1a;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.05);
+}
+
+.company h3 {
+  font-size: 1.3rem;
+  margin: 10px 0 6px 0;
+  color: #ffcc00;
+}
+
+.company p {
+  margin: 0 0 10px 0;
+  line-height: 1.4;
+  color: #ccc;
+}
+
+.sub-list {
+  padding-left: 20px;
+  border-left: 2px solid #444;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .sidebar {
+    display: none !important;
+  }
+  .content {
+    margin-left: 0 !important;
+    padding: 20px 15px !important;
+    margin-top: 60px;
+  }
+  .content-header {
+    left: 0 !important;
+    width: 100% !important;
+    top: 75px !important;
+    position: fixed !important;
+    padding: 10px 15px !important;
+    background-color: #000 !important;
+    border-bottom: 1px solid #333 !important;
+    z-index: 10 !important;
+  }
+  .content-header h1 {
+    font-size: 2rem !important;
+  }
+}
