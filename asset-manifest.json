@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/salmansaeed.us/static/css/main.f7206dc1.css",
+    "main.js": "/salmansaeed.us/static/js/main.2fd913ee.js",
+    "static/js/453.9e8067db.chunk.js": "/salmansaeed.us/static/js/453.9e8067db.chunk.js",
+    "static/media/profile.jpg": "/salmansaeed.us/static/media/profile.b35ea54700cd6725d84e.jpg",
+    "static/media/salman.jpg": "/salmansaeed.us/static/media/salman.aaa43965b5eed5a544ce.jpg",
+    "index.html": "/salmansaeed.us/index.html",
+    "main.f7206dc1.css.map": "/salmansaeed.us/static/css/main.f7206dc1.css.map",
+    "main.2fd913ee.js.map": "/salmansaeed.us/static/js/main.2fd913ee.js.map",
+    "453.9e8067db.chunk.js.map": "/salmansaeed.us/static/js/453.9e8067db.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f7206dc1.css",
+    "static/js/main.2fd913ee.js"
+  ]
+}
