@@ -41,53 +41,34 @@ const contentStyle = {
   flexGrow: 1,
   padding: 30,
   overflowY: "auto",
-  marginTop: 70,
 };
 
 const contentFlexStyle = {
   display: "flex",
   gap: "40px",
-  alignItems: "stretch",
+  alignItems: "flex-start",
   flexWrap: "wrap",
 };
 
 const paragraphStyle = {
   maxWidth: "600px",
   lineHeight: 1.8,
-  marginTop: "30px",
+  marginTop: "50px",
   textIndent: "2em",
   textAlign: "justify",
 };
 
-// const lastParagraphStyle = {
-//   ...paragraphStyle,
-//   marginTop: "40px",
-//   paddingTop: "30px",
-//   borderTop: "1px solid #333",
-//   fontStyle: "italic",
-//   fontFamily: "'Georgia', serif",
-// };
 const lastParagraphStyle = {
+  ...paragraphStyle,
   marginTop: "40px",
+  paddingTop: "30px",
+  borderTop: "1px solid #333",
   fontStyle: "italic",
-  fontSize: "1.1rem",
-  lineHeight: 1.8,
-  textAlign: "justify",
-  textIndent: "2em",
-  width: "100%",
-  maxWidth: "1000px",
-  marginLeft: "auto",
-  marginRight: "auto",
-  padding: "0 20px",
-};
-
-const imageContainerStyle = {
-  display: "flex",
-  alignItems: "center",
+  fontFamily: "'Georgia', serif",
 };
 
 const imageStyle = {
-  maxWidth: "600px",
+  maxWidth: "320px",
   width: "100%",
   height: "auto",
   borderRadius: "12px",
@@ -123,63 +104,39 @@ const MeetSalman = () => {
 
       {/* Main Content */}
       <div className="content" style={contentStyle}>
-        <header
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 220, // sidebar width on desktop
-            right: 0,
-            zIndex: 1000,
-            backgroundColor: "#121212",
-            padding: "20px 30px 10px",
-            borderBottom: "1px solid #333",
-          }}
-        >
+        <header style={{ marginBottom: "0rem", position: "relative" }}>
           <h1 className="main-heading" style={{ margin: 0 }}>
             Meet Saeed, Salman
           </h1>
           <h2 className="arabic-name">سلمان سعید</h2>
 
           <style>{`
-    .arabic-name {
-      margin: 0;
-      position: absolute;
-      top: 100%;
-      right: 0;
-      font-size: 1.5rem;
-      color: #ffcc00;
-      direction: rtl;
-      transition: all 0.3s ease;
-    }
-    @media (min-width: 769px) {
-      .main-heading {
-        font-size: 2.5rem !important;
-      }
-      .arabic-name {
-        right: auto !important;
-        left: 0 !important;
-        margin-left: 300px !important;
-      }
-    }
-    @media (max-width: 768px) {
-      header {
-        left: 0 !important;
-        width: 100% !important;
-        top: 80px !important;
-      }
-        @media (max-width: 768px) {
-  .content {
-    margin-left: 0 !important;
-    padding-top: 80px !important; /* height of mobile nav */
-  }
-}
+            .arabic-name {
+              margin: 0;
+              position: absolute;
+              top: 100%;
+              right: 0;
+              font-size: 1.5rem;
+              color: #ffcc00;
+              direction: rtl;
+              transition: all 0.3s ease;
+            }
 
-    }
-  `}</style>
+            @media (min-width: 769px) {
+              .main-heading {
+                font-size: 2.5rem !important;
+              }
+              .arabic-name {
+                right: auto !important;
+                left: 0 !important;
+                margin-left: 300px !important;
+              }
+            }
+          `}</style>
         </header>
 
         <div className="content-flex" style={contentFlexStyle}>
-          <div style={{ flex: 1 }}>
+          <div>
             <p style={paragraphStyle}>
               Salman Saeed is a pioneering entrepreneur, technologist, and
               strategic visionary shaping the future across multiple sectors.
@@ -201,31 +158,8 @@ const MeetSalman = () => {
               methods are a blend of metaphysical insight and pragmatic action —
               a rare fusion of spirit and strategy.
             </p>
-
-            <p style={paragraphStyle}>
-              To him, the outer world is merely a reflection of the inner state,
-              and true transformation begins within. Just as a seed becomes a
-              forest, every thought sown with faith manifests into reality. His
-              methods are a blend of metaphysical insight and pragmatic action —
-              a rare fusion of spirit and strategy. Through persistent
-              visualization and unwavering inner dialogue, Mr. Saeed transforms
-              intention into tangible achievement. He believes the mind, when
-              disciplined by faith, becomes the architect of destiny — building
-              outcomes long before they appear in the material world. His daily
-              life is steeped in meditation, scripting, and conscious assumption
-              — not as rituals, but as technologies of the self. In his view,
-              imagination is not escapism; it is creation. Each inspired thought
-              is a blueprint, and each belief is a command. By aligning emotion
-              with thought and action with purpose, Salman unlocks an inner
-              harmony that radiates outward — into businesses, relationships,
-              and communities. This is not mere philosophy — it’s a deliberate
-              way of living, taught by mystics and now applied to modern
-              enterprise with elegance and force.
-            </p>
           </div>
-          <div style={imageContainerStyle}>
-            <img src={profileImage} alt="Salman Saeed" style={imageStyle} />
-          </div>
+          <img src={profileImage} alt="Salman Saeed" style={imageStyle} />
         </div>
 
         <p style={lastParagraphStyle}>
@@ -257,7 +191,6 @@ const MeetSalman = () => {
 
           .content-flex img {
             margin-top: 20px;
-            max-width: 280px !important;
           }
 
           .content-flex p {
