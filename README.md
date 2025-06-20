@@ -1,8 +1,3 @@
-Here’s a professional and clean `README.md` you can use for your personal site repository:
-
----
-
-````markdown
 # Salman Saeed — Personal Website 🌐
 
 Welcome to the official source code for [salmansaeed.us](https://salmansaeed.us) — the personal website of **Salman Saeed**, a multidisciplinary entrepreneur, technologist, and corporate architect.
@@ -35,7 +30,6 @@ cd salmansaeed.us
 npm install
 npm run dev
 ```
-````
 
 To build for production:
 
@@ -63,7 +57,3 @@ Visit: [https://salmansaeed.us](https://salmansaeed.us)
 **Salman Saeed**
 Business strategist | Developer | Visionary
 📫 [Contact Salman](mailto:hello@salmansaeed.us)
-
-```
-
-```
