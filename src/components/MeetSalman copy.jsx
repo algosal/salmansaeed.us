@@ -1,6 +1,5 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import profileImage from "../assets/profile.jpg"; // Replace with actual image path
 
 const containerStyle = {
   display: "flex",
@@ -43,29 +42,21 @@ const contentStyle = {
   overflowY: "auto",
 };
 
-const contentFlexStyle = {
-  display: "flex",
-  gap: "40px",
-  alignItems: "center",
-  flexWrap: "wrap",
+const sectionTitle = {
+  fontSize: "2rem",
+  marginBottom: 16,
+  fontWeight: "600",
 };
 
 const paragraphStyle = {
-  maxWidth: "600px",
-  lineHeight: 1.6,
-  marginTop: "50px",
+  maxWidth: "800px",
+  lineHeight: 1.7,
+  fontSize: "1.1rem",
+  textIndent: "2rem",
+  marginBottom: 20,
 };
 
-const imageStyle = {
-  maxWidth: "280px",
-  width: "100%",
-  height: "auto",
-  borderRadius: "12px",
-  boxShadow: "0 0 20px rgba(255, 255, 255, 0.2)",
-  flexShrink: 0,
-};
-
-const MeetSalman = () => {
+const Legacy = () => {
   return (
     <div style={containerStyle}>
       {/* Sidebar Navigation */}
@@ -89,61 +80,92 @@ const MeetSalman = () => {
         >
           Gallery
         </NavLink>
+        <NavLink
+          to="/legacy"
+          style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
+        >
+          Legacy
+        </NavLink>
       </nav>
 
       {/* Main Content */}
       <div className="content" style={contentStyle}>
-        <header style={{ marginBottom: "0rem", position: "relative" }}>
-          <h1 className="main-heading" style={{ margin: 0 }}>
-            Meet Saeed, Salman
-          </h1>
-          <h2 className="arabic-name">سلمان سعید</h2>
+        <h1 style={{ fontSize: "2.5rem", marginBottom: "1.5rem" }}>
+          Legacy of Salman Saeed
+        </h1>
 
-          <style>{`
-            .arabic-name {
-              margin: 0;
-              position: absolute;
-              top: 100%;
-              right: 0;
-              font-size: 1.5rem;
-              color: #ffcc00;
-              direction: rtl;
-              transition: all 0.3s ease;
-            }
+        <section style={{ marginBottom: 40 }}>
+          <h2 style={sectionTitle}>The Oil Fire and the Child Prophet</h2>
+          <p style={paragraphStyle}>
+            I was only seven when I saw the fires of Kuwait’s oil wells burning
+            on TV. My grandfather watched in silence, worry on his face. I told
+            him the answer was simple: cap the wells with iron domes and the
+            fire would go out. He smiled and said, “If it were that easy, the
+            Americans would’ve done it.”
+          </p>
+          <p style={paragraphStyle}>
+            A week later, the same solution was announced globally. I never
+            reminded him. I didn’t need to. I knew I had seen what others
+            missed.
+          </p>
+        </section>
 
-            @media (min-width: 769px) {
-              .main-heading {
-                font-size: 2.5rem !important;
-              }
-              .arabic-name {
-                right: auto !important;
-                left: 0 !important;
-                margin-left: 300px !important;
-              }
-            }
-          `}</style>
-        </header>
+        <section style={{ marginBottom: 40 }}>
+          <h2 style={sectionTitle}>Grace in a Hospital Gown</h2>
+          <p style={paragraphStyle}>
+            After my appendix surgery, an infection reached my liver. I was
+            rushed back to the hospital. Even in pain, I brought my economics
+            book — I had assignments due. I studied while the IV dripped into
+            me. One phlebotomist suggested I sue the hospital, citing religion
+            and ethnicity.
+          </p>
+          <p style={paragraphStyle}>
+            I thanked him but declined. Dr. Berman, a Jewish surgeon, saved my
+            life. And I was born Muslim. My belief is simple — intent matters
+            more than identity. My heart told me he was a good man. That was
+            enough.
+          </p>
+        </section>
 
-        <div className="content-flex" style={contentFlexStyle}>
-          <div>
-            <p style={paragraphStyle}>
-              Salman Saeed is a pioneering entrepreneur, technologist, and
-              strategic visionary shaping the future across multiple sectors.
-              Leveraging deep expertise in artificial intelligence, finance, and
-              software architecture, he designs integrated business ecosystems
-              that harmonize innovation with operational excellence. From
-              crafting cutting-edge ERP (Enterprise Resource Planning) and
-              financial platforms to pioneering ventures in cannabis retail,
-              luxury fashion, and social media applications, Salman's work
-              embodies a commitment to scalable growth, transformative
-              partnerships, and impactful technology. His unique blend of
-              programming mastery, financial insight, and corporate foresight
-              positions him as a dynamic force driving sustainable success and
-              market leadership.
-            </p>
-          </div>
-          <img src={profileImage} alt="Salman Saeed" style={imageStyle} />
-        </div>
+        <section style={{ marginBottom: 40 }}>
+          <h2 style={sectionTitle}>The Game of Monopoly</h2>
+          <p style={paragraphStyle}>
+            As a child, I always won at Monopoly. I owned the board, the bank —
+            everything. But after every win, I’d say, “Let’s start over,” and
+            redistribute everything equally. And still, I would win. Not because
+            I hoarded — but because I understood the game. And maybe… because I
+            was born to build.
+          </p>
+        </section>
+
+        <section style={{ marginBottom: 40 }}>
+          <h2 style={sectionTitle}>The Promise of a GPA</h2>
+          <p style={paragraphStyle}>
+            My father once promised that if I got a GPA of 4.0 in Pakistan, he’d
+            go speak to the parents of the girl I loved. I didn’t just get a 4.0
+            — I got it from the State University of New York. But he broke his
+            word, and later, asked me for money.
+          </p>
+          <p style={paragraphStyle}>
+            I said nothing. I gave what was asked. But some men raise sons too
+            bright for their own shadows to hold. That’s not my burden. It’s my
+            becoming.
+          </p>
+        </section>
+
+        <section>
+          <h2 style={sectionTitle}>A Room No One Could Fill</h2>
+          <p style={paragraphStyle}>
+            The house I left before rehab? The landlord kept my room empty for a
+            year, hoping I’d return. Others told me how often he spoke of me.
+            That wasn’t just a room — it was my presence, my energy. When I came
+            back, he didn’t just greet me — he exhaled relief.
+          </p>
+          <p style={paragraphStyle}>
+            And that, to me, is legacy. When you leave behind more than a name —
+            you leave behind a feeling no one else could replace.
+          </p>
+        </section>
       </div>
 
       {/* Responsive Styles */}
@@ -157,24 +179,10 @@ const MeetSalman = () => {
             margin-left: 0 !important;
             margin-top: 60px;
           }
-
-          .content-flex {
-            flex-direction: column;
-            align-items: center !important;
-            text-align: center;
-          }
-
-          .content-flex img {
-            margin-top: 20px;
-          }
-
-          .content-flex p {
-            margin-top: 20px;
-          }
         }
       `}</style>
     </div>
   );
 };
 
-export default MeetSalman;
+export default Legacy;

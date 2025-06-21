@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import MeetSalman from "./components/MeetSalman";
 import Gallery from "./components/Gallery";
 import Corporate from "./components/Corporate";
+import Legacy from "./components/Legacy";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/" element={<MeetSalman />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/corporate" element={<Corporate />} />
+        <Route path="/legacy" element={<Legacy />} />
       </Routes>
     </BrowserRouter>
   );
