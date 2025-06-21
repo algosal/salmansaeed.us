@@ -1,8 +1,10 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import salmanImg from "../assets/salman.jpg"; // Replace with your actual image path
+import Navbar from "./Navbar";
+import salmanImg from "../assets/salman.jpg"; // replace with your actual path
 
 const galleryItems = [
+  // same items you provided...
   {
     src: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80",
     alt: "FinSln Holdings",
@@ -82,9 +84,13 @@ const galleryItems = [
 
 const Gallery = () => {
   return (
-    <div className="container" style={containerStyle}>
+    <div style={containerStyle}>
+      {/* ✅ Mobile Navbar */}
+      <Navbar />
+
+      {/* ✅ Sidebar (desktop only) */}
       <nav className="sidebar" style={sidebarStyle}>
-        <NavLink to="/" style={linkStyle} end>
+        <NavLink to="/" end style={linkStyle}>
           Meet Salman
         </NavLink>
         <NavLink to="/corporate" style={linkStyle}>
@@ -93,13 +99,19 @@ const Gallery = () => {
         <NavLink to="/gallery" style={activeLinkStyle}>
           Gallery
         </NavLink>
+        <NavLink to="/legacy" style={linkStyle}>
+          Legacy
+        </NavLink>
+        <NavLink to="/character" style={linkStyle}>
+          Character
+        </NavLink>
       </nav>
 
-      <main className="content" style={contentStyle}>
-        <div className="content-header" style={{ marginBottom: "1rem" }}>
-          <h1>Gallery</h1>
-        </div>
+      {/* ✅ Fixed Header */}
+      <header style={headerStyle}>Gallery</header>
 
+      {/* ✅ Main Content */}
+      <main className="content" style={contentStyle}>
         <div className="gallery-grid" style={galleryGridStyle}>
           {galleryItems.map(({ src, alt, caption }, index) => (
             <div className="gallery-item" style={galleryItemStyle} key={index}>
@@ -115,13 +127,42 @@ const Gallery = () => {
           ))}
         </div>
       </main>
+
+      {/* ✅ Responsive overrides */}
+      <style>{`
+        @media (max-width: 768px) {
+          .sidebar {
+            display: none !important;
+          }
+          header {
+            position: fixed !important;
+            top: 50px !important; /* below Navbar height */
+            left: 0 !important;
+            right: 0 !important;
+            width: 100% !important;
+            padding: 15px 20px !important;
+            font-size: 2rem !important;
+            border-bottom: 1px solid #333 !important;
+            z-index: 1500 !important;
+            height: 60px !important;
+            display: flex !important;
+            align-items: center !important;
+            box-sizing: border-box !important;
+          }
+          .content {
+            margin-left: 0 !important;
+            margin-top: 110px !important; /* Navbar + header */
+            padding: 20px 15px !important;
+          }
+        }
+      `}</style>
     </div>
   );
 };
 
 export default Gallery;
 
-// Styles
+// === Consistent Styles ===
 
 const containerStyle = {
   display: "flex",
@@ -135,10 +176,15 @@ const sidebarStyle = {
   display: "flex",
   flexDirection: "column",
   width: 220,
+  height: "100vh",
+  position: "fixed",
+  top: 0,
+  left: 0,
   padding: 20,
   backgroundColor: "#1e1e1e",
   gap: 15,
   boxSizing: "border-box",
+  zIndex: 100,
 };
 
 const linkStyle = {
@@ -149,7 +195,6 @@ const linkStyle = {
   padding: "8px 12px",
   borderRadius: 6,
   marginBottom: 8,
-  display: "inline-block",
 };
 
 const activeLinkStyle = {
@@ -158,10 +203,29 @@ const activeLinkStyle = {
   backgroundColor: "#333",
 };
 
+const headerStyle = {
+  position: "fixed",
+  top: 0,
+  left: 220,
+  right: 0,
+  backgroundColor: "#121212",
+  color: "#ffcc00",
+  borderBottom: "1px solid #333",
+  padding: "15px 30px",
+  fontSize: "2.5rem",
+  fontWeight: "bold",
+  zIndex: 150,
+  height: 80,
+  display: "flex",
+  alignItems: "center",
+  boxSizing: "border-box",
+};
+
 const contentStyle = {
   flexGrow: 1,
   padding: 30,
-  marginTop: 140,
+  marginLeft: 220,
+  marginTop: 80,
   overflowY: "auto",
 };
 

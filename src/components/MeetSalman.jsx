@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import Navbar from "./Navbar";
 import profileImage from "../assets/profile.jpg";
 
 const containerStyle = {
@@ -14,10 +15,15 @@ const sidebarStyle = {
   display: "flex",
   flexDirection: "column",
   width: 220,
+  height: "100vh",
+  position: "fixed",
+  top: 0,
+  left: 0,
   padding: 20,
   backgroundColor: "#1e1e1e",
   gap: 15,
   boxSizing: "border-box",
+  zIndex: 100,
 };
 
 const linkStyle = {
@@ -28,7 +34,6 @@ const linkStyle = {
   padding: "8px 12px",
   borderRadius: 6,
   marginBottom: 8,
-  display: "inline-block",
 };
 
 const activeLinkStyle = {
@@ -37,17 +42,35 @@ const activeLinkStyle = {
   backgroundColor: "#333",
 };
 
+const headerStyle = {
+  position: "fixed",
+  top: 0,
+  left: 220,
+  right: 0,
+  backgroundColor: "#121212",
+  color: "#ffcc00",
+  borderBottom: "1px solid #333",
+  padding: "15px 30px",
+  fontSize: "2.5rem",
+  fontWeight: "bold",
+  zIndex: 150,
+  height: 80,
+  display: "flex",
+  alignItems: "center",
+  boxSizing: "border-box",
+};
+
 const contentStyle = {
   flexGrow: 1,
   padding: 30,
-  overflowY: "auto",
-  marginTop: 70,
+  marginLeft: 220,
+  marginTop: 80,
 };
 
 const contentFlexStyle = {
   display: "flex",
   gap: "40px",
-  alignItems: "stretch",
+  alignItems: "flex-start",
   flexWrap: "wrap",
 };
 
@@ -59,14 +82,6 @@ const paragraphStyle = {
   textAlign: "justify",
 };
 
-// const lastParagraphStyle = {
-//   ...paragraphStyle,
-//   marginTop: "40px",
-//   paddingTop: "30px",
-//   borderTop: "1px solid #333",
-//   fontStyle: "italic",
-//   fontFamily: "'Georgia', serif",
-// };
 const lastParagraphStyle = {
   marginTop: "40px",
   fontStyle: "italic",
@@ -98,7 +113,10 @@ const imageStyle = {
 const MeetSalman = () => {
   return (
     <div style={containerStyle}>
-      {/* Sidebar Navigation */}
+      {/* ✅ Mobile Navbar */}
+      <Navbar />
+
+      {/* ✅ Sidebar (desktop only) */}
       <nav className="sidebar" style={sidebarStyle}>
         <NavLink
           to="/"
@@ -119,65 +137,25 @@ const MeetSalman = () => {
         >
           Gallery
         </NavLink>
+        <NavLink
+          to="/legacy"
+          style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
+        >
+          Legacy
+        </NavLink>
+        <NavLink
+          to="/character"
+          style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
+        >
+          Character
+        </NavLink>
       </nav>
 
-      {/* Main Content */}
+      {/* ✅ Fixed Header */}
+      <header style={headerStyle}>Meet Salman Saeed</header>
+
+      {/* ✅ Main Content */}
       <div className="content" style={contentStyle}>
-        <header
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 220, // sidebar width on desktop
-            right: 0,
-            zIndex: 1000,
-            backgroundColor: "#121212",
-            padding: "20px 30px 10px",
-            borderBottom: "1px solid #333",
-          }}
-        >
-          <h1 className="main-heading" style={{ margin: 0 }}>
-            Meet Saeed, Salman
-          </h1>
-          <h2 className="arabic-name">سلمان سعید</h2>
-
-          <style>{`
-    .arabic-name {
-      margin: 0;
-      position: absolute;
-      top: 100%;
-      right: 0;
-      font-size: 1.5rem;
-      color: #ffcc00;
-      direction: rtl;
-      transition: all 0.3s ease;
-    }
-    @media (min-width: 769px) {
-      .main-heading {
-        font-size: 2.5rem !important;
-      }
-      .arabic-name {
-        right: auto !important;
-        left: 0 !important;
-        margin-left: 300px !important;
-      }
-    }
-    @media (max-width: 768px) {
-      header {
-        left: 0 !important;
-        width: 100% !important;
-        top: 80px !important;
-      }
-        @media (max-width: 768px) {
-  .content {
-    margin-left: 0 !important;
-    padding-top: 80px !important; /* height of mobile nav */
-  }
-}
-
-    }
-  `}</style>
-        </header>
-
         <div className="content-flex" style={contentFlexStyle}>
           <div style={{ flex: 1 }}>
             <p style={paragraphStyle}>
@@ -201,7 +179,6 @@ const MeetSalman = () => {
               methods are a blend of metaphysical insight and pragmatic action —
               a rare fusion of spirit and strategy.
             </p>
-
             <p style={paragraphStyle}>
               To him, the outer world is merely a reflection of the inner state,
               and true transformation begins within. Just as a seed becomes a
@@ -237,29 +214,41 @@ const MeetSalman = () => {
         </p>
       </div>
 
-      {/* Responsive Styles */}
+      {/* ✅ Responsive overrides */}
       <style>{`
         @media (max-width: 768px) {
           .sidebar {
             display: none !important;
           }
-
+          header {
+            position: fixed !important;
+            top: 50px !important; /* below Navbar height */
+            left: 0 !important;
+            right: 0 !important;
+            width: 100% !important;
+            padding: 15px 20px !important;
+            font-size: 2rem !important;
+            border-bottom: 1px solid #333 !important;
+            z-index: 1500 !important;
+            height: 60px !important;
+            display: flex !important;
+            align-items: center !important;
+            box-sizing: border-box !important;
+          }
           .content {
             margin-left: 0 !important;
-            margin-top: 60px;
+            margin-top: 110px !important; /* Navbar + header */
+            padding: 20px 15px !important;
           }
-
           .content-flex {
             flex-direction: column;
             align-items: center !important;
             text-align: center;
           }
-
           .content-flex img {
             margin-top: 20px;
             max-width: 280px !important;
           }
-
           .content-flex p {
             margin-top: 20px;
           }

@@ -1,152 +1,261 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import Navbar from "./Navbar";
+
+const containerStyle = {
+  display: "flex",
+  minHeight: "100vh",
+  fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+  backgroundColor: "#121212",
+  color: "#eee",
+};
+
+const sidebarStyle = {
+  display: "flex",
+  flexDirection: "column",
+  width: 220,
+  height: "100vh",
+  position: "fixed",
+  top: 0,
+  left: 0,
+  padding: 20,
+  backgroundColor: "#1e1e1e",
+  gap: 15,
+  boxSizing: "border-box",
+  zIndex: 100,
+};
+
+const linkStyle = {
+  color: "#bbb",
+  textDecoration: "none",
+  fontSize: 18,
+  fontWeight: 600,
+  padding: "8px 12px",
+  borderRadius: 6,
+  marginBottom: 8,
+};
+
+const activeLinkStyle = {
+  ...linkStyle,
+  color: "#00f0ff",
+  backgroundColor: "#333",
+};
+
+const headerStyle = {
+  position: "fixed",
+  top: 0,
+  left: 220, // desktop: leave space for sidebar
+  right: 0,
+  backgroundColor: "#121212",
+  color: "#ffcc00",
+  borderBottom: "1px solid #333",
+  padding: "15px 30px",
+  fontSize: "2.5rem",
+  fontWeight: "bold",
+  zIndex: 150,
+  height: 80,
+  display: "flex",
+  alignItems: "center",
+  boxSizing: "border-box",
+};
+
+const contentStyle = {
+  flexGrow: 1,
+  padding: 30,
+  marginLeft: 220,
+  marginTop: 80, // space for fixed header
+};
+
+const companyBlockStyle = {
+  borderLeft: "4px solid #ffcc00",
+  backgroundColor: "#1a1a1a",
+  padding: "15px 20px",
+  marginBottom: 20,
+  boxShadow: "0 2px 6px rgba(255, 255, 255, 0.05)",
+};
+
+const subHeadingStyle = {
+  color: "#ffcc00",
+  fontSize: "1.3rem",
+  marginBottom: 8,
+};
+
+const paragraphStyle = {
+  fontSize: "1rem",
+  lineHeight: "1.8",
+  marginTop: "5px",
+};
+
+const Company = ({ title, description, subCompanies }) => (
+  <div style={companyBlockStyle}>
+    <h3 style={subHeadingStyle}>{title}</h3>
+    <p style={paragraphStyle}>{description}</p>
+    {subCompanies && (
+      <div style={{ marginTop: 15, paddingLeft: 15 }}>
+        {subCompanies.map((sub, i) => (
+          <Company key={i} {...sub} />
+        ))}
+      </div>
+    )}
+  </div>
+);
 
 const Corporate = () => {
   return (
-    <div className="container">
-      {/* Sidebar Navigation */}
-      <nav className="sidebar">
+    <div style={containerStyle}>
+      {/* Mobile Navbar */}
+      <Navbar />
+
+      {/* Sidebar (desktop only) */}
+      <nav className="sidebar" style={sidebarStyle}>
         <NavLink
           to="/"
           end
-          className={({ isActive }) => (isActive ? "active" : "")}
+          style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
         >
           Meet Salman
         </NavLink>
         <NavLink
           to="/corporate"
-          className={({ isActive }) => (isActive ? "active" : "")}
+          style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
         >
           Corporate
         </NavLink>
         <NavLink
           to="/gallery"
-          className={({ isActive }) => (isActive ? "active" : "")}
+          style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
         >
           Gallery
         </NavLink>
+        <NavLink
+          to="/legacy"
+          style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
+        >
+          Legacy
+        </NavLink>
+        <NavLink
+          to="/character"
+          style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
+        >
+          Character
+        </NavLink>
       </nav>
 
-      {/* Main content */}
-      <div className="content">
-        <header className="content-header">
-          <h1>Corporate Structure</h1>
-        </header>
+      {/* Fixed header, top: 0 */}
+      <header style={headerStyle}>Corporate Structure</header>
 
-        {/* Margin top to offset fixed header height */}
-        <div style={{ marginTop: 120 }}>
-          {/* Your Company components here */}
-          <Company
-            title="FinSln Holdings"
-            description="Main holding company that owns all subsidiaries."
-            subCompanies={[
-              {
-                title: "FinSln LLC",
-                description:
-                  "Financial and accounting solutions across industries.",
-              },
-              {
-                title: "FinPwr LLC",
-                description: "Hedge fund and financial leverage operations.",
-              },
-            ]}
-          />
+      {/* Main Content */}
+      <div className="content" style={contentStyle}>
+        <Company
+          title="FinSln Holdings"
+          description="Main holding company that owns all subsidiaries."
+          subCompanies={[
+            {
+              title: "FinSln LLC",
+              description:
+                "Financial and accounting solutions across industries.",
+            },
+            {
+              title: "FinPwr LLC",
+              description: "Hedge fund and financial leverage operations.",
+            },
+          ]}
+        />
 
-          <Company
-            title="Conscience Neurons LLC"
-            description="Neural Networks and AI systems integration."
-          />
+        <Company
+          title="Conscience Neurons LLC"
+          description="Neural Networks and AI systems integration."
+        />
 
-          <Company
-            title="Mellow Enclave LLC"
-            description="The Billionaires Club: Lifestyle and high net-worth network."
-          />
+        <Company
+          title="Mellow Enclave LLC"
+          description="The Billionaires Club: Lifestyle and high net-worth network."
+        />
 
-          <Company
-            title="Suit De Vital LLC"
-            description="Elite custom suiting brand for professionals."
-          />
+        <Company
+          title="Suit De Vital LLC"
+          description="Elite custom suiting brand for professionals."
+        />
 
-          <Company
-            title="THC & Wellness Division"
-            subCompanies={[
-              {
-                title: "Budson Valley Smokehouse",
-                description: "THC Dispensary.",
-              },
-              { title: "420 CannaCore LLC", description: "THC Dispensary." },
-              { title: "Floating Koala LLC", description: "THC Dispensary." },
-              {
-                title: "Wellness & Beyond",
-                description: "Wellness product line (Sole Proprietorship).",
-              },
-            ]}
-          />
+        <Company
+          title="THC & Wellness Division"
+          subCompanies={[
+            {
+              title: "Budson Valley Smokehouse",
+              description: "THC Dispensary.",
+            },
+            { title: "420 CannaCore LLC", description: "THC Dispensary." },
+            { title: "Floating Koala LLC", description: "THC Dispensary." },
+            {
+              title: "Wellness & Beyond",
+              description: "Wellness product line (Sole Proprietorship).",
+            },
+          ]}
+        />
 
-          <Company
-            title="Alba Gold Systems LLC"
-            description="Core software development company."
-            subCompanies={[
-              {
-                title: "Alba Points LLC",
-                description: "Blockchain-style point system for AG App/token.",
-              },
-            ]}
-          />
+        <Company
+          title="Alba Gold Systems LLC"
+          description="Core software development company."
+          subCompanies={[
+            {
+              title: "Alba Points LLC",
+              description: "Blockchain-style point system for AG App/token.",
+            },
+          ]}
+        />
 
-          <Company
-            title="Data & Retail Ops Division"
-            subCompanies={[
-              {
-                title: "Savvy Inventory LLC",
-                description:
-                  "Retail inventory management and POS optimization tools.",
-              },
-              {
-                title: "Financial Data LLC",
-                description:
-                  "Analytics, dashboards, and reporting systems for decision-making.",
-              },
-            ]}
-          />
+        <Company
+          title="Data & Retail Ops Division"
+          subCompanies={[
+            {
+              title: "Savvy Inventory LLC",
+              description:
+                "Retail inventory management and POS optimization tools.",
+            },
+            {
+              title: "Financial Data LLC",
+              description:
+                "Analytics, dashboards, and reporting systems for decision-making.",
+            },
+          ]}
+        />
 
-          <Company
-            title="Mergers and Acquisitions for Salman Saeed LLC"
-            description="Corporate expansion and business acquisitions engine."
-          />
+        <Company
+          title="Mergers and Acquisitions for Salman Saeed LLC"
+          description="Corporate expansion and business acquisitions engine."
+        />
 
-          <Company
-            title="Salman Saeed Corporate Solutions"
-            description="Original entity, IPO-oriented (Sole Proprietorship)."
-          />
-        </div>
+        <Company
+          title="Salman Saeed Corporate Solutions"
+          description="Original entity, IPO-oriented (Sole Proprietorship)."
+        />
       </div>
 
-      {/* You can keep your responsive style overrides here if needed */}
+      {/* Responsive overrides */}
       <style>{`
         @media (max-width: 768px) {
           .sidebar {
             display: none !important;
           }
+          header {
+            position: fixed !important;
+            top: 50px !important; /* below mobile navbar height */
+            left: 0 !important;
+            right: 0 !important;
+            width: 100% !important;
+            padding: 15px 20px !important;
+            font-size: 2rem !important;
+            border-bottom: 1px solid #333 !important;
+            z-index: 1500 !important;
+            height: 60px !important;
+            display: flex !important;
+            align-items: center !important;
+            box-sizing: border-box !important;
+          }
           .content {
             margin-left: 0 !important;
+            margin-top: 110px !important; /* navbar + header */
             padding: 20px 15px !important;
-            margin-top: 60px;
-          }
-          .content-header {
-            left: 0 !important;
-            width: 100% !important;
-            top: 75px !important;
-            position: fixed !important;
-            padding: 10px 15px !important;
-            background-color: #000 !important;
-            border-bottom: 1px solid #333 !important;
-            z-index: 10 !important;
-          }
-          .content-header h1 {
-            font-size: 2rem !important;
-            margin: 0 !important;
-            color: #ffcc00 !important;
           }
         }
       `}</style>
@@ -155,17 +264,3 @@ const Corporate = () => {
 };
 
 export default Corporate;
-
-const Company = ({ title, description, subCompanies }) => (
-  <div className="company">
-    <h3>{title}</h3>
-    <p>{description}</p>
-    {subCompanies && (
-      <div className="sub-list">
-        {subCompanies.map((sub, i) => (
-          <Company key={i} {...sub} />
-        ))}
-      </div>
-    )}
-  </div>
-);
