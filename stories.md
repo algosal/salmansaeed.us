@@ -56,7 +56,7 @@ At 5, I bet my uncle I could get a U.S. piano like his son’s. My mother fibbed
 
 ### 💡 _From Shadows to Software_
 
-My grandmother turned the lights off early. I studied under my neighbor’s porchlight instead, reading medical college books at age 5 and writing code on an MX-15 at 6. Later, I gifted that neighbor. Because sometimes your light is borrowed — and must be returned.
+My grandmother turned the lights off early. I studied under my neighbor’s porchlight instead, reading medical college books at age 5 and writing code on an MX-15 at 5. Later, I gifted that neighbor. Because sometimes your light is borrowed — and must be returned.
 
 ---
 

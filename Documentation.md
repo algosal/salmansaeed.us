@@ -26,7 +26,7 @@ Salman, as a child of just 7, watched the Kuwait oil fires on TV. He proposed a 
 
 ### 🎓 Chapter 2: A Mind Beyond Age
 
-At age 5, Salman studied medical college books. At 6, he was programming on an MX-15 using cassette backups.  
+At age 5, Salman studied medical college books. At 5, he was programming on an MX-15 using cassette backups.  
 He aced standardized tests, entered accounting and software programs with distinction, and made the President’s List every semester. He later aced the **Series 7**, **Series 63**, and **Securities Industry Essentials**, along with passing aviation exams and becoming a **licensed commercial driver** — all just to experience and master new domains.
 
 ---
