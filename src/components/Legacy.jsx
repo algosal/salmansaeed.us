@@ -59,73 +59,123 @@ const Legacy = () => {
           <section style={sectionStyle}>
             <h2 style={subheadingStyle}>The Oil Fire and the Child’s Vision</h2>
             <p style={paragraphStyle}>
-              I was only seven when I saw the fires of Kuwait’s oil wells
-              burning on TV. My grandfather watched in silence, worry on his
-              face. I told him the answer was simple: cap the wells with iron
-              domes and the fire would go out. He smiled and said, “If it were
-              that easy, the Americans would’ve done it.”
-            </p>
-            <p style={paragraphStyle}>
-              A week later, the same solution was announced globally. I never
-              reminded him. I didn’t need to. I knew I had seen what others
-              missed.
+              At age 7, I saw Kuwait's oil wells burning on TV. I said capping
+              the wells with iron would extinguish the fire. My grandfather
+              dismissed it. A week later, the U.S. implemented exactly that. I
+              never boasted. Quiet knowing was enough.
             </p>
           </section>
 
           <section style={sectionStyle}>
-            <h2 style={subheadingStyle}>Grace in a Hospital Gown</h2>
+            <h2 style={subheadingStyle}>Grace in the Gown</h2>
             <p style={paragraphStyle}>
-              After my appendix surgery, an infection reached my liver. I was
-              rushed back to the hospital with abscesses forming. Even in pain,
-              I brought my economics book — I had assignments due. I studied
-              while the IV dripped into me. One phlebotomist told me to sue the
-              hospital, citing my background and the doctor’s religion.
-            </p>
-            <p style={paragraphStyle}>
-              I thanked him but said no. Dr. Berman, a Jewish surgeon, saved my
-              life. And I was born Muslim. But my belief is simple — intent
-              matters more than identity. My heart told me he was a good man.
-              That was enough.
+              After appendix surgery, an infection hit my liver. I studied for
+              my economics final while hospitalized. Though I was advised to sue
+              due to medical and racial grounds, I declined. Dr. Berman — a
+              Jewish surgeon — saved me. I am a born Muslim. Intent matters more
+              than identity.
             </p>
           </section>
 
           <section style={sectionStyle}>
-            <h2 style={subheadingStyle}>The Game of Monopoly</h2>
+            <h2 style={subheadingStyle}>The Monopoly Principle</h2>
             <p style={paragraphStyle}>
-              As a child, I always won at Monopoly. I owned the board, the bank
-              — everything. But after every win, I’d say, “Let’s start over,”
-              and redistribute everything equally. And still, I would win. Not
-              because I hoarded — but because I understood the game. And maybe…
-              because I was born to build.
+              I always won Monopoly as a kid. Even after redistributing wealth
+              to everyone, I still won. It taught me I wasn’t just lucky — I
+              understood systems, value, and opportunity.
             </p>
           </section>
 
           <section style={sectionStyle}>
-            <h2 style={subheadingStyle}>The Promise of a GPA</h2>
+            <h2 style={subheadingStyle}>The Father’s Promise</h2>
             <p style={paragraphStyle}>
-              My father once promised that if I got a GPA of 4.0 in Pakistan,
-              he’d go speak to the parents of the girl I loved. I didn’t just
-              get a 4.0 — I got it from the State University of New York. But he
-              broke his word, and later, asked me for money. I said nothing. I
-              gave what was asked.
-            </p>
-            <p style={paragraphStyle}>
-              But inside, I knew: some men raise sons too bright for their own
-              shadows to hold. That’s not my burden. It’s my becoming.
+              My father promised to speak to Shemaila’s family if I earned a 4.0
+              GPA in Pakistan. I got it from the State University of New York
+              instead. He broke his word and asked me for money instead. I gave
+              it. Silently. Some sons outgrow their father’s shadows. That is
+              not rebellion — it is maturity.
             </p>
           </section>
 
-          <section>
-            <h2 style={subheadingStyle}>A Room No One Could Fill</h2>
+          <section style={sectionStyle}>
+            <h2 style={subheadingStyle}>A Room Left Empty</h2>
             <p style={paragraphStyle}>
-              The house I left before rehab? The landlord kept my room empty for
-              a year, hoping I’d return. Others told me how often he spoke of
-              me. That wasn’t just a room — it was my presence, my energy. When
-              I came back, he didn’t just greet me — he exhaled relief.
+              When I went to rehab, my landlord left my room untouched for a
+              year. People said he spoke about me all the time. When I returned,
+              it was like returning home. Some presences are never truly gone.
             </p>
+          </section>
+
+          <section style={sectionStyle}>
+            <h2 style={subheadingStyle}>Detained But Not Defeated</h2>
             <p style={paragraphStyle}>
-              And that, to me, is legacy. When you leave behind more than a name
-              — you leave behind a feeling no one else could replace.
+              In Pakistan, I was illegally detained by FIA on ISI’s request. For
+              10.5 months, I fought a legal battle against all major ministries.
+              The Attorney General apologized on their behalf. I simply smiled
+              and said, “Thank you.” My U.S. Army background taught me to stay
+              calm when others panic. I was never broken.
+            </p>
+          </section>
+
+          <section style={sectionStyle}>
+            <h2 style={subheadingStyle}>Love, Memory, and the Amygdala</h2>
+            <p style={paragraphStyle}>
+              I loved Shemaila at 15. She once said she’d never marry me, not
+              even if I were the last man on Earth. It hurt. But strong emotions
+              — love or hate — stimulate the amygdala. Her hatred proved how
+              much I mattered. Wrong direction, right intensity.
+            </p>
+          </section>
+
+          <section style={sectionStyle}>
+            <h2 style={subheadingStyle}>Faithfulness to Integrity</h2>
+            <p style={paragraphStyle}>
+              My partner once gave me a blank signed check with $2000 cash. I
+              returned the $10 extra he didn’t count. As a kid, I repaid an old
+              bet to an uncle after 35 years — adjusted for inflation. Because
+              my word matters.
+            </p>
+          </section>
+
+          <section style={sectionStyle}>
+            <h2 style={subheadingStyle}>The Piano and the Visa</h2>
+            <p style={paragraphStyle}>
+              At 5, I wanted a better Casio keyboard. My mom fibbed she'd get it
+              from the U.S. My uncle challenged it. We bet our keyboards. She
+              admitted she lied to protect my dream. I kept my Casio. Decades
+              later, I drove across California to visit that uncle and repaid
+              the bet with interest. No one expected that.
+            </p>
+          </section>
+
+          <section style={sectionStyle}>
+            <h2 style={subheadingStyle}>From Cassettes to Code</h2>
+            <p style={paragraphStyle}>
+              I started programming at age 6 on a hardcoded MX-15 with cassette
+              tapes. While others were in grade school, I was debugging. I later
+              studied under my neighbor’s outdoor light because my grandmother
+              turned ours off. When I succeeded, I gifted that neighbor — his
+              light helped shape my future.
+            </p>
+          </section>
+
+          <section style={sectionStyle}>
+            <h2 style={subheadingStyle}>Loyal Even in Noise</h2>
+            <p style={paragraphStyle}>
+              I hate noise. But in the hospital, a suffering man next to me
+              yelled constantly. I never complained. His wife apologized. I told
+              her: “It’s not his fault.” Because empathy isn’t a favor — it’s a
+              duty.
+            </p>
+          </section>
+
+          <section style={sectionStyle}>
+            <h2 style={subheadingStyle}>Purpose Over Position</h2>
+            <p style={paragraphStyle}>
+              In software school, I said I didn’t want a job — I wanted to build
+              wealth generators. I created a POS system while others submitted
+              resumes. My goal has always been to empower others, not collect
+              paychecks.
             </p>
           </section>
         </div>
