@@ -64,6 +64,7 @@ ul {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 3000; /* add this */
 }
 
 .mobile-modal .modal-links {
@@ -154,14 +155,21 @@ ul {
     top: 50px;
     left: 0;
     width: 100vw;
-    height: calc(100vh - 50px);
     display: flex;
     justify-content: space-between;
     z-index: 1000;
   }
 
+  .navbar ul {
+    top: 120px; /* match header height */
+    overflow-y: auto; /* allow vertical scrolling */
+    -webkit-overflow-scrolling: touch; /* smooth scrolling on iOS */
+    max-height: calc(100vh - 120px); /* keep height adjusted */
+    height: calc(100vh - 80px); /* keep height adjusted */
+  }
+
   .navbar li {
-    flex-grow: 1;
+    flex-grow: 0;
     display: flex;
     border-bottom: 1px solid #333;
   }

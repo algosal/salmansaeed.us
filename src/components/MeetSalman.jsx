@@ -43,6 +43,24 @@ const containerStyle = {
 //   backgroundColor: "#333",
 // };
 
+// const headerStyle = {
+//   position: "fixed",
+//   top: 0,
+//   left: 220,
+//   right: 0,
+//   backgroundColor: "#121212",
+//   color: "#ffcc00",
+//   borderBottom: "1px solid #333",
+//   padding: "15px 30px",
+//   fontSize: "2.5rem",
+//   fontWeight: "bold",
+//   zIndex: 150,
+//   height: 80,
+//   display: "flex",
+//   alignItems: "center",
+//   justifyContent: "space-between",
+//   boxSizing: "border-box",
+// };
 const headerStyle = {
   position: "fixed",
   top: 0,
@@ -60,14 +78,16 @@ const headerStyle = {
   alignItems: "center",
   justifyContent: "space-between",
   boxSizing: "border-box",
+  direction: "ltr", // ensures correct English-to-Arabic alignment
 };
 
 const arabicNameStyle = {
-  fontSize: "1.5rem",
+  fontSize: "3.5rem",
   color: "#ffcc00",
   fontWeight: "400",
-  marginLeft: "20px",
   fontFamily: "'Amiri', serif",
+  direction: "rtl",
+  textAlign: "right",
 };
 
 const contentStyle = {
@@ -132,45 +152,11 @@ const MeetSalman = () => {
     <div style={containerStyle}>
       <Navbar />
 
-      {/* <nav className="sidebar" style={sidebarStyle}>
-        <NavLink
-          to="/"
-          end
-          style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
-        >
-          Meet Salman
-        </NavLink>
-        <NavLink
-          to="/corporate"
-          style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
-        >
-          Corporate
-        </NavLink>
-        <NavLink
-          to="/gallery"
-          style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
-        >
-          Gallery
-        </NavLink>
-        <NavLink
-          to="/legacy"
-          style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
-        >
-          Legacy
-        </NavLink>
-        <NavLink
-          to="/character"
-          style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
-        >
-          Character
-        </NavLink>
-      </nav> */}
-
-      <header style={headerStyle}>
-        <div>
-          Meet Salman Saeed
-          <span style={arabicNameStyle}> — سلمان سعید</span>
-        </div>
+      <header className="meet-header" style={headerStyle}>
+        <div className="header-left">Meet Salman Saeed</div>
+        <span className="header-right" style={arabicNameStyle}>
+          سلمان سعید
+        </span>
       </header>
 
       <div className="content" style={contentStyle}>
@@ -252,10 +238,20 @@ const MeetSalman = () => {
             box-sizing: border-box !important;
           }
           header span {
-            font-size: 1.2rem !important;
+            font-size: 2rem !important;
             margin-left: 0 !important;
             margin-top: 5px !important;
           }
+
+            .header-right {
+    align-self: flex-end;
+    font-family: 'Amiri', serif;
+    color: #ffcc00;
+    direction: rtl;
+    text-align: right;
+    margin-top: 4px;
+  }
+
           .content {
             margin-left: 0 !important;
             margin-top: 120px !important;

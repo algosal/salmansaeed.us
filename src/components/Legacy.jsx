@@ -8,8 +8,33 @@ const containerStyle = {
   backgroundColor: "#121212",
   color: "#eee",
   fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+};
 
-  // ✅ REMOVE fontFamily from here
+const headerStyle = {
+  position: "fixed",
+  top: 0,
+  left: 220,
+  right: 0,
+  backgroundColor: "#121212",
+  color: "#ffcc00",
+  borderBottom: "1px solid #333",
+  padding: "15px 30px",
+  fontSize: "2.5rem",
+  fontWeight: "bold",
+  zIndex: 150,
+  height: 80,
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "space-between",
+  boxSizing: "border-box",
+};
+
+const arabicNameStyle = {
+  fontSize: "1.5rem",
+  color: "#ffcc00",
+  fontWeight: "400",
+  marginLeft: "20px",
+  fontFamily: "'Amiri', serif",
 };
 
 const contentStyle = {
@@ -64,13 +89,27 @@ const paragraphStyle = {
   textIndent: "2em",
 };
 
+const footerStyle = {
+  marginTop: "60px",
+  marginBottom: "40px",
+  textAlign: "center",
+  fontSize: "1rem",
+  color: "#aaa",
+};
+
 const Legacy = () => {
   return (
     <div style={containerStyle}>
-      {/* ✅ Navbar included */}
       <Navbar />
 
-      <div style={contentStyle}>
+      <header style={headerStyle} className="legacy-header">
+        <div>
+          Legacy of
+          <span style={arabicNameStyle}> — سلمان سعید</span>
+        </div>
+      </header>
+
+      <div style={contentStyle} className="content-style-padding">
         <div style={cardStyle}>
           <h1 style={headingStyle}>Legacy of Salman Saeed</h1>
           <h2 style={arabicHeadingStyle}>سلمان سعید کی میراث</h2>
@@ -209,6 +248,53 @@ const Legacy = () => {
           </section>
         </div>
       </div>
+
+      <footer style={footerStyle}>© سلمان سعید</footer>
+
+      <style>{`
+        @media (max-width: 768px) {
+          .legacy-header {
+            position: fixed !important;
+            top: 50px !important;
+            left: 0 !important;
+            right: 0 !important;
+            width: 100% !important;
+            padding: 15px 20px !important;
+            font-size: 1.8rem !important;
+            border-bottom: 1px solid #333 !important;
+            z-index: 1500 !important;
+            height: auto !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: flex-start !important;
+            box-sizing: border-box !important;
+          }
+          .legacy-header span {
+            font-size: 1.2rem !important;
+            margin-left: 0 !important;
+            margin-top: 5px !important;
+          }
+          .content-style-padding {
+            margin-top: 120px !important;
+          }
+          footer {
+            margin-top: 60px !important;
+            margin-bottom: 40px !important;
+            text-align: center !important;
+            font-size: 1rem !important;
+            color: #aaa !important;
+          }
+        }
+        @media (min-width: 769px) {
+          footer {
+            margin-top: 60px;
+            margin-bottom: 40px;
+            text-align: center;
+            font-size: 1rem;
+            color: #aaa;
+          }
+        }
+      `}</style>
     </div>
   );
 };
