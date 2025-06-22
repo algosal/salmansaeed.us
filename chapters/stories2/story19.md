@@ -1,4 +1,4 @@
-### 14. Purpose, Not Paychecks 💼🔥
+### Purpose, Not Paychecks 💼🔥
 
 Early on in my career, I faced a crossroads many do — the choice between a steady paycheck and pursuing my true purpose. Jobs were available, comfortable and secure, but none ignited the fire within me.
 

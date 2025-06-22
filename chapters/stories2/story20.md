@@ -1,4 +1,4 @@
-### 15. A Soldier’s Calm 🪖🧘‍♂️
+### A Soldier’s Calm 🪖🧘‍♂️
 
 Life threw some harsh tests my way — moments that could have shattered my spirit. From being detained unjustly to struggling through detox, I faced fear, uncertainty, and pressure that would break many.
 
