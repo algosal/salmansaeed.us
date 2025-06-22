@@ -1,18 +1,72 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
+import Navbar from "./Navbar";
 
 const containerStyle = {
   display: "flex",
   minHeight: "100vh",
-  fontFamily: "'Georgia', serif",
+  fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
   backgroundColor: "#121212",
   color: "#eee",
 };
 
+const sidebarStyle = {
+  display: "flex",
+  flexDirection: "column",
+  width: 220,
+  height: "100vh",
+  position: "fixed",
+  top: 0,
+  left: 0,
+  padding: 20,
+  backgroundColor: "#1e1e1e",
+  gap: 15,
+  boxSizing: "border-box",
+  zIndex: 100,
+};
+
+const linkStyle = {
+  color: "#bbb",
+  textDecoration: "none",
+  fontSize: 18,
+  fontWeight: 600,
+  padding: "8px 12px",
+  borderRadius: 6,
+  marginBottom: 8,
+};
+
+const activeLinkStyle = {
+  ...linkStyle,
+  color: "#00f0ff",
+  backgroundColor: "#333",
+};
+
+const headerStyle = {
+  position: "fixed",
+  top: 0,
+  left: 220,
+  right: 0,
+  backgroundColor: "#121212",
+  color: "#ffcc00",
+  borderBottom: "1px solid #333",
+  padding: "15px 30px",
+  fontSize: "2.5rem",
+  fontWeight: "bold",
+  zIndex: 150,
+  height: 80,
+  display: "flex",
+  alignItems: "center",
+  boxSizing: "border-box",
+};
+
 const contentStyle = {
   flexGrow: 1,
-  padding: "30px",
-  maxWidth: "900px",
-  margin: "0 auto",
+  padding: 30,
+  // marginLeft: 220,
+  marginTop: 80,
+  maxWidth: 900,
+  marginRight: "auto",
+  marginLeft: "auto",
 };
 
 const cardStyle = {
@@ -36,16 +90,6 @@ const headingStyle = {
   marginBottom: "40px",
 };
 
-const arabicHeadingStyle = {
-  fontSize: "28px",
-  fontWeight: "600",
-  textAlign: "center",
-  color: "#777",
-  fontFamily: "'Amiri', serif",
-  marginTop: "-20px",
-  marginBottom: "40px",
-};
-
 const subheadingStyle = {
   fontSize: "28px",
   fontWeight: "600",
@@ -62,10 +106,51 @@ const paragraphStyle = {
 const Legacy = () => {
   return (
     <div style={containerStyle}>
-      <div style={contentStyle}>
+      {/* ✅ Mobile Navbar */}
+      <Navbar />
+
+      {/* ✅ Sidebar (desktop only) */}
+      <nav className="sidebar" style={sidebarStyle}>
+        <NavLink
+          to="/"
+          end
+          style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
+        >
+          Meet Salman
+        </NavLink>
+        <NavLink
+          to="/corporate"
+          style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
+        >
+          Corporate
+        </NavLink>
+        <NavLink
+          to="/gallery"
+          style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
+        >
+          Gallery
+        </NavLink>
+        <NavLink
+          to="/legacy"
+          style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
+        >
+          Legacy
+        </NavLink>
+        <NavLink
+          to="/character"
+          style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
+        >
+          Character
+        </NavLink>
+      </nav>
+
+      {/* ✅ Fixed Header */}
+      <header style={headerStyle}>Legacy</header>
+
+      {/* ✅ Main Content */}
+      <div className="content" style={contentStyle}>
         <div style={cardStyle}>
           <h1 style={headingStyle}>Legacy of Salman Saeed</h1>
-          <h2 style={arabicHeadingStyle}>سلمان سعید کی میراث</h2>
 
           <section style={sectionStyle}>
             <h2 style={subheadingStyle}>The Oil Fire and the Child’s Vision</h2>
@@ -191,6 +276,35 @@ const Legacy = () => {
           </section>
         </div>
       </div>
+
+      {/* ✅ Responsive overrides */}
+      <style>{`
+        @media (max-width: 768px) {
+          .sidebar {
+            display: none !important;
+          }
+          header {
+            position: fixed !important;
+            top: 50px !important;
+            left: 0 !important;
+            right: 0 !important;
+            width: 100% !important;
+            padding: 15px 20px !important;
+            font-size: 2rem !important;
+            border-bottom: 1px solid #333 !important;
+            z-index: 1500 !important;
+            height: 60px !important;
+            display: flex !important;
+            align-items: center !important;
+            box-sizing: border-box !important;
+          }
+          .content {
+            margin-left: 0 !important;
+            margin-top: 110px !important;
+            padding: 20px 15px !important;
+          }
+        }
+      `}</style>
     </div>
   );
 };

@@ -5,7 +5,6 @@ import profileImage from "../assets/profile.jpg";
 
 const containerStyle = {
   display: "flex",
-  flexDirection: "column",
   minHeight: "100vh",
   fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
   backgroundColor: "#121212",
@@ -58,16 +57,7 @@ const headerStyle = {
   height: 80,
   display: "flex",
   alignItems: "center",
-  justifyContent: "space-between",
   boxSizing: "border-box",
-};
-
-const arabicNameStyle = {
-  fontSize: "1.5rem",
-  color: "#ffcc00",
-  fontWeight: "400",
-  marginLeft: "20px",
-  fontFamily: "'Amiri', serif",
 };
 
 const contentStyle = {
@@ -106,13 +96,6 @@ const lastParagraphStyle = {
   padding: "0 20px",
 };
 
-const footerStyle = {
-  marginTop: "60px",
-  textAlign: "center",
-  fontSize: "1rem",
-  color: "#aaa",
-};
-
 const imageContainerStyle = {
   display: "flex",
   alignItems: "center",
@@ -130,8 +113,10 @@ const imageStyle = {
 const MeetSalman = () => {
   return (
     <div style={containerStyle}>
+      {/* ✅ Mobile Navbar */}
       <Navbar />
 
+      {/* ✅ Sidebar (desktop only) */}
       <nav className="sidebar" style={sidebarStyle}>
         <NavLink
           to="/"
@@ -166,13 +151,10 @@ const MeetSalman = () => {
         </NavLink>
       </nav>
 
-      <header style={headerStyle}>
-        <div>
-          Meet Salman Saeed
-          <span style={arabicNameStyle}> — سلمان سعید</span>
-        </div>
-      </header>
+      {/* ✅ Fixed Header */}
+      <header style={headerStyle}>Meet Salman Saeed</header>
 
+      {/* ✅ Main Content */}
       <div className="content" style={contentStyle}>
         <div className="content-flex" style={contentFlexStyle}>
           <div style={{ flex: 1 }}>
@@ -198,20 +180,24 @@ const MeetSalman = () => {
               a rare fusion of spirit and strategy.
             </p>
             <p style={paragraphStyle}>
-              Through persistent visualization and unwavering inner dialogue,
-              Mr. Saeed transforms intention into tangible achievement. He
-              believes the mind, when disciplined by faith, becomes the
-              architect of destiny — building outcomes long before they appear
-              in the material world. His daily life is steeped in meditation,
-              scripting, and conscious assumption — not as rituals, but as
-              technologies of the self. In his view, imagination is not
-              escapism; it is creation. Each inspired thought is a blueprint,
-              and each belief is a command. By aligning emotion with thought and
-              action with purpose, Salman unlocks an inner harmony that radiates
-              outward — into businesses, relationships, and communities. This is
-              not mere philosophy — it’s a deliberate way of living, taught by
-              mystics and now applied to modern enterprise with elegance and
-              force.
+              To him, the outer world is merely a reflection of the inner state,
+              and true transformation begins within. Just as a seed becomes a
+              forest, every thought sown with faith manifests into reality. His
+              methods are a blend of metaphysical insight and pragmatic action —
+              a rare fusion of spirit and strategy. Through persistent
+              visualization and unwavering inner dialogue, Mr. Saeed transforms
+              intention into tangible achievement. He believes the mind, when
+              disciplined by faith, becomes the architect of destiny — building
+              outcomes long before they appear in the material world. His daily
+              life is steeped in meditation, scripting, and conscious assumption
+              — not as rituals, but as technologies of the self. In his view,
+              imagination is not escapism; it is creation. Each inspired thought
+              is a blueprint, and each belief is a command. By aligning emotion
+              with thought and action with purpose, Salman unlocks an inner
+              harmony that radiates outward — into businesses, relationships,
+              and communities. This is not mere philosophy — it’s a deliberate
+              way of living, taught by mystics and now applied to modern
+              enterprise with elegance and force.
             </p>
           </div>
           <div style={imageContainerStyle}>
@@ -226,10 +212,9 @@ const MeetSalman = () => {
           He doesn't just build businesses — he builds realities, one thought at
           a time.
         </p>
-
-        <footer style={footerStyle}>© سلمان سعید</footer>
       </div>
 
+      {/* ✅ Responsive overrides */}
       <style>{`
         @media (max-width: 768px) {
           .sidebar {
@@ -237,28 +222,22 @@ const MeetSalman = () => {
           }
           header {
             position: fixed !important;
-            top: 50px !important;
+            top: 50px !important; /* below Navbar height */
             left: 0 !important;
             right: 0 !important;
             width: 100% !important;
             padding: 15px 20px !important;
-            font-size: 1.8rem !important;
+            font-size: 2rem !important;
             border-bottom: 1px solid #333 !important;
             z-index: 1500 !important;
-            height: auto !important;
+            height: 60px !important;
             display: flex !important;
-            flex-direction: column !important;
-            align-items: flex-start !important;
+            align-items: center !important;
             box-sizing: border-box !important;
-          }
-          header span {
-            font-size: 1.2rem !important;
-            margin-left: 0 !important;
-            margin-top: 5px !important;
           }
           .content {
             margin-left: 0 !important;
-            margin-top: 120px !important;
+            margin-top: 110px !important; /* Navbar + header */
             padding: 20px 15px !important;
           }
           .content-flex {
