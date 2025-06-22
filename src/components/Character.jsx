@@ -109,6 +109,7 @@ const footerStyle = {
   color: "#aaa",
   fontSize: "1rem",
   // borderTop: "1px solid #333", // removed this line
+  marginLeft: "220px",
 };
 
 // === Component ===
@@ -219,7 +220,9 @@ const Character = () => {
       </div>
 
       {/* ✅ Footer */}
-      <footer style={footerStyle}>© سلمان سعید</footer>
+      <footer className="footer" style={footerStyle}>
+        © سلمان سعید
+      </footer>
 
       {/* ✅ Responsive overrides */}
       <style>{`
@@ -246,6 +249,9 @@ const Character = () => {
             margin-left: 0 !important;
             margin-top: 110px !important;
             padding: 20px 15px !important;
+          }
+          .footer{
+            margin-left: 0 !important;
           }
         }
       `}</style>
