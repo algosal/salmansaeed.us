@@ -1,18 +1,23 @@
 import React from "react";
+import Navbar from "./Navbar";
 
 const containerStyle = {
   display: "flex",
+  flexDirection: "column",
   minHeight: "100vh",
-  fontFamily: "'Georgia', serif",
   backgroundColor: "#121212",
   color: "#eee",
+  fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+
+  // ✅ REMOVE fontFamily from here
 };
 
 const contentStyle = {
   flexGrow: 1,
   padding: "30px",
   maxWidth: "900px",
-  margin: "0 auto",
+  margin: "80px auto 30px auto",
+  fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
 };
 
 const cardStyle = {
@@ -62,6 +67,9 @@ const paragraphStyle = {
 const Legacy = () => {
   return (
     <div style={containerStyle}>
+      {/* ✅ Navbar included */}
+      <Navbar />
+
       <div style={contentStyle}>
         <div style={cardStyle}>
           <h1 style={headingStyle}>Legacy of Salman Saeed</h1>
@@ -162,7 +170,7 @@ const Legacy = () => {
           <section style={sectionStyle}>
             <h2 style={subheadingStyle}>From Cassettes to Code</h2>
             <p style={paragraphStyle}>
-              I started programming at age 6 on a hardcoded MX-15 with cassette
+              I started programming at age 5 on a hardcoded MX-15 with cassette
               tapes. While others were in grade school, I was debugging. I later
               studied under my neighbor’s outdoor light because my grandmother
               turned ours off. When I succeeded, I gifted that neighbor — his

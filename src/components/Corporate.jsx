@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+// import { NavLink } from "react-router-dom";
 import Navbar from "./Navbar";
 
 const containerStyle = {
@@ -10,36 +10,36 @@ const containerStyle = {
   color: "#eee",
 };
 
-const sidebarStyle = {
-  display: "flex",
-  flexDirection: "column",
-  width: 220,
-  height: "100vh",
-  position: "fixed",
-  top: 0,
-  left: 0,
-  padding: 20,
-  backgroundColor: "#1e1e1e",
-  gap: 15,
-  boxSizing: "border-box",
-  zIndex: 100,
-};
+// const sidebarStyle = {
+//   display: "flex",
+//   flexDirection: "column",
+//   width: 220,
+//   height: "100vh",
+//   position: "fixed",
+//   top: 0,
+//   left: 0,
+//   padding: 20,
+//   backgroundColor: "#1e1e1e",
+//   gap: 15,
+//   boxSizing: "border-box",
+//   zIndex: 100,
+// };
 
-const linkStyle = {
-  color: "#bbb",
-  textDecoration: "none",
-  fontSize: 18,
-  fontWeight: 600,
-  padding: "8px 12px",
-  borderRadius: 6,
-  marginBottom: 8,
-};
+// const linkStyle = {
+//   color: "#bbb",
+//   textDecoration: "none",
+//   fontSize: 18,
+//   fontWeight: 600,
+//   padding: "8px 12px",
+//   borderRadius: 6,
+//   marginBottom: 8,
+// };
 
-const activeLinkStyle = {
-  ...linkStyle,
-  color: "#00f0ff",
-  backgroundColor: "#333",
-};
+// const activeLinkStyle = {
+//   ...linkStyle,
+//   color: "#00f0ff",
+//   backgroundColor: "#333",
+// };
 
 const headerStyle = {
   position: "fixed",
@@ -107,7 +107,7 @@ const Corporate = () => {
       <Navbar />
 
       {/* Sidebar (desktop only) */}
-      <nav className="sidebar" style={sidebarStyle}>
+      {/* <nav className="sidebar" style={sidebarStyle}>
         <NavLink
           to="/"
           end
@@ -139,7 +139,7 @@ const Corporate = () => {
         >
           Character
         </NavLink>
-      </nav>
+      </nav> */}
 
       {/* Fixed header, top: 0 */}
       <header style={headerStyle}>Corporate Structure</header>
