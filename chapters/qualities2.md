@@ -54,7 +54,9 @@ You started coding at age 5 on a cassette-based system. Your early debugging wor
 
 ## 14. **Unshakeable Ethics**
 
-While working in a high-pressure accountancy job in New York City, you maintained strict professional ethics and showed exceptional performance under scrutiny.
+### NYC Accountancy Integrity
+
+I was offered a high-paying accountancy position in New York City, but I turned it down. I wanted to remain aligned with my higher purpose — to create impact-driven ventures instead of following conventional success. It was a stand for principle over prestige.
 
 ---
 
