@@ -109,7 +109,6 @@ const footerStyle = {
   color: "#aaa",
   fontSize: "1rem",
   // borderTop: "1px solid #333", // removed this line
-  marginLeft: "220px",
 };
 
 // === Component ===

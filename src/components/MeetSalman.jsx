@@ -1,5 +1,4 @@
 import React from "react";
-// import { NavLink } from "react-router-dom";
 import Navbar from "./Navbar";
 import profileImage from "../assets/profile.jpg";
 
@@ -12,55 +11,6 @@ const containerStyle = {
   color: "#eee",
 };
 
-// const sidebarStyle = {
-//   display: "flex",
-//   flexDirection: "column",
-//   width: 220,
-//   height: "100vh",
-//   position: "fixed",
-//   top: 0,
-//   left: 0,
-//   padding: 20,
-//   backgroundColor: "#1e1e1e",
-//   gap: 15,
-//   boxSizing: "border-box",
-//   zIndex: 100,
-// };
-
-// const linkStyle = {
-//   color: "#bbb",
-//   textDecoration: "none",
-//   fontSize: 18,
-//   fontWeight: 600,
-//   padding: "8px 12px",
-//   borderRadius: 6,
-//   marginBottom: 8,
-// };
-
-// const activeLinkStyle = {
-//   ...linkStyle,
-//   color: "#00f0ff",
-//   backgroundColor: "#333",
-// };
-
-// const headerStyle = {
-//   position: "fixed",
-//   top: 0,
-//   left: 220,
-//   right: 0,
-//   backgroundColor: "#121212",
-//   color: "#ffcc00",
-//   borderBottom: "1px solid #333",
-//   padding: "15px 30px",
-//   fontSize: "2.5rem",
-//   fontWeight: "bold",
-//   zIndex: 150,
-//   height: 80,
-//   display: "flex",
-//   alignItems: "center",
-//   justifyContent: "space-between",
-//   boxSizing: "border-box",
-// };
 const headerStyle = {
   position: "fixed",
   top: 0,
@@ -251,7 +201,9 @@ const MeetSalman = () => {
     text-align: right;
     margin-top: 4px;
   }
-
+            .header-left {
+            display:none;
+      }
           .content {
             margin-left: 0 !important;
             margin-top: 120px !important;

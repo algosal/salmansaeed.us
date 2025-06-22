@@ -29,13 +29,13 @@ const headerStyle = {
   boxSizing: "border-box",
 };
 
-const arabicNameStyle = {
-  fontSize: "1.5rem",
-  color: "#ffcc00",
-  fontWeight: "400",
-  marginLeft: "20px",
-  fontFamily: "'Amiri', serif",
-};
+// const arabicNameStyle = {
+//   fontSize: "1.5rem",
+//   color: "#ffcc00",
+//   fontWeight: "400",
+//   marginLeft: "20px",
+//   fontFamily: "'Amiri', serif",
+// };
 
 const contentStyle = {
   flexGrow: 1,
@@ -104,8 +104,8 @@ const Legacy = () => {
 
       <header style={headerStyle} className="legacy-header">
         <div>
-          Legacy of
-          <span style={arabicNameStyle}> — سلمان سعید</span>
+          Legacy
+          {/* <span style={arabicNameStyle}> — سلمان سعید</span> */}
         </div>
       </header>
 

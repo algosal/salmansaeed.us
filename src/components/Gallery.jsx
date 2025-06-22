@@ -88,25 +88,6 @@ const Gallery = () => {
       {/* ✅ Mobile Navbar */}
       <Navbar />
 
-      {/* ✅ Sidebar (desktop only) */}
-      {/* <nav className="sidebar" style={sidebarStyle}>
-        <NavLink to="/" end style={linkStyle}>
-          Meet Salman
-        </NavLink>
-        <NavLink to="/corporate" style={linkStyle}>
-          Corporate
-        </NavLink>
-        <NavLink to="/gallery" style={activeLinkStyle}>
-          Gallery
-        </NavLink>
-        <NavLink to="/legacy" style={linkStyle}>
-          Legacy
-        </NavLink>
-        <NavLink to="/character" style={linkStyle}>
-          Character
-        </NavLink>
-      </nav> */}
-
       {/* ✅ Fixed Header */}
       <header style={headerStyle}>Gallery</header>
 
@@ -171,37 +152,6 @@ const containerStyle = {
   backgroundColor: "#121212",
   color: "#eee",
 };
-
-// const sidebarStyle = {
-//   display: "flex",
-//   flexDirection: "column",
-//   width: 220,
-//   height: "100vh",
-//   position: "fixed",
-//   top: 0,
-//   left: 0,
-//   padding: 20,
-//   backgroundColor: "#1e1e1e",
-//   gap: 15,
-//   boxSizing: "border-box",
-//   zIndex: 100,
-// };
-
-// const linkStyle = {
-//   color: "#bbb",
-//   textDecoration: "none",
-//   fontSize: 18,
-//   fontWeight: 600,
-//   padding: "8px 12px",
-//   borderRadius: 6,
-//   marginBottom: 8,
-// };
-
-// const activeLinkStyle = {
-//   ...linkStyle,
-//   color: "#00f0ff",
-//   backgroundColor: "#333",
-// };
 
 const headerStyle = {
   position: "fixed",
