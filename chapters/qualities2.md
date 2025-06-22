@@ -52,7 +52,7 @@ You gifted your neighbor for the light you studied under as a child. You remembe
 
 You started coding at age 5 on a cassette-based system. Your early debugging work laid the foundation for your advanced tech mastery today.
 
-## 14. **Unshakeable Ethics** ### NYC Accountancy Integrity
+## 14. **Unshakeable Ethics** NYC Accountancy Integrity **_Legal Accountant_**
 
 You was offered a high-paying accountancy position in New York City, but you turned it down. You wanted to remain aligned with my higher purpose — to create impact-driven ventures instead of following conventional success. It was a stand for principle over prestige.
 
