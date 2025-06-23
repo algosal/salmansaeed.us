@@ -53,6 +53,9 @@ function Navbar() {
           <li>
             <NavLink to="/character">Character</NavLink>
           </li>
+          <li>
+            <NavLink to="/intelligence">Intelligence</NavLink>
+          </li>
         </ul>
       )}
 
@@ -82,6 +85,11 @@ function Navbar() {
             <li>
               <NavLink to="/character" onClick={toggleMenu}>
                 Character
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/intelligence" onClick={toggleMenu}>
+                Intelligence
               </NavLink>
             </li>
           </ul>

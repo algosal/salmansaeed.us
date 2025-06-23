@@ -4,6 +4,7 @@ import Corporate from "./components/Corporate";
 import Gallery from "./components/Gallery";
 import Legacy from "./components/Legacy";
 import Character from "./components/Character";
+import IntelligenceChapter from "./components/IntelliganceChapter";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/legacy" element={<Legacy />} />
         <Route path="/character" element={<Character />} />
+        <Route path="/intelligence" element={<IntelligenceChapter />} />
       </Routes>
     </BrowserRouter>
   );
