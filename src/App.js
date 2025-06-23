@@ -5,6 +5,7 @@ import Gallery from "./components/Gallery";
 import Legacy from "./components/Legacy";
 import Character from "./components/Character";
 import IntelligenceChapter from "./components/IntelliganceChapter";
+import ConsciousnessChapter from "./components/ConsciousnessChapter";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/legacy" element={<Legacy />} />
         <Route path="/character" element={<Character />} />
         <Route path="/intelligence" element={<IntelligenceChapter />} />
+        <Route path="/consciousness" element={<ConsciousnessChapter />} />
       </Routes>
     </BrowserRouter>
   );

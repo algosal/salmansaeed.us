@@ -55,6 +55,9 @@ function Navbar() {
           </li>
           <li>
             <NavLink to="/intelligence">Intelligence</NavLink>
+          </li>{" "}
+          <li>
+            <NavLink to="/consciousness">Consciousness</NavLink>
           </li>
         </ul>
       )}
@@ -90,6 +93,11 @@ function Navbar() {
             <li>
               <NavLink to="/intelligence" onClick={toggleMenu}>
                 Intelligence
+              </NavLink>
+            </li>{" "}
+            <li>
+              <NavLink to="/Consciousness" onClick={toggleMenu}>
+                Consciousness
               </NavLink>
             </li>
           </ul>
