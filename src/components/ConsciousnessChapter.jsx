@@ -19,7 +19,7 @@ const headerStyle = {
   color: "#ffcc00",
   borderBottom: "1px solid #333",
   padding: "15px 30px",
-  fontSize: "2.5rem",
+  fontSize: "2.2rem",
   fontWeight: "bold",
   zIndex: 150,
   height: 80,
@@ -39,50 +39,53 @@ const contentStyle = {
 const cardStyle = {
   backgroundColor: "#fffdf7",
   color: "#2b2b2b",
-  padding: "40px",
+  padding: "35px",
   borderRadius: "16px",
   boxShadow: "0 0 30px rgba(255, 255, 255, 0.1)",
+  width: "100%",
+  maxWidth: "100%",
+  boxSizing: "border-box",
 };
 
 const sectionStyle = {
-  marginBottom: "60px",
+  marginBottom: "50px",
 };
 
 const headingStyle = {
-  fontSize: "48px",
+  fontSize: "42px",
   fontWeight: "bold",
   textAlign: "center",
   borderBottom: "2px solid #ccc",
-  paddingBottom: "20px",
-  marginBottom: "40px",
+  paddingBottom: "18px",
+  marginBottom: "35px",
 };
 
 const arabicHeadingStyle = {
-  fontSize: "28px",
+  fontSize: "24px",
   fontWeight: "600",
   textAlign: "center",
   color: "#777",
   fontFamily: "'Amiri', serif",
-  marginTop: "-20px",
-  marginBottom: "40px",
+  marginTop: "-15px",
+  marginBottom: "35px",
 };
 
 const subheadingStyle = {
-  fontSize: "28px",
+  fontSize: "24px",
   fontWeight: "600",
-  marginBottom: "16px",
+  marginBottom: "14px",
 };
 
 const paragraphStyle = {
-  fontSize: "18px",
-  lineHeight: "1.7",
-  marginBottom: "20px",
-  textIndent: "2em",
+  fontSize: "16px",
+  lineHeight: "1.65",
+  marginBottom: "18px",
+  textIndent: "1.5em",
 };
 
 const footerStyle = {
-  marginTop: "60px",
-  marginBottom: "40px",
+  marginTop: "50px",
+  marginBottom: "30px",
   textAlign: "center",
   fontSize: "1rem",
   color: "#aaa",
@@ -180,8 +183,8 @@ const ConsciousnessChapter = () => {
             left: 0 !important;
             right: 0 !important;
             width: 100% !important;
-            padding: 15px 20px !important;
-            font-size: 1.8rem !important;
+            padding: 12px 16px !important;
+            font-size: 1.6rem !important;
             border-bottom: 1px solid #333 !important;
             z-index: 1500 !important;
             height: auto !important;
@@ -190,14 +193,19 @@ const ConsciousnessChapter = () => {
             align-items: flex-start !important;
             box-sizing: border-box !important;
           }
+
           .content-style-padding {
-            margin-top: 120px !important;
+            margin-top: 115px !important;
+            padding: 0 14px !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
           }
+
           footer {
-            margin-top: 60px !important;
-            margin-bottom: 40px !important;
+            margin-top: 50px !important;
+            margin-bottom: 30px !important;
             text-align: center !important;
-            font-size: 1rem !important;
+            font-size: 0.95rem !important;
             color: #aaa !important;
           }
         }
