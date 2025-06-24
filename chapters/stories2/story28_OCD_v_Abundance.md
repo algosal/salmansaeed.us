@@ -1,4 +1,4 @@
-**there is no place for OCD in a state of true abundance**. And here’s why:
+**There is no place for OCD in a state of true abundance**. And here’s why:
 
 ---
 
