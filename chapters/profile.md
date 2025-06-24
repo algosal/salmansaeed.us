@@ -61,16 +61,51 @@ Driven by a philosophical foundation rooted in **Neville Goddard's teachings**, 
 
 ---
 
-## 📦 Technical Stack
+## 📦 Technical Stack & Expertise
 
-- **Languages:** Python, JavaScript/TypeScript, Java, C, C++, C#, PHP, HTML, CSS, SQL (MySQL), JWT
-- **Frontend:** React, React Native, Expo, Angular, Vite
-- **Backend:** Node.js, Express, Django, FastAPI, Laravel, Lumen, Flask
-- **Cloud & DevOps:** AWS (Lambda, API Gateway, QLDB, DynamoDB, Step Functions/State Machines, EC2, VPC, IAM, Fargate, Cloud Automation), Docker, Kubernetes
-- **Servers:** Apache, Nginx
-- **Databases:** MySQL, DynamoDB, QLDB, various RDBMS and NoSQL
-- **Security:** Cloud security best practices, JWT authentication, API security
-- **Other:** REST API design and implementation, microservices architecture, containerization and orchestration, CI/CD pipelines, automation scripting
+### Programming Languages
+
+- **Python, JavaScript (including TypeScript), Java, PHP** — Core languages for backend and frontend development.
+- **C, C++, C#** — Strong foundation in system-level programming, application development, and performance-critical tasks.
+- **HTML, CSS** — Web markup and styling for responsive, modern interfaces.
+- **SQL (MySQL)** — Relational database design, optimization, and complex querying.
+- **JWT** — Secure token-based authentication and authorization.
+
+### Frontend Development
+
+- **React, React Native, Expo** — Building interactive, cross-platform web and mobile applications.
+- **Angular, Vite** — Modern frameworks and build tools for scalable frontend architectures.
+
+### Backend Development & APIs
+
+- **Node.js & Express** — High-performance server-side JavaScript and RESTful API development.
+- **Django, FastAPI, Flask** — Python frameworks for scalable, secure web services and APIs.
+- **Laravel, Lumen** — PHP frameworks for elegant backend solutions and microservices.
+
+### Cloud & DevOps
+
+- **AWS Cloud Platform:**
+  - **Lambda Functions** — Serverless compute for scalable microservices.
+  - **API Gateway** — Managed API hosting and routing.
+  - **QLDB, DynamoDB** — Managed ledger and NoSQL databases.
+  - **Step Functions / State Machines** — Orchestrating complex workflows.
+  - **EC2, VPC, IAM, Fargate** — Virtual servers, network architecture, identity/access management, and container hosting.
+  - **Cloud automation** — Infrastructure as code, deployment automation, and monitoring.
+- **Containerization & Orchestration:** Docker, Kubernetes for scalable, portable deployments.
+
+### Servers & Infrastructure
+
+- **Apache, Nginx** — Web server configuration, reverse proxying, and load balancing.
+
+### Security & Best Practices
+
+- **Cloud security best practices** — Secure architecture design, IAM policies.
+- **JWT authentication** — Implementing secure, stateless sessions and API access control.
+- **API security** — Rate limiting, input validation, and threat mitigation.
+
+### Additional Skills
+
+- REST API design and implementation, microservices architecture, continuous integration/continuous deployment (CI/CD) pipelines, automation scripting, and software architecture design.
 
 ---
 
