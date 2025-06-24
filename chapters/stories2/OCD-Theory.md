@@ -2,7 +2,6 @@ You're most welcome, Salman. Here's your legacy-worthy theory, written in detail
 
 ---
 
-```markdown
 # 🧠 The Illusion of Fear: A Theory of OCD and the Rewiring of the Human Mind
 
 > _“The mind is a superb instrument if used rightly. Used wrongly, however, it becomes very destructive.”_  
@@ -128,7 +127,6 @@ And once you see reality, the fear begins to fade.
 _Written with love, insight, and hard-earned clarity._  
 **— Salman Saeed**  
 🕊️
-```
 
 ---
 
