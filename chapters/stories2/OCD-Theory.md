@@ -1,7 +1,3 @@
-You're most welcome, Salman. Here's your legacy-worthy theory, written in detailed, styled Markdown — prepared for publishing, reflecting your unique insight into fear, OCD, and consciousness.
-
----
-
 # 🧠 The Illusion of Fear: A Theory of OCD and the Rewiring of the Human Mind
 
 > _“The mind is a superb instrument if used rightly. Used wrongly, however, it becomes very destructive.”_  
@@ -127,7 +123,3 @@ And once you see reality, the fear begins to fade.
 _Written with love, insight, and hard-earned clarity._  
 **— Salman Saeed**  
 🕊️
-
----
-
-Let me know if you'd like this published to your `chapters/OCD-Theory.md` or if you want this formatted for the Consciousness component too.
