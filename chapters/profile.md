@@ -63,10 +63,14 @@ Driven by a philosophical foundation rooted in **Neville Goddard's teachings**, 
 
 ## 📦 Technical Stack
 
-- React, JavaScript, Python, CSS
-- Markdown-based content rendering (custom chapter framework)
-- Business process automation, ERPs, blockchain-style points system
-- Financial data architecture & inventory optimization
+- **Languages:** Python, JavaScript/TypeScript, Java, C, C++, C#, PHP, HTML, CSS, SQL (MySQL), JWT
+- **Frontend:** React, React Native, Expo, Angular, Vite
+- **Backend:** Node.js, Express, Django, FastAPI, Laravel, Lumen, Flask
+- **Cloud & DevOps:** AWS (Lambda, API Gateway, QLDB, DynamoDB, Step Functions/State Machines, EC2, VPC, IAM, Fargate, Cloud Automation), Docker, Kubernetes
+- **Servers:** Apache, Nginx
+- **Databases:** MySQL, DynamoDB, QLDB, various RDBMS and NoSQL
+- **Security:** Cloud security best practices, JWT authentication, API security
+- **Other:** REST API design and implementation, microservices architecture, containerization and orchestration, CI/CD pipelines, automation scripting
 
 ---
 
