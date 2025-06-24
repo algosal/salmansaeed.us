@@ -103,7 +103,7 @@ She was _everything the house was not_.
 
 ## 🧭 The Broken Promise and the Void
 
-I told my father I would earn a 4.0 GPA if he promised to speak to Shemaila’s family.  
+My father told me if I would earn a 4.0 GPA he promised to speak to Shemaila’s family.  
 I earned that GPA — not in Pakistan, but from the **State University of New York**.  
 He broke his word.  
 Instead, he asked me for money. 💸
