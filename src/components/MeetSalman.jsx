@@ -44,7 +44,7 @@ const contentStyle = {
   flexGrow: 1,
   padding: 30,
   marginLeft: 220,
-  marginTop: 80,
+  marginTop: "80px",
 };
 
 const contentFlexStyle = {
@@ -177,7 +177,7 @@ const MeetSalman = () => {
             left: 0 !important;
             right: 0 !important;
             width: 100% !important;
-            padding: 15px 20px !important;
+            padding: 10px 20px !important;
             font-size: 1.8rem !important;
             border-bottom: 1px solid #333 !important;
             z-index: 1500 !important;
@@ -188,7 +188,7 @@ const MeetSalman = () => {
             box-sizing: border-box !important;
           }
           header span {
-            font-size: 2rem !important;
+            font-size: 1.8rem !important;
             margin-left: 0 !important;
             margin-top: 5px !important;
           }
