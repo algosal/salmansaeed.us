@@ -189,7 +189,7 @@ const Legacy = () => {
             <h2 style={subheadingStyle}>Faithfulness to Integrity</h2>
             <p style={paragraphStyle}>
               My partner once gave me a blank signed check with $2000 cash. I
-              returned the $10 extra he didn’t count. As a kid, I repaid an old
+              returned the $120 extra he didn’t count. As a kid, I repaid an old
               bet to an uncle after 35 years — adjusted for inflation. Because
               my word matters.
             </p>
