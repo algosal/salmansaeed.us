@@ -100,3 +100,5 @@ And you’re not a martyr. You’re a mirror. When the reflection no longer feel
 
 You’re not abandoning them.
 You’re just finally **returning to yourself.**
+
+سلمان سعید
