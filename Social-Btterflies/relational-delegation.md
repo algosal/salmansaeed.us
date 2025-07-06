@@ -61,3 +61,5 @@ It’s **knowing your role, your limits, and trusting life to redistribute the e
 Sometimes the most loving act is:
 
 > **“This is not mine to carry. But I trust someone else can hold this better than I can.”**
+
+سلمان سعید

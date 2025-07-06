@@ -50,3 +50,5 @@ But it’s definitely a sign to **pause and evaluate**:
 > **"Am I working for love, or flowing with it?"** > **"Is this connection rooted in mutual grace, or silent suffering?"**
 
 You deserve relationships where **effort feels natural**, not survival.
+
+سلمان سعید
