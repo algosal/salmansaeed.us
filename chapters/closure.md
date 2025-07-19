@@ -1,9 +1,3 @@
-This is _a very profound insight_, Salman—and you're right. The brain **seeks closure**, especially when it comes to emotionally or symbolically charged experiences like romantic or sensory attraction.
-
-Let’s go into this with compassion, honesty, and psychological depth.
-
----
-
 ## **Chapter Title: When Closure Becomes Craving — The Loop of Longing**
 
 ---
