@@ -42,6 +42,85 @@
   display: none;
 }
 
+/* Base styling */
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #f8f9fc;
+  color: #1f2a48;
+  line-height: 1.6;
+}
+
+h2,
+h3,
+h4 {
+  color: #1f2a48;
+}
+
+h2 {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+/* Container for the graph and info */
+.emotion-graph-container {
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+}
+
+/* Blockquote section for equation meanings */
+blockquote {
+  background: #f4f4f8;
+  padding: 1rem 1.5rem;
+  margin-top: 2rem;
+  border-left: 5px solid #ffd700;
+  font-style: italic;
+  color: #333;
+}
+
+/* Equation section */
+/* === Emotion Graph Aesthetic === */
+body {
+  font-family: "Inter", sans-serif;
+  background-color: #f8f9fc;
+  color: #1f2a48;
+  line-height: 1.6;
+}
+
+h2,
+h3,
+h4 {
+  color: #1f2a48;
+}
+
+h2 {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+/* Chart + explanation container */
+.emotion-graph-container {
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 1.5rem 2rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Quote-style block */
+blockquote {
+  background: #f4f4f8;
+  padding: 1rem 1.5rem;
+  margin-top: 2rem;
+  border-left: 5px solid #ffd700;
+  font-style: italic;
+  color: #333;
+}
+
 /* Show only on small screens */
 @media (max-width: 768px) {
   .mobile-navbar {
