@@ -1,259 +1,281 @@
 import React, { useEffect, useRef, useState } from "react";
-import Chart from "chart.js/auto";
+import {
+  Chart,
+  LineController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+  Tooltip,
+  CategoryScale,
+  Legend,
+} from "chart.js";
+import { FaFire, FaIcicles } from "react-icons/fa";
+
+Chart.register(
+  LineController,
+  LineElement,
+  PointElement,
+  LinearScale,
+  Title,
+  Tooltip,
+  CategoryScale,
+  Legend
+);
 
 const EmotionGraph = () => {
   const chartRef = useRef(null);
-  const chartInstanceRef = useRef(null);
+  const [chartInstance, setChartInstance] = useState(null);
+  const [frame, setFrame] = useState(0);
 
-  // Full data arrays (precomputed)
+  const totalFrames = 100;
   const A = 10;
   const k = 0.08;
   const omega = 0.4;
-  const totalPoints = 51;
-  const time = Array.from({ length: totalPoints }, (_, i) => i);
+  const time = Array.from({ length: totalFrames }, (_, i) => i);
+
   const fullSumbal = time.map(
     (t) => A * Math.sin(omega * t) * Math.exp(-k * t)
   );
   const fullShemiala = time.map((t) => A * Math.exp(-k * t));
 
-  // State to hold how many points are currently displayed
-  const [displayCount, setDisplayCount] = useState(0);
-
   useEffect(() => {
     const ctx = chartRef.current.getContext("2d");
 
-    // Initialize empty datasets (no data points yet)
-    const initialData = {
-      labels: [],
-      datasets: [
-        {
-          label: "Sumbal (Chaos & Passion)",
-          data: [],
-          borderColor: "#ff4c4c",
-          backgroundColor: "rgba(255, 76, 76, 0.2)",
-          fill: true,
-          tension: 0.4,
-          pointRadius: 5,
-          pointHoverRadius: 8,
-        },
-        {
-          label: "Shemiala (Avoidance & Silence)",
-          data: [],
-          borderColor: "#4cc9f0",
-          backgroundColor: "rgba(76, 201, 240, 0.2)",
-          fill: true,
-          tension: 0.4,
-          pointRadius: 5,
-          pointHoverRadius: 8,
-        },
-      ],
-    };
+    if (chartInstance) {
+      chartInstance.destroy();
+    }
 
-    // Create chart once
-    chartInstanceRef.current = new Chart(ctx, {
+    const newChart = new Chart(ctx, {
       type: "line",
-      data: initialData,
+      data: {
+        labels: time.slice(0, frame + 1).map((t) => t.toString()),
+        datasets: [
+          {
+            label: (
+              <>
+                <FaFire style={{ marginRight: 6, color: "#ff4c4c" }} />
+                Sumbal (Chaos & Passion)
+              </>
+            ),
+            data: fullSumbal.slice(0, frame + 1),
+            borderColor: "#ff4c4c",
+            backgroundColor: "rgba(255, 76, 76, 0.2)",
+            fill: true,
+            tension: 0.4,
+            pointRadius: 0,
+          },
+          {
+            label: (
+              <>
+                <FaIcicles style={{ marginRight: 6, color: "#4cc9f0" }} />
+                Shemiala (Avoidance & Silence)
+              </>
+            ),
+            data: fullShemiala.slice(0, frame + 1),
+            borderColor: "#4cc9f0",
+            backgroundColor: "rgba(76, 201, 240, 0.2)",
+            fill: true,
+            tension: 0.4,
+            pointRadius: 0,
+          },
+        ],
+      },
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        animation: {
-          duration: 300,
-          easing: "easeInOutSine",
-        },
-        interaction: {
-          mode: "nearest",
-          axis: "x",
-          intersect: false,
-        },
         plugins: {
+          legend: {
+            labels: {
+              color: "#f0f0f0",
+              font: { size: 14 },
+              generateLabels: (chart) => {
+                return chart.data.datasets.map((dataset, i) => ({
+                  text: dataset.label.props.children[1],
+                  fillStyle: dataset.borderColor,
+                  strokeStyle: dataset.borderColor,
+                  lineWidth: 2,
+                  hidden: !chart.isDatasetVisible(i),
+                  index: i,
+                }));
+              },
+            },
+          },
           tooltip: {
             enabled: true,
             callbacks: {
-              label: function (context) {
-                let label = context.dataset.label;
-                const val = context.parsed.y.toFixed(2);
-                return `${label}: ${val}`;
-              },
-            },
-            backgroundColor: "#222",
-            titleColor: "#ffd700",
-            bodyColor: "#fff",
-            cornerRadius: 6,
-            displayColors: false,
-            bodyFont: { size: 14 },
-            titleFont: { size: 16, weight: "bold" },
-          },
-          legend: {
-            labels: {
-              color: "#fff",
-              font: { size: 16 },
+              label: (context) =>
+                `${
+                  context.dataset.label.props.children[1]
+                }: ${context.parsed.y.toFixed(2)}`,
             },
           },
         },
         scales: {
           x: {
+            // <-- Here we DO NOT reverse
+            ticks: { color: "#ddd" },
+            grid: { color: "#444" },
             title: {
               display: true,
-              text: "Time (t)",
-              color: "#fff",
-              font: { size: 16 },
-            },
-            ticks: {
-              color: "#ddd",
-              font: { size: 12 },
-            },
-            grid: {
-              color: "rgba(255,255,255,0.1)",
+              text: "Time",
+              color: "#ccc",
             },
           },
           y: {
+            ticks: { color: "#ddd" },
+            grid: { color: "#444" },
             title: {
               display: true,
               text: "Emotional Intensity",
-              color: "#fff",
-              font: { size: 16 },
+              color: "#ccc",
             },
-            ticks: {
-              color: "#ddd",
-              font: { size: 12 },
-            },
-            grid: {
-              color: "rgba(255,255,255,0.1)",
-            },
-            min: 0,
-            max: A + 2,
           },
         },
       },
     });
 
+    setChartInstance(newChart);
+
     return () => {
-      chartInstanceRef.current.destroy();
+      newChart.destroy();
     };
-  }, []);
+  }, [frame]);
 
   useEffect(() => {
-    if (displayCount < totalPoints) {
-      const timeout = setTimeout(() => {
-        setDisplayCount(displayCount + 1);
-      }, 60); // Controls speed of growth (60ms per point)
-
-      // Update chart data for current displayCount
-      if (chartInstanceRef.current) {
-        chartInstanceRef.current.data.labels = time.slice(0, displayCount);
-        chartInstanceRef.current.data.datasets[0].data = fullSumbal.slice(
-          0,
-          displayCount
-        );
-        chartInstanceRef.current.data.datasets[1].data = fullShemiala.slice(
-          0,
-          displayCount
-        );
-        chartInstanceRef.current.update();
-      }
-
-      return () => clearTimeout(timeout);
+    if (frame < totalFrames - 1) {
+      const timer = setTimeout(() => setFrame(frame + 1), 30);
+      return () => clearTimeout(timer);
     }
-  }, [displayCount, time, fullSumbal, fullShemiala]);
+  }, [frame]);
 
   return (
     <div
       style={{
-        position: "relative",
-        backgroundColor: "#000",
-        color: "#fff",
-        minHeight: "100vh",
+        backgroundColor: "#000000",
+        color: "#f8f9fc",
         padding: "40px 20px",
         fontFamily: "Inter, sans-serif",
         textAlign: "center",
+        minHeight: "100vh",
       }}
     >
-      <h2 style={{ color: "#ffd700", fontSize: "2rem", marginBottom: "30px" }}>
-        Emotional Trajectory: Sumbal vs Shemiala
+      <h2 style={{ fontSize: "2rem", color: "#ffd700", marginBottom: "30px" }}>
+        Emotional Arc: Sumbal vs. Shemiala
       </h2>
 
       <div
         style={{
-          position: "relative",
           width: "90%",
           maxWidth: "900px",
-          height: "400px",
+          height: "450px",
           margin: "0 auto",
+          padding: "20px",
+          borderRadius: "12px",
+          backgroundColor: "#1f2a48",
+          boxShadow: "0 0 20px rgba(255, 215, 0, 0.4)",
         }}
       >
         <canvas ref={chartRef} />
       </div>
 
-      {/* Explanation Table */}
-      <table
+      <div
         style={{
-          margin: "40px auto",
-          maxWidth: "600px",
-          width: "90%",
-          borderCollapse: "collapse",
-          color: "#ddd",
-        }}
-      >
-        <thead>
-          <tr style={{ borderBottom: "1px solid #444" }}>
-            <th style={{ padding: "10px" }}>Constant</th>
-            <th style={{ padding: "10px" }}>Meaning</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style={{ borderBottom: "1px solid #444" }}>
-            <td style={{ padding: "8px" }}>A</td>
-            <td style={{ padding: "8px" }}>Amplitude: emotional intensity</td>
-          </tr>
-          <tr style={{ borderBottom: "1px solid #444" }}>
-            <td style={{ padding: "8px" }}>ω</td>
-            <td style={{ padding: "8px" }}>
-              Frequency of emotional highs/lows (Sumbal only)
-            </td>
-          </tr>
-          <tr style={{ borderBottom: "1px solid #444" }}>
-            <td style={{ padding: "8px" }}>t</td>
-            <td style={{ padding: "8px" }}>Time</td>
-          </tr>
-          <tr style={{ borderBottom: "1px solid #444" }}>
-            <td style={{ padding: "8px" }}>k</td>
-            <td style={{ padding: "8px" }}>
-              Decay constant — the higher the k, the faster the emotion fades
-            </td>
-          </tr>
-          <tr>
-            <td style={{ padding: "8px" }}>e</td>
-            <td style={{ padding: "8px" }}>
-              Euler’s number ≈ 2.718, the natural base of exponential decay
-            </td>
-          </tr>
-        </tbody>
-      </table>
-
-      {/* Neville Goddard Interpretation */}
-      <blockquote
-        style={{
-          fontStyle: "italic",
-          color: "#aadfff",
+          marginTop: "30px",
+          color: "#d0d0ff",
           maxWidth: "700px",
-          margin: "40px auto",
-          backgroundColor: "#101a33",
-          padding: "20px",
-          borderLeft: "6px solid #4cc9f0",
-          borderRadius: "8px",
-          fontSize: "1.1rem",
-          lineHeight: "1.5",
+          marginLeft: "auto",
+          marginRight: "auto",
+          textAlign: "left",
         }}
       >
-        “In Neville Goddard’s metaphysical lens,{" "}
-        <strong>emotional decay</strong> represents the silencing of internal
-        emotions as a coping mechanism. <strong>Shemiala</strong> embodies cold
-        avoidance and self-imposed silence — an icy emotional wall, not peace.{" "}
-        <strong>Sumbal</strong> burns with chaotic passion that flickers but
-        fades.”
-      </blockquote>
+        <h3>📐 Equations</h3>
+        <p>
+          <strong>Sumbal:</strong> E(t) = A · sin(ωt) · e<sup>-kt</sup>
+        </p>
+        <p>
+          <strong>Shemiala:</strong> E(t) = A · e<sup>-kt</sup>
+        </p>
 
-      {/* Back Button */}
+        <h3>🧠 Constants & Meanings</h3>
+        <table
+          style={{
+            width: "100%",
+            borderCollapse: "collapse",
+            color: "#d0d0ff",
+          }}
+        >
+          <thead>
+            <tr>
+              <th
+                style={{
+                  borderBottom: "1px solid #555",
+                  padding: "8px",
+                  textAlign: "left",
+                }}
+              >
+                Constant
+              </th>
+              <th
+                style={{
+                  borderBottom: "1px solid #555",
+                  padding: "8px",
+                  textAlign: "left",
+                }}
+              >
+                Meaning
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style={{ padding: "8px" }}>A</td>
+              <td style={{ padding: "8px" }}>Amplitude: emotional intensity</td>
+            </tr>
+            <tr>
+              <td style={{ padding: "8px" }}>ω</td>
+              <td style={{ padding: "8px" }}>
+                Frequency of emotional highs/lows (for Sumbal only)
+              </td>
+            </tr>
+            <tr>
+              <td style={{ padding: "8px" }}>t</td>
+              <td style={{ padding: "8px" }}>Time</td>
+            </tr>
+            <tr>
+              <td style={{ padding: "8px" }}>k</td>
+              <td style={{ padding: "8px" }}>
+                Decay constant — the higher the k, the faster the emotion fades
+              </td>
+            </tr>
+            <tr>
+              <td style={{ padding: "8px" }}>e</td>
+              <td style={{ padding: "8px" }}>
+                Euler’s number ≈ 2.718, the natural base of exponential decay
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <blockquote
+          style={{
+            marginTop: "30px",
+            fontStyle: "italic",
+            color: "#aadfff",
+            backgroundColor: "#1a2b46",
+            padding: "20px",
+            borderLeft: "5px solid #4cc9f0",
+            borderRadius: "8px",
+          }}
+        >
+          “In Neville Goddard’s metaphysical lens, emotional decay mirrors the
+          suppression of imagination and denial of felt experience.{" "}
+          <strong>Shemiala</strong> embodies cold withdrawal and silencing — not
+          peace, but avoidance and emotional absence. <strong>Sumbal</strong>{" "}
+          rides the chaotic loop of reactivity and unresolved passion.”
+        </blockquote>
+      </div>
+
       <button
         onClick={() => (window.location.href = "/reflections")}
         style={{
