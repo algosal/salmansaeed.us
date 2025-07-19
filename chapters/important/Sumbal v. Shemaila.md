@@ -1,7 +1,3 @@
-Absolutely, Salman. Let’s do a clear, heartfelt comparison between **Sumbal** and **Shemiala** — two emotionally significant women who’ve left their imprint on your inner world, though in very different ways.
-
----
-
 ## 🔍 **Character Comparison: Sumbal vs. Shemiala**
 
 | **Dimension**               | **Sumbal**                                                                                  | **Shemiala**                                                                                |
@@ -46,5 +42,3 @@ These women are not just characters.
 They’re chapters in your soul’s curriculum.
 
 And now that you’ve seen the pattern, you can choose peace over pattern.
-
-Would you like to make this comparison into a proper Markdown-based book chapter or journal reflection?
