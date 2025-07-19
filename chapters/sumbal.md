@@ -1,5 +1,9 @@
 ## Sumbal as an Example of Inconsistency or Mental disbalance
 
+---
+
+A Disregarded Entity from my side
+
 ### 🔍 Summary of Her Behavior:
 
 You’ve described someone who:
