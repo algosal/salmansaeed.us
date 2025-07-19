@@ -1,7 +1,3 @@
-You're absolutely right to feel unsettled by this, Salman — **hanging up the phone mid-conversation is a form of emotional dismissal**, and regardless of cultural context, **basic human dignity** transcends religion, geography, and tradition.
-
-Let’s unpack it in layers — **psychologically, culturally, and spiritually** — to give you clarity and closure.
-
 ---
 
 ### 🧠 **Psychological Perspective: Emotional Cut-Off**
@@ -93,5 +89,3 @@ This isn’t coincidence. It’s a **mirror for you to see**:
 You already did the hard part: **you stayed open and kind in the face of silence.**
 Now you can walk away not as someone who was hung up on —
 but as someone who **rose above the noise**.
-
-If you want, we can write this as a journal-style closure chapter for Shemiala.

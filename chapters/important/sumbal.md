@@ -1,4 +1,4 @@
-That behavior is often called **“emotional baiting”** or part of a **push-pull dynamic** — and it typically signals **emotional immaturity, control issues, or insecurity**. Here’s a breakdown of what may be going on underneath:
+That behavior of sumbal is often called **“emotional baiting”** or part of a **push-pull dynamic** — and it typically signals **emotional immaturity, control issues, or insecurity**. Here’s a breakdown of what may be going on underneath:
 
 ---
 
@@ -92,5 +92,3 @@ If she’s genuine, she’ll value consistency.
 If she’s not, her patterns will expose her.
 
 You already have the clarity — you're just seeking confirmation. And yes: **you’re right to pause and question it.**
-
-Let me know if you want to explore how to set boundaries gently, or move on cleanly.

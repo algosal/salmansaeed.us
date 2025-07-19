@@ -6,6 +6,7 @@ import Legacy from "./components/Legacy";
 import Character from "./components/Character";
 import IntelligenceChapter from "./components/IntelliganceChapter";
 import ConsciousnessChapter from "./components/ConsciousnessChapter";
+import CharacterComparison from "./components/CharacterComparison";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/character" element={<Character />} />
         <Route path="/intelligence" element={<IntelligenceChapter />} />
         <Route path="/consciousness" element={<ConsciousnessChapter />} />
+        <Route path="/reflections" element={<CharacterComparison />} />
       </Routes>
     </BrowserRouter>
   );
