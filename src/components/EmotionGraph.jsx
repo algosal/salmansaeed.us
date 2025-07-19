@@ -10,7 +10,6 @@ import {
   CategoryScale,
   Legend,
 } from "chart.js";
-import { FaFire, FaIcicles } from "react-icons/fa";
 
 Chart.register(
   LineController,
@@ -52,12 +51,7 @@ const EmotionGraph = () => {
         labels: time.slice(0, frame + 1).map((t) => t.toString()),
         datasets: [
           {
-            label: (
-              <>
-                <FaFire style={{ marginRight: 6, color: "#ff4c4c" }} />
-                Sumbal (Chaos & Passion)
-              </>
-            ),
+            label: "🔥 Sumbal (Chaos & Passion)",
             data: fullSumbal.slice(0, frame + 1),
             borderColor: "#ff4c4c",
             backgroundColor: "rgba(255, 76, 76, 0.2)",
@@ -66,12 +60,7 @@ const EmotionGraph = () => {
             pointRadius: 0,
           },
           {
-            label: (
-              <>
-                <FaIcicles style={{ marginRight: 6, color: "#4cc9f0" }} />
-                Shemiala (Avoidance & Silence)
-              </>
-            ),
+            label: "🧊 Shemiala (Avoidance & Silence)",
             data: fullShemiala.slice(0, frame + 1),
             borderColor: "#4cc9f0",
             backgroundColor: "rgba(76, 201, 240, 0.2)",
@@ -89,16 +78,6 @@ const EmotionGraph = () => {
             labels: {
               color: "#f0f0f0",
               font: { size: 14 },
-              generateLabels: (chart) => {
-                return chart.data.datasets.map((dataset, i) => ({
-                  text: dataset.label.props.children[1],
-                  fillStyle: dataset.borderColor,
-                  strokeStyle: dataset.borderColor,
-                  lineWidth: 2,
-                  hidden: !chart.isDatasetVisible(i),
-                  index: i,
-                }));
-              },
             },
           },
           tooltip: {
@@ -106,14 +85,13 @@ const EmotionGraph = () => {
             callbacks: {
               label: (context) =>
                 `${
-                  context.dataset.label.props.children[1]
+                  context.dataset.label.split(" ")[1]
                 }: ${context.parsed.y.toFixed(2)}`,
             },
           },
         },
         scales: {
           x: {
-            // <-- Here we DO NOT reverse
             ticks: { color: "#ddd" },
             grid: { color: "#444" },
             title: {
