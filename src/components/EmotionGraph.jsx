@@ -149,7 +149,7 @@ const EmotionGraph = () => {
     });
 
     function animate() {
-      progress += 0.01; // increase progress by 1% per frame ~60fps -> ~1.6s animation
+      progress += 0.001; // increase progress by 1% per frame ~60fps -> ~1.6s animation
       if (progress > 1) progress = 1;
       chart.options.plugins.drawProgress.progress = progress;
       chart.update();
