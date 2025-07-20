@@ -11,7 +11,7 @@ import {
   Legend,
   Filler,
 } from "chart.js";
-import { FaIceCube, FaFire } from "react-icons/fa";
+// import { FaIceCube, FaFire } from "react-icons/fa";
 
 Chart.register(
   LineController,
@@ -51,7 +51,7 @@ const EmotionGraph = () => {
         const {
           ctx,
           chartArea: { left, right },
-          scales: { x },
+          //   scales: { x },
         } = chart;
 
         const progress = options.progress ?? 1;
@@ -164,7 +164,7 @@ const EmotionGraph = () => {
       cancelAnimationFrame(animationFrameId);
       chart.destroy();
     };
-  }, []);
+  });
 
   return (
     <div style={styles.container}>
