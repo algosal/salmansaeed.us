@@ -136,7 +136,10 @@ const GeniusEquationGraph = () => {
             style={{ color: "#aaa", marginBottom: "30px", fontStyle: "italic" }}
           >
             * Genius values are scaled down by 10⁸ for visualization for{" "}
-            <strong>سلمان سعید</strong>
+            <strong>
+              سلمان سعید
+              <sup style={{ fontSize: "0.6em", verticalAlign: "super" }}>®</sup>
+            </strong>
           </p>
 
           <div
@@ -272,6 +275,17 @@ const GeniusEquationGraph = () => {
             </p>
           </div>
         </div>
+        <footer
+          style={{
+            marginTop: "60px",
+            textAlign: "center",
+            color: "#aaa",
+            fontSize: "1rem",
+          }}
+        >
+          © سلمان سعید
+          <sup style={{ fontSize: "0.6em", verticalAlign: "super" }}>®</sup>
+        </footer>
       </div>
 
       {/* Responsive CSS for mobile */}
