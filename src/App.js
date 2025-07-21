@@ -8,6 +8,7 @@ import IntelligenceChapter from "./components/IntelliganceChapter";
 import ConsciousnessChapter from "./components/ConsciousnessChapter";
 import CharacterComparison from "./components/CharacterComparison";
 import EmotionGraph from "./components/EmotionGraph";
+import GeniusEquationGraph from "./components/GeniusEquationGraph";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/consciousness" element={<ConsciousnessChapter />} />
         <Route path="/reflections" element={<CharacterComparison />} />
         <Route path="/emotionalgraph" element={<EmotionGraph />} />
+        <Route path="/GeniusEquationGraph" element={<GeniusEquationGraph />} />
       </Routes>
     </BrowserRouter>
   );
