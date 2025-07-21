@@ -9,6 +9,10 @@ import ConsciousnessChapter from "./components/ConsciousnessChapter";
 import CharacterComparison from "./components/CharacterComparison";
 import EmotionGraph from "./components/EmotionGraph";
 import GeniusEquationGraph from "./components/GeniusEquationGraph";
+import GraphNavPanel from "./components/GraphNavPanel";
+import SocialButterflies from "./components/SocialButterflies";
+import MetaphysicalReflections from "./components/MetaphysicalReflections";
+import EmotionalArcs from "./components/EmotionalArcs";
 
 function App() {
   return (
@@ -24,6 +28,13 @@ function App() {
         <Route path="/reflections" element={<CharacterComparison />} />
         <Route path="/emotionalgraph" element={<EmotionGraph />} />
         <Route path="/GeniusEquationGraph" element={<GeniusEquationGraph />} />
+        <Route path="/GraphNavPanel" element={<GraphNavPanel />} />
+        <Route path="/SocialButterflies" element={<SocialButterflies />} />
+        <Route path="/EmotionalArcs" element={<EmotionalArcs />} />
+        <Route
+          path="/MetaphysicalReflections"
+          element={<MetaphysicalReflections />}
+        />
       </Routes>
     </BrowserRouter>
   );
