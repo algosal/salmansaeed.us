@@ -4,7 +4,6 @@ import Navbar from "./Navbar";
 import salmanImg from "../assets/salman.jpg"; // replace with your actual path
 
 const galleryItems = [
-  // same items you provided...
   {
     src: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80",
     alt: "FinSln Holdings",
@@ -84,59 +83,65 @@ const galleryItems = [
 
 const Gallery = () => {
   return (
-    <div style={containerStyle}>
-      {/* ✅ Mobile Navbar */}
-      <Navbar />
+    <div style={wrapperStyle}>
+      <div style={containerStyle}>
+        {/* ✅ Mobile Navbar */}
+        <Navbar />
 
-      {/* ✅ Fixed Header */}
-      <header style={headerStyle}>Gallery</header>
+        {/* ✅ Fixed Header */}
+        <header style={headerStyle}>Gallery</header>
 
-      {/* ✅ Main Content */}
-      <main className="content" style={contentStyle}>
-        <div className="gallery-grid" style={galleryGridStyle}>
-          {galleryItems.map(({ src, alt, caption }, index) => (
-            <div className="gallery-item" style={galleryItemStyle} key={index}>
-              <img
-                src={src}
-                alt={alt}
-                style={{ width: "100%", borderRadius: 8, display: "block" }}
-              />
-              <div className="caption" style={captionStyle}>
-                {caption}
+        {/* ✅ Main Content */}
+        <main className="content" style={contentStyle}>
+          <div className="gallery-grid" style={galleryGridStyle}>
+            {galleryItems.map(({ src, alt, caption }, index) => (
+              <div
+                className="gallery-item"
+                style={galleryItemStyle}
+                key={index}
+              >
+                <img
+                  src={src}
+                  alt={alt}
+                  style={{ width: "100%", borderRadius: 8, display: "block" }}
+                />
+                <div className="caption" style={captionStyle}>
+                  {caption}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </main>
+            ))}
+          </div>
+        </main>
 
-      {/* ✅ Responsive overrides */}
-      <style>{`
-        @media (max-width: 768px) {
-          .sidebar {
-            display: none !important;
+        {/* ✅ Responsive overrides */}
+        <style>{`
+          @media (max-width: 768px) {
+            .sidebar {
+              display: none !important;
+            }
+            header {
+              position: fixed !important;
+              top: 50px !important; /* below Navbar height */
+              left: 0 !important;
+              right: 0 !important;
+              width: 100% !important;
+              padding: 15px 20px !important;
+              font-size: 2rem !important;
+              border-bottom: 1px solid #333 !important;
+              z-index: 1500 !important;
+              height: 60px !important;
+              display: flex !important;
+              align-items: center !important;
+              box-sizing: border-box !important;
+            }
+            .content {
+              margin-left: 0 !important;
+              margin-top: 110px !important; /* Navbar + header */
+              padding: 20px 15px !important;
+            }
           }
-          header {
-            position: fixed !important;
-            top: 50px !important; /* below Navbar height */
-            left: 0 !important;
-            right: 0 !important;
-            width: 100% !important;
-            padding: 15px 20px !important;
-            font-size: 2rem !important;
-            border-bottom: 1px solid #333 !important;
-            z-index: 1500 !important;
-            height: 60px !important;
-            display: flex !important;
-            align-items: center !important;
-            box-sizing: border-box !important;
-          }
-          .content {
-            margin-left: 0 !important;
-            margin-top: 110px !important; /* Navbar + header */
-            padding: 20px 15px !important;
-          }
-        }
-      `}</style>
+        `}</style>
+      </div>
     </div>
   );
 };
@@ -145,12 +150,21 @@ export default Gallery;
 
 // === Consistent Styles ===
 
+const wrapperStyle = {
+  maxWidth: 1200,
+  marginLeft: "auto",
+  marginRight: "auto",
+  minHeight: "100vh",
+  backgroundColor: "#121212",
+  color: "#eee",
+  fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+};
+
 const containerStyle = {
   display: "flex",
   minHeight: "100vh",
-  fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-  backgroundColor: "#121212",
-  color: "#eee",
+  backgroundColor: "inherit",
+  color: "inherit",
 };
 
 const headerStyle = {
