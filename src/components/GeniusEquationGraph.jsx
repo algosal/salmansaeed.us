@@ -26,7 +26,7 @@ const generateData = () => {
         Math.pow(SC, 1.12) *
         Math.pow(CO, 1.06)) /
       Math.pow(H, 1.1) /
-      1e10;
+      1e8; // increased from 1e10 to 1e8 for visibility
 
     data.push({
       time: t,
@@ -39,6 +39,35 @@ const generateData = () => {
     });
   }
   return data;
+};
+
+// Custom tooltip to show "× 10⁸" for Genius
+const CustomTooltip = ({ active, payload, label }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div
+        style={{
+          backgroundColor: "#222",
+          padding: "10px",
+          border: "1px solid #888",
+          color: "#fff",
+          fontSize: "0.9rem",
+        }}
+      >
+        <p>
+          <strong>Time:</strong> {label}
+        </p>
+        {payload.map((entry, index) => (
+          <p key={index} style={{ color: entry.color }}>
+            {entry.name === "Genius"
+              ? `${entry.name}: ${entry.value} × 10⁸`
+              : `${entry.name}: ${entry.value}`}
+          </p>
+        ))}
+      </div>
+    );
+  }
+  return null;
 };
 
 const GeniusEquationGraph = () => {
@@ -59,9 +88,12 @@ const GeniusEquationGraph = () => {
         textAlign: "center",
       }}
     >
-      <h2 style={{ fontSize: "2rem", color: "#ffd700", marginBottom: "30px" }}>
-        Genius Equation Dynamics
+      <h2 style={{ fontSize: "2rem", color: "#ffd700", marginBottom: "10px" }}>
+        Genius Equation Dynamics for Salman Saeed
       </h2>
+      <p style={{ color: "#aaa", marginBottom: "30px", fontStyle: "italic" }}>
+        * Genius values are scaled down by 10⁸ for visualization
+      </p>
 
       <div
         style={{
@@ -100,7 +132,7 @@ const GeniusEquationGraph = () => {
                 fill: "#aaa",
               }}
             />
-            <Tooltip />
+            <Tooltip content={<CustomTooltip />} />
             <Legend wrapperStyle={{ color: "#f0f0f0" }} />
             <Line
               type="monotone"
@@ -169,22 +201,15 @@ const GeniusEquationGraph = () => {
         </p>
         <p>
           <strong>SC</strong>: Spiritual Clarity — awareness beyond form,
-          peaking during transcendental moments. Raised to <sup>1.12</sup> to
-          reflect its nonlinear perception amplification.
+          peaking during transcendental moments.
         </p>
         <p>
           <strong>CO</strong>: Creative Originality — novelty generation,
-          lateral synthesis, and imaginative intuition. Power <sup>1.06</sup>{" "}
-          due to its subtler but persistent contribution.
+          lateral synthesis, and imaginative intuition.
         </p>
         <p>
           <strong>H</strong>: Humility — inner silence and ego death. Inverse
-          factor raised to <sup>1.1</sup> because excessive ego distorts all
-          other faculties.
-        </p>
-        <p style={{ marginTop: "20px", fontStyle: "italic", color: "#aadfff" }}>
-          Genius = [(EQ<sup>1.08</sup> × IQ<sup>1.08</sup> × SC<sup>1.12</sup> ×
-          CO<sup>1.06</sup>) ÷ H<sup>1.1</sup>] ÷ 10<sup>10</sup>
+          factor because excessive ego distorts all other faculties.
         </p>
       </div>
     </div>
