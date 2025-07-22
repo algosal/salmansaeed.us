@@ -1,5 +1,4 @@
 import React from "react";
-// import { NavLink } from "react-router-dom";
 import Navbar from "./Navbar";
 
 const containerStyle = {
@@ -10,41 +9,10 @@ const containerStyle = {
   color: "#eee",
 };
 
-// const sidebarStyle = {
-//   display: "flex",
-//   flexDirection: "column",
-//   width: 220,
-//   height: "100vh",
-//   position: "fixed",
-//   top: 0,
-//   left: 0,
-//   padding: 20,
-//   backgroundColor: "#1e1e1e",
-//   gap: 15,
-//   boxSizing: "border-box",
-//   zIndex: 100,
-// };
-
-// const linkStyle = {
-//   color: "#bbb",
-//   textDecoration: "none",
-//   fontSize: 18,
-//   fontWeight: 600,
-//   padding: "8px 12px",
-//   borderRadius: 6,
-//   marginBottom: 8,
-// };
-
-// const activeLinkStyle = {
-//   ...linkStyle,
-//   color: "#00f0ff",
-//   backgroundColor: "#333",
-// };
-
 const headerStyle = {
   position: "fixed",
   top: 0,
-  left: 220, // desktop: leave space for sidebar
+  left: 220,
   right: 0,
   backgroundColor: "#121212",
   color: "#ffcc00",
@@ -62,8 +30,10 @@ const headerStyle = {
 const contentStyle = {
   flexGrow: 1,
   padding: 30,
-  marginLeft: 220,
-  marginTop: 80, // space for fixed header
+  marginTop: 80,
+  maxWidth: "900px",
+  marginLeft: "auto",
+  marginRight: "auto",
 };
 
 const companyBlockStyle = {
@@ -72,6 +42,7 @@ const companyBlockStyle = {
   padding: "15px 20px",
   marginBottom: 20,
   boxShadow: "0 2px 6px rgba(255, 255, 255, 0.05)",
+  textAlign: "left",
 };
 
 const subHeadingStyle = {
@@ -89,7 +60,7 @@ const paragraphStyle = {
 const Company = ({ title, description, subCompanies }) => (
   <div style={companyBlockStyle}>
     <h3 style={subHeadingStyle}>{title}</h3>
-    <p style={paragraphStyle}>{description}</p>
+    {description && <p style={paragraphStyle}>{description}</p>}
     {subCompanies && (
       <div style={{ marginTop: 15, paddingLeft: 15 }}>
         {subCompanies.map((sub, i) => (
@@ -103,48 +74,9 @@ const Company = ({ title, description, subCompanies }) => (
 const Corporate = () => {
   return (
     <div style={containerStyle}>
-      {/* Mobile Navbar */}
       <Navbar />
-
-      {/* Sidebar (desktop only) */}
-      {/* <nav className="sidebar" style={sidebarStyle}>
-        <NavLink
-          to="/"
-          end
-          style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
-        >
-          Meet Salman
-        </NavLink>
-        <NavLink
-          to="/corporate"
-          style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
-        >
-          Corporate
-        </NavLink>
-        <NavLink
-          to="/gallery"
-          style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
-        >
-          Gallery
-        </NavLink>
-        <NavLink
-          to="/legacy"
-          style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
-        >
-          Legacy
-        </NavLink>
-        <NavLink
-          to="/character"
-          style={({ isActive }) => (isActive ? activeLinkStyle : linkStyle)}
-        >
-          Character
-        </NavLink>
-      </nav> */}
-
-      {/* Fixed header, top: 0 */}
       <header style={headerStyle}>Corporate Structure</header>
 
-      {/* Main Content */}
       <div className="content" style={contentStyle}>
         <Company
           title="FinSln Holdings"
@@ -194,9 +126,12 @@ const Corporate = () => {
         />
 
         <Company
-          title="Alba Gold Systems LLC"
-          description="Core software development company."
+          title="AG App"
           subCompanies={[
+            {
+              title: "Alba Gold Systems LLC",
+              description: "Core software development company.",
+            },
             {
               title: "Alba Points LLC",
               description: "Blockchain-style point system for AG App/token.",
@@ -231,7 +166,6 @@ const Corporate = () => {
         />
       </div>
 
-      {/* Responsive overrides */}
       <style>{`
         @media (max-width: 768px) {
           .sidebar {
@@ -239,7 +173,7 @@ const Corporate = () => {
           }
           header {
             position: fixed !important;
-            top: 50px !important; /* below mobile navbar height */
+            top: 50px !important;
             left: 0 !important;
             right: 0 !important;
             width: 100% !important;
@@ -254,8 +188,9 @@ const Corporate = () => {
           }
           .content {
             margin-left: 0 !important;
-            margin-top: 110px !important; /* navbar + header */
+            margin-top: 110px !important;
             padding: 20px 15px !important;
+            max-width: 100% !important;
           }
         }
       `}</style>
