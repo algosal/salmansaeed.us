@@ -156,7 +156,7 @@ const EmotionalInertia = () => {
     <div className="page-container">
       <Navbar />
       {/* <header className="header">Emotional Inertia</header> */}
-      <h2 className="section-title">Emotional Arcs</h2>
+      <h2 className="section-title">Emotional Inertia</h2>
 
       <main className="main-content">
         <section className="card">
