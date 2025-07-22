@@ -11,6 +11,8 @@ const GraphNavPanel = () => {
     { label: "Emotional Arcs", path: "/EmotionalArcs" },
     { label: "Social Butterfly Map", path: "/SocialButterflies" },
     { label: "Metaphysical Reflections", path: "/MetaphysicalReflections" },
+    { label: "Mental Momentum", path: "/MentalMomentum" },
+    { label: "Emotional Inertia", path: "/EmotionalInertia" },
   ];
 
   return (

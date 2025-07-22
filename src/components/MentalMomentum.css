@@ -1,0 +1,116 @@
+/* MentalMomentum.css */
+
+.page-wrapper {
+  display: flex;
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
+  background-color: #000000;
+  color: #f0f0f0;
+}
+
+.fixed-header {
+  position: fixed;
+  top: 0;
+  left: 220px; /* leave space for sidebar */
+  right: 0;
+  background-color: #121212;
+  color: #ffd700;
+  border-bottom: 1px solid #333;
+  padding: 15px 30px;
+  font-size: 2.5rem;
+  font-weight: bold;
+  z-index: 150;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+.page-content {
+  flex-grow: 1;
+  padding: 40px 20px;
+  margin-left: 220px; /* sidebar width */
+  text-align: center;
+  position: relative;
+  max-width: 900px;
+  margin-right: auto;
+  margin-left: auto;
+
+  margin-top: 100px; /* <-- add this line */
+}
+
+.intro-text {
+  color: #ccc;
+  font-size: 1.15rem;
+  line-height: 1.7;
+  margin-bottom: 40px;
+  font-style: normal;
+}
+
+.principles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.principle-card {
+  background-color: #111f3f;
+  padding: 20px;
+  border-radius: 12px;
+  border: 2px solid;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  color: #ddd;
+  text-align: left;
+  transition: box-shadow 0.3s ease;
+}
+
+.principle-card:hover {
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
+}
+
+.principle-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.principle-desc {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #ccc;
+}
+
+.button-container {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.navigate-btn {
+  background-color: #1f2a48;
+  color: #ffd700;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 30px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.navigate-btn:hover {
+  background-color: #394867;
+}
+
+.page-footer {
+  margin-top: 60px;
+  color: #aaa;
+  font-size: 1rem;
+  user-select: none;
+}
+
+.page-footer sup {
+  font-size: 0.6em;
+  vertical-align: super;
+}

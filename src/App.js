@@ -13,6 +13,9 @@ import GraphNavPanel from "./components/GraphNavPanel";
 import SocialButterflies from "./components/SocialButterflies";
 import MetaphysicalReflections from "./components/MetaphysicalReflections";
 import EmotionalArcs from "./components/EmotionalArcs";
+import MentalMomentum from "./components/MentalMomentum";
+import EmotionalInertia from "./components/EmotionalInertia";
+import MomentumEquation from "./components/MomentumEquation";
 
 function App() {
   return (
@@ -31,6 +34,10 @@ function App() {
         <Route path="/GraphNavPanel" element={<GraphNavPanel />} />
         <Route path="/SocialButterflies" element={<SocialButterflies />} />
         <Route path="/EmotionalArcs" element={<EmotionalArcs />} />
+        <Route path="/MentalMomentum" element={<MentalMomentum />} />
+        <Route path="/EmotionalInertia" element={<EmotionalInertia />} />
+        <Route path="/MomentumEquation" element={<MomentumEquation />} />
+
         <Route
           path="/MetaphysicalReflections"
           element={<MetaphysicalReflections />}
