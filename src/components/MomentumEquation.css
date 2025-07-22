@@ -26,7 +26,7 @@
   margin-bottom: 2rem;
   text-align: center;
 }
-
+/* 
 .toggle-button {
   background-color: #ffd700;
   color: #1f2a48;
@@ -41,6 +41,31 @@
 
 .toggle-button:hover {
   background-color: #e6c200;
+} */
+
+.toggle-explanation-btn {
+  background-color: #ffd700;
+  color: #1f2a48;
+  font-weight: 700;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.4rem;
+  cursor: pointer;
+  box-shadow: 0 3px 7px rgba(255, 215, 0, 0.4);
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+  font-size: 1rem;
+  user-select: none;
+}
+
+.toggle-explanation-btn:hover {
+  background-color: #e6c200;
+  transform: scale(1.05);
+}
+
+.toggle-explanation-btn:active {
+  transform: scale(0.95);
 }
 
 .math-section {

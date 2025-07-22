@@ -72,11 +72,14 @@ html,
   align-items: start;
   gap: 1rem;
   margin-bottom: 1rem;
+  flex-wrap: wrap; /* allow wrapping on small devices */
 }
 
 .qualities-list .emoji {
   font-size: 1.5rem;
   line-height: 1.2;
+  flex-shrink: 0;
+  margin-top: 3px;
 }
 
 /* === Chart === */
@@ -106,11 +109,58 @@ html,
 }
 
 /* === Footer === */
-/* .footer {
+.footer {
   text-align: center;
   background-color: #0a0f24;
   color: #ccc;
   padding: 1rem 0;
   font-size: 0.9rem;
   border-top: 1px solid #1f2a48;
-} */
+}
+
+/* === Responsive Mobile Fixes === */
+@media (max-width: 600px) {
+  .header {
+    font-size: 1.8rem;
+    padding: 0.75rem 0;
+  }
+
+  .main-content {
+    padding: 1.5rem 1rem 2rem;
+    max-width: 100%;
+  }
+
+  .card {
+    padding: 1.5rem 1rem;
+    border-left-width: 3px;
+  }
+
+  .heading {
+    font-size: 1.6rem;
+  }
+
+  .intro,
+  .closing-note {
+    font-size: 1rem;
+  }
+
+  .qualities-list li {
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .qualities-list .emoji {
+    margin-top: 0;
+  }
+
+  .chart-wrapper {
+    height: 220px;
+    padding: 0.7rem;
+  }
+
+  .equations {
+    font-size: 0.9rem;
+    padding: 0.7rem;
+    border-left-width: 3px;
+  }
+}
