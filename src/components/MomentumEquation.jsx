@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import {
@@ -7,11 +7,13 @@ import {
   CartesianGrid,
   XAxis,
   YAxis,
-  Tooltip,
+  Tooltip as RechartsTooltip,
   Area,
   AreaChart,
   ResponsiveContainer,
 } from "recharts";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 import "./MomentumEquation.css";
 
 const data = Array.from({ length: 50 }, (_, i) => {
@@ -26,8 +28,15 @@ const data = Array.from({ length: 50 }, (_, i) => {
   };
 });
 
+const quotes = [
+  `“Change your conception of yourself and you will automatically change the world in which you live.” — Neville Goddard`,
+  `“Faith is loyalty to the unseen reality.” — Neville Goddard`,
+  `“Imagination is the beginning of creation.” — Neville Goddard`,
+];
+
 const MomentumEquation = () => {
   const navigate = useNavigate();
+  const [showExplanation, setShowExplanation] = useState(true);
 
   return (
     <div className="page-container">
@@ -41,24 +50,68 @@ const MomentumEquation = () => {
           drains your emotional energy.
         </p>
 
-        <div className="math-section">
-          <p className="equation">
-            v(t) = sin(t) · e<sup>-t/10</sup>
-          </p>
-          <p className="explanation">
-            Here, <strong>v(t)</strong> represents the rate of emotionally
-            resonant, directed thought — a dynamic cognitive velocity function.
-          </p>
-          <p className="equation">Mental Momentum = ∫ v(t) dt</p>
-          <p className="equation">Stress Load = ∫₀^T |v(t)| dt</p>
-          <p className="explanation">
-            The absolute integral reflects accumulated resistance or internal
-            pressure — the more deviation and tension, the more inertia.
-          </p>
-        </div>
+        <button
+          className="toggle-explanation-btn"
+          onClick={() => setShowExplanation((prev) => !prev)}
+        >
+          {showExplanation ? "Graph Only" : "Show Explanation"}
+        </button>
+
+        {showExplanation && (
+          <>
+            <div className="math-section">
+              <p
+                className="equation"
+                data-tooltip-id="tooltip-vt"
+                data-tooltip-content="v(t) is the rate of emotionally resonant, directed thought (cognitive velocity)."
+              >
+                v(t) = sin(t) · e<sup>-t/10</sup>
+              </p>
+              <Tooltip id="tooltip-vt" place="top" effect="solid" />
+
+              <p className="explanation">
+                Here, <strong>v(t)</strong> represents the rate of emotionally
+                resonant, directed thought — a dynamic cognitive velocity
+                function.
+              </p>
+
+              <p
+                className="equation"
+                data-tooltip-id="tooltip-mm"
+                data-tooltip-content="Integral of velocity over time gives total Mental Momentum."
+              >
+                Mental Momentum = ∫ v(t) dt
+              </p>
+              <Tooltip id="tooltip-mm" place="top" effect="solid" />
+
+              <p
+                className="equation"
+                data-tooltip-id="tooltip-stress"
+                data-tooltip-content="Integral of absolute velocity captures cumulative resistance or tension."
+              >
+                Stress Load = ∫₀<sup>T</sup> |v(t)| dt
+              </p>
+              <Tooltip id="tooltip-stress" place="top" effect="solid" />
+
+              <p className="explanation">
+                The absolute integral reflects accumulated resistance or
+                internal pressure — the more deviation and tension, the more
+                inertia.
+              </p>
+            </div>
+
+            <div className="quotes-section">
+              {quotes.map((q, i) => (
+                <blockquote key={i} className="neville-quote">
+                  {q}
+                </blockquote>
+              ))}
+            </div>
+          </>
+        )}
 
         <div className="chart-section">
-          <ResponsiveContainer width="100%" height={300}>
+          <ResponsiveContainer width="100%" height={320}>
             <AreaChart data={data}>
               <defs>
                 <linearGradient id="success" x1="0" y1="0" x2="0" y2="1">
@@ -73,13 +126,18 @@ const MomentumEquation = () => {
               <CartesianGrid stroke="#444" />
               <XAxis dataKey="t" tick={{ fill: "#ccc" }} />
               <YAxis tick={{ fill: "#ccc" }} />
-              <Tooltip />
+              <RechartsTooltip
+                contentStyle={{ backgroundColor: "#222", borderRadius: 8 }}
+                itemStyle={{ color: "#f8f8f8" }}
+              />
               <Area
                 type="monotone"
                 dataKey="positiveLoad"
                 stroke="#00e676"
                 fill="url(#success)"
                 name="Success Load"
+                isAnimationActive={true}
+                animationDuration={1200}
               />
               <Area
                 type="monotone"
@@ -87,6 +145,8 @@ const MomentumEquation = () => {
                 stroke="#ff5252"
                 fill="url(#stress)"
                 name="Stress Load"
+                isAnimationActive={true}
+                animationDuration={1200}
               />
               <Line
                 type="monotone"
@@ -94,6 +154,8 @@ const MomentumEquation = () => {
                 stroke="#00bcd4"
                 dot={false}
                 name="v(t)"
+                isAnimationActive={true}
+                animationDuration={1200}
               />
             </AreaChart>
           </ResponsiveContainer>
@@ -129,6 +191,7 @@ const MomentumEquation = () => {
             ← Back to Mental Momentum
           </button>
         </div>
+
         <footer className="page-footer">
           © سلمان سعید
           <sup>®</sup>

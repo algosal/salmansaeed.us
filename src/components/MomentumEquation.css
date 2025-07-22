@@ -9,8 +9,9 @@
 
 .content {
   max-width: 900px;
-  margin: 0 auto;
+  margin: 0 auto 40px auto;
   padding: 2rem;
+  flex-grow: 1;
 }
 
 .section-title {
@@ -26,6 +27,22 @@
   text-align: center;
 }
 
+.toggle-button {
+  background-color: #ffd700;
+  color: #1f2a48;
+  border: none;
+  font-weight: 700;
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 1.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-button:hover {
+  background-color: #e6c200;
+}
+
 .math-section {
   background-color: #111729;
   border-left: 4px solid #ffd700;
@@ -38,12 +55,26 @@
   font-size: 1.4rem;
   color: #00bcd4;
   margin-bottom: 0.5rem;
+  cursor: help;
+  user-select: text;
 }
 
 .explanation {
   font-size: 1rem;
   color: #ddd;
   margin-bottom: 1rem;
+}
+
+.spiritual-insight {
+  background-color: #111729;
+  border-left: 4px solid #4cc9f0;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  color: #4cc9f0;
+  font-style: italic;
+  font-weight: 600;
+  user-select: none;
 }
 
 .chart-section {
@@ -107,11 +138,12 @@
 .navigate-button:hover {
   background-color: #e6c200;
 }
-/* .page-footer {
+
+.page-footer {
   text-align: center;
-  padding: 1.5rem;
-  background-color: #0a0f24;
-  color: #ffd700;
+  color: #aaa;
   font-size: 1rem;
-  border-top: 1px solid #333;
-} */
+  margin-top: auto;
+  padding-top: 20px;
+  user-select: none;
+}
