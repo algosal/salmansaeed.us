@@ -8,15 +8,22 @@ import {
   XAxis,
   YAxis,
   Tooltip,
+  Area,
+  AreaChart,
   ResponsiveContainer,
-  Legend,
 } from "recharts";
 import "./MomentumEquation.css";
 
 const data = Array.from({ length: 50 }, (_, i) => {
-  const t = i * 0.2;
-  const velocity = Math.sin(t) * Math.exp(-t * 0.05);
-  return { t, velocity: +velocity.toFixed(3) };
+  const t = i / 5;
+  const velocity = Math.sin(t) * Math.exp(-t / 10);
+  return {
+    t: t.toFixed(1),
+    velocity: velocity,
+    absVelocity: Math.abs(velocity),
+    positiveLoad: velocity > 0 ? velocity : 0,
+    negativeLoad: velocity < 0 ? Math.abs(velocity) : 0,
+  };
 });
 
 const MomentumEquation = () => {
@@ -29,68 +36,70 @@ const MomentumEquation = () => {
         <h2 className="section-title">Computation of Mental Momentum</h2>
 
         <p className="intro">
-          Mental momentum is the product of aligned thought and persistent
-          focus. In this system, we visualize it as a function of cognitive
-          velocity over time. The total "load" — stress or success — is the area
-          under the curve:
+          Mental momentum is the compound force of aligned thoughts over time.
+          Visualized as an integral, it shows how cognitive velocity builds or
+          drains your emotional energy.
         </p>
 
         <div className="math-section">
-          <p className="equation">Mental Momentum (MM) = ∫ v(t) dt</p>
-          <p className="explanation">
-            Where <strong>v(t)</strong> is cognitive velocity — the rate of
-            directed, emotionally resonant thought over time.
+          <p className="equation">
+            v(t) = sin(t) · e<sup>-t/10</sup>
           </p>
+          <p className="explanation">
+            Here, <strong>v(t)</strong> represents the rate of emotionally
+            resonant, directed thought — a dynamic cognitive velocity function.
+          </p>
+          <p className="equation">Mental Momentum = ∫ v(t) dt</p>
           <p className="equation">Stress Load = ∫₀^T |v(t)| dt</p>
           <p className="explanation">
-            The absolute value captures mental strain or resistance regardless
-            of direction. The longer the resistance, the more cumulative stress
-            builds.
-          </p>
-        </div>
-
-        <div className="math-section">
-          <p className="equation">d(MM)/dt = v(t)</p>
-          <p className="explanation">
-            The rate of change of mental momentum at any point is your current
-            velocity of thought. Breaking a toxic loop means disrupting this
-            derivative — shifting v(t) intentionally.
+            The absolute integral reflects accumulated resistance or internal
+            pressure — the more deviation and tension, the more inertia.
           </p>
         </div>
 
         <div className="chart-section">
           <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={data}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#333" />
-              <XAxis
-                dataKey="t"
-                stroke="#ccc"
-                label={{
-                  value: "Time (t)",
-                  position: "insideBottomRight",
-                  offset: -5,
-                }}
-              />
-              <YAxis
-                stroke="#ccc"
-                label={{ value: "v(t)", angle: -90, position: "insideLeft" }}
-              />
+            <AreaChart data={data}>
+              <defs>
+                <linearGradient id="success" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#00c853" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#00c853" stopOpacity={0} />
+                </linearGradient>
+                <linearGradient id="stress" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#ff1744" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#ff1744" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid stroke="#444" />
+              <XAxis dataKey="t" tick={{ fill: "#ccc" }} />
+              <YAxis tick={{ fill: "#ccc" }} />
               <Tooltip />
-              <Legend />
+              <Area
+                type="monotone"
+                dataKey="positiveLoad"
+                stroke="#00e676"
+                fill="url(#success)"
+                name="Success Load"
+              />
+              <Area
+                type="monotone"
+                dataKey="negativeLoad"
+                stroke="#ff5252"
+                fill="url(#stress)"
+                name="Stress Load"
+              />
               <Line
                 type="monotone"
                 dataKey="velocity"
                 stroke="#00bcd4"
-                strokeWidth={2}
                 dot={false}
+                name="v(t)"
               />
-            </LineChart>
+            </AreaChart>
           </ResponsiveContainer>
-          <p className="legend-text">
-            Cognitive velocity <strong>v(t)</strong> decays over time if not
-            reinforced — yet aligned repetition leads to momentum accumulation.
-            This area under the curve represents cumulative momentum or stress.
-          </p>
+          <div className="legend-text">
+            Cyan line = v(t), Green area = Success, Red area = Stress
+          </div>
         </div>
 
         <div className="guidance">
@@ -120,6 +129,10 @@ const MomentumEquation = () => {
             ← Back to Mental Momentum
           </button>
         </div>
+        <footer className="page-footer">
+          © سلمان سعید
+          <sup>®</sup>
+        </footer>
       </div>
     </div>
   );

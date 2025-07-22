@@ -1,5 +1,5 @@
 .page-container {
-  padding-top: 60px; /* ensures content doesn't go under fixed navbar */
+  padding-top: 60px;
   background-color: #0a0f24;
   color: #f8f9fc;
   min-height: 100vh;
@@ -60,26 +60,27 @@
   font-size: 0.95rem;
   color: #ccc;
 }
+
 .guidance {
   margin-top: 3rem;
   background-color: #111729;
   padding: 1.5rem;
   border-radius: 10px;
   border-left: 4px solid #4cc9f0;
-  text-align: left; /* 👈 this ensures left alignment */
+  text-align: left;
 }
 
 .guidance h3 {
   color: #4cc9f0;
   margin-bottom: 1rem;
-  text-align: left; /* 👈 heading also left-aligned */
+  text-align: left;
 }
 
 .guidance ul {
   list-style-type: disc;
   margin-left: 1.5rem;
   color: #f8f9fc;
-  padding-left: 1rem; /* ensure bullets are spaced cleanly */
+  padding-left: 1rem;
 }
 
 .guidance li {
@@ -106,3 +107,11 @@
 .navigate-button:hover {
   background-color: #e6c200;
 }
+/* .page-footer {
+  text-align: center;
+  padding: 1.5rem;
+  background-color: #0a0f24;
+  color: #ffd700;
+  font-size: 1rem;
+  border-top: 1px solid #333;
+} */
