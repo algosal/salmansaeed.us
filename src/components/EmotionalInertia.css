@@ -23,24 +23,6 @@ html,
 }
 
 .header {
-  position: relative; /* no longer sticky */
-  background-color: transparent;
-  padding: 1rem 0;
-  color: #ffd700;
-  font-size: 1.8rem;
-  font-weight: 600;
-  text-align: center;
-  border-bottom: 1px solid #1f2a48;
-  margin-top: 1.5rem;
-}
-
-.main-content {
-  flex: 1;
-  padding: 2rem 1rem 3rem;
-  max-width: 1080px; /* widened for chart alignment */
-  margin: 0 auto;
-}
-.section-title {
   position: fixed;
   top: 0;
   z-index: 10;
@@ -52,6 +34,13 @@ html,
   font-weight: 600;
   border-bottom: 2px solid #1f2a48;
   width: 100%;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem 1rem 3rem;
+  max-width: 1080px; /* widened for chart alignment */
+  margin: 0 auto;
 }
 
 /* Add padding-top to content if needed */
