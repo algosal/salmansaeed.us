@@ -37,7 +37,8 @@ const EmotionalArcs = () => {
     <div className="page-container">
       <Navbar />
       <div className="content">
-        <h2 className="section-title">Emotional Arcs</h2>
+        <h2 className="fixed-heading">Emotional Arcs</h2>
+
         <p className="intro">
           Emotional patterns shape the contours of your psyche — dynamic flows
           of attachment, intensity, longing, and release. The characters

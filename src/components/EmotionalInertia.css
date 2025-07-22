@@ -23,28 +23,50 @@ html,
 }
 
 .header {
-  text-align: center;
-  font-size: 2.5rem;
+  position: relative; /* no longer sticky */
+  background-color: transparent;
   padding: 1rem 0;
   color: #ffd700;
-  border-bottom: 2px solid #1f2a48;
-  background-color: #0a0f24;
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-align: center;
+  border-bottom: 1px solid #1f2a48;
+  margin-top: 1.5rem;
 }
 
 .main-content {
   flex: 1;
   padding: 2rem 1rem 3rem;
-  max-width: 1000px;
+  max-width: 1080px; /* widened for chart alignment */
   margin: 0 auto;
+}
+.section-title {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #0a0f24;
+  padding: 12px 0;
+  color: #ffd700;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  border-bottom: 2px solid #1f2a48;
+}
+
+/* Add padding-top to content if needed */
+.content {
+  padding-top: 40px; /* reduced since header is not fixed */
 }
 
 /* === Card Section === */
 .card {
   background-color: #11192d;
   padding: 2rem;
-  border-radius: 8px;
-  border-left: 4px solid #ffd700;
+  border-radius: 12px;
+  border-left: 5px solid #ffd700;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  max-width: 1000px;
+  margin: auto;
 }
 
 .heading {
@@ -54,6 +76,7 @@ html,
   text-align: center;
 }
 
+/* === Intro & Outro === */
 .intro,
 .closing-note {
   font-size: 1.1rem;
@@ -61,6 +84,7 @@ html,
   line-height: 1.6;
 }
 
+/* === Qualities List === */
 .qualities-list {
   list-style: none;
   padding-left: 0;
@@ -72,7 +96,7 @@ html,
   align-items: start;
   gap: 1rem;
   margin-bottom: 1rem;
-  flex-wrap: wrap; /* allow wrapping on small devices */
+  flex-wrap: wrap;
 }
 
 .qualities-list .emoji {
@@ -85,11 +109,14 @@ html,
 /* === Chart === */
 .chart-wrapper {
   margin-top: 2rem;
-  height: 300px;
+  height: 450px;
   background-color: #0a0f24;
   border: 1px solid #333;
   border-radius: 8px;
   padding: 1rem;
+  max-width: 950px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* === Equations === */
@@ -118,11 +145,30 @@ html,
   border-top: 1px solid #1f2a48;
 }
 
+/* === Toggle Button === */
+.toggle-button {
+  margin-top: 1rem;
+  padding: 0.5rem 1.2rem;
+  background-color: #4cc9f0;
+  color: #0a0f24;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 0.95rem;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-button:hover {
+  background-color: #3bb2da;
+}
+
 /* === Responsive Mobile Fixes === */
 @media (max-width: 600px) {
   .header {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     padding: 0.75rem 0;
+    margin-top: 1rem;
   }
 
   .main-content {
@@ -133,10 +179,6 @@ html,
   .card {
     padding: 1.5rem 1rem;
     border-left-width: 3px;
-  }
-
-  .heading {
-    font-size: 1.6rem;
   }
 
   .intro,
@@ -154,8 +196,9 @@ html,
   }
 
   .chart-wrapper {
-    height: 220px;
+    height: 280px;
     padding: 0.7rem;
+    max-width: 100%;
   }
 
   .equations {

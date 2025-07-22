@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import {
-  LineChart,
+  // LineChart,
   Line,
   CartesianGrid,
   XAxis,
