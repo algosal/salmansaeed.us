@@ -1,7 +1,23 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
+import {
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+} from "recharts";
 import "./MomentumEquation.css";
+
+const data = Array.from({ length: 50 }, (_, i) => {
+  const t = i * 0.2;
+  const velocity = Math.sin(t) * Math.exp(-t * 0.05);
+  return { t, velocity: +velocity.toFixed(3) };
+});
 
 const MomentumEquation = () => {
   const navigate = useNavigate();
@@ -39,6 +55,41 @@ const MomentumEquation = () => {
             The rate of change of mental momentum at any point is your current
             velocity of thought. Breaking a toxic loop means disrupting this
             derivative — shifting v(t) intentionally.
+          </p>
+        </div>
+
+        <div className="chart-section">
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={data}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#333" />
+              <XAxis
+                dataKey="t"
+                stroke="#ccc"
+                label={{
+                  value: "Time (t)",
+                  position: "insideBottomRight",
+                  offset: -5,
+                }}
+              />
+              <YAxis
+                stroke="#ccc"
+                label={{ value: "v(t)", angle: -90, position: "insideLeft" }}
+              />
+              <Tooltip />
+              <Legend />
+              <Line
+                type="monotone"
+                dataKey="velocity"
+                stroke="#00bcd4"
+                strokeWidth={2}
+                dot={false}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+          <p className="legend-text">
+            Cognitive velocity <strong>v(t)</strong> decays over time if not
+            reinforced — yet aligned repetition leads to momentum accumulation.
+            This area under the curve represents cumulative momentum or stress.
           </p>
         </div>
 
