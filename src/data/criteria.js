@@ -1,11 +1,9 @@
-// src/data/criteria.js
-
 const criteria = [
   {
     id: 1,
     shortName: "Mental Loop",
     text: "The emotional loop is complete — no need for apology, revenge, or reconciliation.",
-    points: 1,
+    points: 2, // completion is good but lower weight
     sin: "Wrath",
     summary:
       "Completion of the emotional cycle removes anger or resentment. Holding on often ties to wrath or desire for retribution.",
@@ -14,7 +12,7 @@ const criteria = [
     id: 2,
     shortName: "No Reaction",
     text: "Their name, image, or memory no longer causes a physical reaction.",
-    points: 1,
+    points: 3, // no reaction is meaningful
     sin: "Sloth",
     summary:
       "Indifference signals emotional neutrality. Reactivity means unresolved emotions or attachment.",
@@ -23,7 +21,7 @@ const criteria = [
     id: 3,
     shortName: "No Threat",
     text: "They do not represent a source of future betrayal, chaos, or energetic drain.",
-    points: 1,
+    points: 5, // important for peace & safety
     sin: "Envy",
     summary:
       "People who repeatedly violate your peace often do so due to their own envy or instability.",
@@ -32,7 +30,7 @@ const criteria = [
     id: 4,
     shortName: "Outgrown Bond",
     text: "No longer spiritually, mentally, or emotionally resonant — even if history was strong.",
-    points: 1,
+    points: 3,
     sin: "Pride",
     summary:
       "Spiritual misalignment often hides behind egoic attachment to history. Letting go is humility.",
@@ -41,7 +39,7 @@ const criteria = [
     id: 5,
     shortName: "Failed Communication",
     text: "You've tried communicating with clarity but they remain defensive, manipulative, or elusive.",
-    points: 1,
+    points: 7, // very heavy because it blocks healing
     sin: "Pride",
     summary:
       "Refusal to evolve or acknowledge truth stems from pride. Dialogue dies when ego replaces heart.",
@@ -50,7 +48,7 @@ const criteria = [
     id: 6,
     shortName: "Lesson Done",
     text: "They symbolize a karmic loop or lesson that has been fully learned.",
-    points: 1,
+    points: 4,
     sin: "Greed",
     summary:
       "Holding onto old karmic partners after a lesson is complete is greed disguised as nostalgia.",
@@ -59,7 +57,7 @@ const criteria = [
     id: 7,
     shortName: "Unavailable Pattern",
     text: "They consistently choose selfishness, disloyalty, or emotional absence — even if subtly.",
-    points: 1,
+    points: 6,
     sin: "Lust",
     summary:
       "Attachment to emotionally unavailable people is often lust chasing an illusion of fulfillment.",
@@ -68,7 +66,7 @@ const criteria = [
     id: 8,
     shortName: "Forgiven ≠ Access",
     text: "Forgiveness has been given — but access is no longer warranted.",
-    points: 1,
+    points: 3,
     sin: "Wrath",
     summary:
       "Forgiveness severs wrath, but does not mandate reconnection. You can forgive and still detach.",
@@ -77,7 +75,7 @@ const criteria = [
     id: 9,
     shortName: "Past Self",
     text: "They remind you of past versions of yourself you’ve transcended.",
-    points: 1,
+    points: 2,
     sin: "Sloth",
     summary:
       "Clinging to the past self blocks growth. Detachment is honoring your evolution.",
@@ -86,7 +84,7 @@ const criteria = [
     id: 10,
     shortName: "Boundary Breaker",
     text: "They do not respect boundaries — subtle or stated.",
-    points: 1,
+    points: 7, // very critical and harmful
     sin: "Pride",
     summary:
       "Disregarding boundaries stems from a prideful belief in their own entitlement to your space.",
@@ -95,7 +93,7 @@ const criteria = [
     id: 11,
     shortName: "Energetic Drain",
     text: "Your body tightens, your spirit contracts, or you feel drained around their memory.",
-    points: 1,
+    points: 6,
     sin: "Envy",
     summary:
       "Tension and depletion often signal energetic imbalance, usually rooted in envy or subtle power games.",
@@ -104,7 +102,7 @@ const criteria = [
     id: 12,
     shortName: "Spiritual Expiry",
     text: "They triggered awakening, but now represent stagnation.",
-    points: 1,
+    points: 4,
     sin: "Greed",
     summary:
       "Taking spiritual value from someone doesn't mean they belong in your future. Growth requires release.",
@@ -113,7 +111,7 @@ const criteria = [
     id: 13,
     shortName: "Disloyal to Healing",
     text: "They once mattered deeply, but clinging now feels disloyal to your healing.",
-    points: 1,
+    points: 5,
     sin: "Lust",
     summary:
       "Romanticizing pain can be a form of lust — craving a feeling rather than truth. Release honors healing.",
@@ -122,7 +120,7 @@ const criteria = [
     id: 14,
     shortName: "No Peace",
     text: "The thought of seeing them again brings no peace, only stress or analysis.",
-    points: 1,
+    points: 5,
     sin: "Wrath",
     summary:
       "Unresolved emotions or latent expectations often mask wrath. Clarity brings neutrality.",
@@ -131,7 +129,7 @@ const criteria = [
     id: 15,
     shortName: "Distrust",
     text: "You would not trust them with a dream, secret, or a deeply vulnerable truth.",
-    points: 1,
+    points: 6,
     sin: "Pride",
     summary:
       "Intuition warns where pride reigns — where empathy is lacking, trust cannot thrive.",
@@ -140,7 +138,7 @@ const criteria = [
     id: 16,
     shortName: "Stagnant Mind",
     text: "They are spiritually closed, intellectually rigid, or emotionally shallow.",
-    points: 1,
+    points: 3,
     sin: "Sloth",
     summary:
       "Stagnation in others invites stagnation in you. Sometimes loving yourself means letting go.",
