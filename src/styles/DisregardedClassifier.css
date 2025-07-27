@@ -1,85 +1,159 @@
-.page-container {
-  background-color: #0a0f24;
-  color: #f8f9fc;
-  padding: 2rem;
-  max-width: 800px;
+.dec-page-container {
+  max-width: 700px;
   margin: 0 auto;
-  font-family: "Inter", sans-serif;
+  padding: 2rem 1rem;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: #eee;
+  background-color: #121212;
+  border-radius: 10px;
+  box-shadow: 0 0 15px #ffcc00aa;
 }
 
-.section-title {
+.dec-section-title {
   text-align: center;
-  color: #ffd700;
-  margin-bottom: 2rem;
-}
-
-.input-block {
+  color: #ffcc00;
   margin-bottom: 1.5rem;
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-shadow: 0 0 8px #ffcc00cc;
 }
 
-.input-block input {
-  padding: 0.6rem 1rem;
-  border-radius: 6px;
-  border: 1px solid #444;
+.dec-input-block label {
+  display: block;
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+  color: #ffd633;
+}
+
+.dec-input-block input {
   width: 100%;
-  margin-top: 0.5rem;
-  background-color: #1f2a48;
-  color: white;
-}
-
-.criteria-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 2rem;
-}
-
-.criteria-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.8rem;
-  background: #1f2a48;
-  padding: 1rem;
-  border-left: 4px solid cyan;
-  border-radius: 4px;
-  line-height: 1.4;
-}
-
-.result-block {
-  background-color: #1f2a48;
-  padding: 1.5rem;
+  padding: 10px;
+  font-size: 1rem;
+  border: 2px solid #ffcc00;
   border-radius: 6px;
-  border-left: 4px solid #ffd700;
+  background-color: #1a1a1a;
+  color: #eee;
+  box-shadow: inset 0 0 5px #ffcc00bb;
+  transition: border-color 0.3s ease;
 }
 
-.result.passed {
-  color: #00ffaa;
+.dec-input-block input:focus {
+  outline: none;
+  border-color: #ffd633;
+  box-shadow: 0 0 12px #ffd633cc;
 }
 
-.result.failed {
-  color: #ff6666;
-}
-
-blockquote {
-  margin-top: 1rem;
-  font-style: italic;
-  border-left: 2px solid #ffd700;
-  padding-left: 1rem;
-  color: #ffd700;
-}
-.back-button {
+.dec-save-button,
+.dec-back-button {
   background-color: transparent;
   border: 2px solid #ffcc00;
   color: #ffcc00;
-  padding: 8px 16px;
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: 6px;
+  padding: 10px 22px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  box-shadow: 0 0 8px #ffcc00aa;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.4s ease;
+  margin-bottom: 1rem;
+  display: inline-block;
 }
 
-.back-button:hover {
+.dec-save-button:hover,
+.dec-back-button:hover {
   background-color: #ffcc00;
   color: #121212;
+  box-shadow: 0 0 15px #ffcc00ff, 0 0 20px #ffd633ff;
+}
+
+.dec-save-button:active,
+.dec-back-button:active {
+  background-color: #e6b800;
+  box-shadow: 0 0 10px #e6b800cc;
+  transform: scale(0.97);
+}
+
+.dec-criteria-list {
+  margin-bottom: 2rem;
+}
+
+.dec-criteria-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+  color: #ddd;
+  font-size: 1rem;
+  user-select: none;
+}
+
+.dec-criteria-item input[type="checkbox"] {
+  margin-top: 0.25rem;
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  accent-color: #ffcc00;
+  flex-shrink: 0;
+}
+
+.dec-criteria-item span em {
+  font-weight: 700;
+  color: #ffd633;
+  margin-left: 0.3rem;
+}
+
+.dec-result-block h2 {
+  color: #ffcc00;
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.dec-result.passed {
+  background-color: #003300aa;
+  border: 2px solid #00cc00;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 0 12px #00cc00bb;
+  color: #b9f6ca;
+  font-weight: 600;
+}
+
+.dec-result.passed blockquote {
+  margin-top: 0.6rem;
+  font-style: italic;
+  color: #a2f5a2;
+}
+
+.dec-result.failed {
+  background-color: #330000cc;
+  border: 2px solid #cc0000;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 0 12px #cc0000bb;
+  color: #f6a2a2;
+  font-weight: 600;
+}
+
+.dec-result.failed p {
+  margin-top: 0.4rem;
+  font-style: italic;
+  color: #fbbcbc;
+}
+
+@media (max-width: 480px) {
+  .dec-page-container {
+    padding: 1.2rem 0.8rem;
+  }
+  .dec-section-title {
+    font-size: 1.6rem;
+  }
+  .dec-save-button,
+  .dec-back-button {
+    width: 100%;
+    text-align: center;
+  }
 }

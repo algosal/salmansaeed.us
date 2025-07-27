@@ -98,7 +98,6 @@ const DisregardedClassifier = () => {
     );
   };
 
-  // Calculate total points for selected criteria
   const totalPoints = selected.reduce((sum, id) => {
     const crit = criteria.find((c) => c.id === id);
     return crit ? sum + crit.points : sum;
@@ -106,7 +105,6 @@ const DisregardedClassifier = () => {
 
   const isDisregarded = totalPoints >= POINTS_THRESHOLD;
 
-  // Save alert placeholder
   const handleSave = () => {
     alert(
       `Save Request\nName: ${name || "[No name entered]"}\nCriteria matched: ${
@@ -116,10 +114,9 @@ const DisregardedClassifier = () => {
   };
 
   return (
-    <div className="page-container">
-      <h1 className="section-title">Disregarded Entity Classifier</h1>
-
-      <div className="input-block">
+    <div className="dec-page-container">
+      <h1 className="dec-section-title">Disregarded Entity Classifier</h1>
+      <div className="dec-input-block">
         <label htmlFor="nameInput">Enter their name:</label>
         <input
           id="nameInput"
@@ -130,35 +127,25 @@ const DisregardedClassifier = () => {
         />
       </div>
 
-      <button
-        onClick={handleSave}
-        className="save-button"
-        style={{ marginBottom: "1rem" }}
-      >
-        Save
-      </button>
-
-      <div className="criteria-list">
+      <div className="dec-criteria-list">
         {criteria.map((c) => (
-          <label key={c.id} className="criteria-item">
+          <label key={c.id} className="dec-criteria-item">
             <input
               type="checkbox"
               checked={selected.includes(c.id)}
               onChange={() => handleToggle(c.id)}
             />
             <span>
-              {c.text}{" "}
-              <em style={{ fontWeight: "bold" }}>(Points: {c.points})</em>
+              {c.text} <em>(Points: {c.points})</em>
             </span>
           </label>
         ))}
       </div>
-
-      <div className="result-block">
+      <div className="dec-result-block">
         <h2>Result:</h2>
         {name ? (
           isDisregarded ? (
-            <div className="result passed">
+            <div className="dec-result passed">
               ✅ <strong>{name}</strong> qualifies as a{" "}
               <u>Disregarded Entity</u>.
               <blockquote>
@@ -167,7 +154,7 @@ const DisregardedClassifier = () => {
               </blockquote>
             </div>
           ) : (
-            <div className="result failed">
+            <div className="dec-result failed">
               ❌ <strong>{name}</strong> does <u>not yet</u> meet the threshold
               for being Disregarded.
               <p>Further healing or clarity may still be in process.</p>
@@ -177,14 +164,18 @@ const DisregardedClassifier = () => {
           <p>Enter a name and check applicable criteria above.</p>
         )}
       </div>
+      <div className="dec-buttons-container">
+        <button onClick={handleSave} className="dec-save-button">
+          Save
+        </button>
 
-      <button
-        onClick={() => navigate("/DisregardedEntities")}
-        className="back-button"
-        style={{ marginTop: "2rem" }}
-      >
-        ← Back to Disregarded Entities
-      </button>
+        <button
+          onClick={() => navigate("/DisregardedEntities")}
+          className="dec-back-button"
+        >
+          ← Back to Disregarded Entities
+        </button>
+      </div>
     </div>
   );
 };
