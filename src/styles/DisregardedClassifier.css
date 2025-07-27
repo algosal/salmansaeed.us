@@ -1,3 +1,5 @@
+/* DisregardedClassifier.css */
+
 .dec-page-container {
   max-width: 700px;
   margin: 0 auto;
@@ -37,6 +39,7 @@
   color: #eee;
   box-shadow: inset 0 0 5px #ffcc00bb;
   transition: border-color 0.3s ease;
+  margin-bottom: 1.5rem; /* Space below input */
 }
 
 .dec-input-block input:focus {
@@ -45,40 +48,45 @@
   box-shadow: 0 0 12px #ffd633cc;
 }
 
-.dec-save-button,
-.dec-back-button {
-  background-color: transparent;
-  border: 2px solid #ffcc00;
-  color: #ffcc00;
-  padding: 10px 22px;
+.dec-buttons-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+}
+
+.dec-button {
+  flex: 1 1 auto;
+  padding: 12px 16px;
   font-size: 1.1rem;
   font-weight: 700;
+  color: #121212;
+  background-color: #ffcc00;
+  border: none;
   border-radius: 8px;
   cursor: pointer;
+  box-shadow: 0 0 8px #ffcc00aa;
   text-transform: uppercase;
   letter-spacing: 1.2px;
-  box-shadow: 0 0 8px #ffcc00aa;
-  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.4s ease;
-  margin-bottom: 1rem;
-  display: inline-block;
+  transition: background-color 0.3s ease;
+  user-select: none;
+  text-align: center;
 }
 
-.dec-save-button:hover,
-.dec-back-button:hover {
-  background-color: #ffcc00;
-  color: #121212;
-  box-shadow: 0 0 15px #ffcc00ff, 0 0 20px #ffd633ff;
-}
-
-.dec-save-button:active,
-.dec-back-button:active {
+.dec-button:hover {
   background-color: #e6b800;
-  box-shadow: 0 0 10px #e6b800cc;
+}
+
+.dec-button:active {
+  background-color: #c9a500;
+  box-shadow: 0 0 10px #c9a500cc;
   transform: scale(0.97);
 }
 
 .dec-criteria-list {
   margin-bottom: 2rem;
+  user-select: none;
 }
 
 .dec-criteria-item {
@@ -88,7 +96,7 @@
   margin-bottom: 1rem;
   color: #ddd;
   font-size: 1rem;
-  user-select: none;
+  cursor: pointer;
 }
 
 .dec-criteria-item input[type="checkbox"] {
@@ -98,6 +106,8 @@
   height: 18px;
   accent-color: #ffcc00;
   flex-shrink: 0;
+  position: relative;
+  z-index: 1; /* ensure input is clickable */
 }
 
 .dec-criteria-item span em {
@@ -120,6 +130,7 @@
   box-shadow: 0 0 12px #00cc00bb;
   color: #b9f6ca;
   font-weight: 600;
+  margin-bottom: 1rem;
 }
 
 .dec-result.passed blockquote {
@@ -136,12 +147,23 @@
   box-shadow: 0 0 12px #cc0000bb;
   color: #f6a2a2;
   font-weight: 600;
+  margin-bottom: 1rem;
 }
 
 .dec-result.failed p {
   margin-top: 0.4rem;
   font-style: italic;
   color: #fbbcbc;
+}
+.dec-result-link {
+  color: #ffd633;
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.dec-result-link:hover {
+  color: #ffcc00;
 }
 
 @media (max-width: 480px) {
@@ -151,9 +173,10 @@
   .dec-section-title {
     font-size: 1.6rem;
   }
-  .dec-save-button,
-  .dec-back-button {
-    width: 100%;
-    text-align: center;
+  .dec-buttons-container {
+    flex-direction: column;
+  }
+  .dec-button {
+    flex: 1 1 100%;
   }
 }

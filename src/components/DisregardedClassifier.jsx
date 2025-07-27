@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // for navigation
+import { useNavigate, Link } from "react-router-dom"; // added Link
 import "../styles/DisregardedClassifier.css";
 
 const criteria = [
@@ -141,13 +141,17 @@ const DisregardedClassifier = () => {
           </label>
         ))}
       </div>
+
       <div className="dec-result-block">
         <h2>Result:</h2>
         {name ? (
           isDisregarded ? (
             <div className="dec-result passed">
               ✅ <strong>{name}</strong> qualifies as a{" "}
-              <u>Disregarded Entity</u>.
+              <Link to="/DisregardedEntities" className="dec-result-link">
+                <u>Disregarded Entity</u>
+              </Link>
+              .
               <blockquote>
                 “You once mattered. Now you are mist. I honor your role. I
                 release your hold.”
@@ -155,8 +159,11 @@ const DisregardedClassifier = () => {
             </div>
           ) : (
             <div className="dec-result failed">
-              ❌ <strong>{name}</strong> does <u>not yet</u> meet the threshold
-              for being Disregarded.
+              ❌ <strong>{name}</strong> does{" "}
+              <Link to="/DisregardedEntities" className="dec-result-link">
+                <u>not yet</u>
+              </Link>{" "}
+              meet the threshold for being Disregarded.
               <p>Further healing or clarity may still be in process.</p>
             </div>
           )
@@ -164,14 +171,14 @@ const DisregardedClassifier = () => {
           <p>Enter a name and check applicable criteria above.</p>
         )}
       </div>
+
       <div className="dec-buttons-container">
-        <button onClick={handleSave} className="dec-save-button">
+        <button onClick={handleSave} className="dec-button">
           Save
         </button>
-
         <button
           onClick={() => navigate("/DisregardedEntities")}
-          className="dec-back-button"
+          className="dec-button dec-back-button"
         >
           ← Back to Disregarded Entities
         </button>
