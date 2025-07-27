@@ -7,113 +7,129 @@ const criteria = [
     id: 1,
     text: "The emotional loop is complete — no need for apology, revenge, or reconciliation.",
     points: 1,
-    short: "Loop",
-    sin: "Pride",
+    sin: "Wrath",
+    summary:
+      "Completion of the emotional cycle removes anger or resentment. Holding on often ties to wrath or desire for retribution.",
   },
   {
     id: 2,
     text: "Their name, image, or memory no longer causes a physical reaction.",
     points: 1,
-    short: "No React",
     sin: "Sloth",
+    summary:
+      "Indifference signals emotional neutrality. Reactivity means unresolved emotions or attachment.",
   },
   {
     id: 3,
     text: "The connection was mostly one-way — draining or transactional.",
     points: 1,
-    short: "One-Way",
     sin: "Greed",
+    summary:
+      "When someone only takes without giving, they reflect energetic greed. Letting go restores balance.",
   },
   {
     id: 4,
     text: "They play no role in your higher self / ideal life vision.",
     points: 1,
-    short: "No Role",
     sin: "Envy",
+    summary:
+      "If their presence hinders your growth or is based on comparison, they anchor you to envy or misalignment.",
   },
   {
     id: 5,
     text: "They’ve become a symbol or archetype in your mind — not a person.",
     points: 1,
-    short: "Symbol",
-    sin: "Wrath",
+    sin: "Pride",
+    summary:
+      "Detaching personal identity turns them into a lesson. Pride dissolves as the person becomes symbolic.",
   },
   {
     id: 6,
     text: "You feel you’ve fully learned the lesson they were meant to teach.",
     points: 1,
-    short: "Lesson",
-    sin: "Pride",
+    sin: "Lust",
+    summary:
+      "Many bonds, especially romantic or obsessive ones, tie to lust. Learning the lesson allows release.",
   },
   {
     id: 7,
     text: "You no longer check their social media or wonder about them.",
     points: 1,
-    short: "No Check",
-    sin: "Sloth",
+    sin: "Gluttony",
+    summary:
+      "Overconsumption of their digital presence reflects gluttony of attention. Releasing this returns power.",
   },
   {
     id: 8,
     text: "If they reached out now, you’d feel no urgency to respond.",
     points: 1,
-    short: "No Urgency",
     sin: "Sloth",
+    summary:
+      "Emotional detachment here reflects peaceful disengagement, not laziness, but true release.",
   },
   {
     id: 9,
     text: "They show a pattern of low respect, poor character, or manipulative attitude.",
     points: 2,
-    short: "Disrespect",
-    sin: "Wrath",
+    sin: "Pride",
+    summary:
+      "Persistent manipulation stems from pride and ego. Letting go protects your self-respect.",
   },
   {
     id: 10,
     text: "Their presence lowered your self-worth, delayed your purpose, or confused your moral compass.",
     points: 2,
-    short: "Low Worth",
-    sin: "Sloth",
+    sin: "Envy",
+    summary:
+      "If you lost yourself in their shadow, envy or misdirection dominated the connection.",
   },
   {
     id: 11,
     text: "They consistently disrespect your boundaries or values.",
     points: 2,
-    short: "Boundary Break",
     sin: "Wrath",
+    summary:
+      "Chronic disrespect causes anger or spiritual misalignment. Releasing them protects peace.",
   },
   {
     id: 12,
     text: "Their behavior toward you was often passive-aggressive, dismissive, or controlling.",
     points: 2,
-    short: "Toxic",
-    sin: "Greed",
+    sin: "Pride",
+    summary:
+      "Control dynamics often arise from inflated ego. Detaching preserves autonomy.",
   },
   {
     id: 13,
     text: "They caused repeated emotional chaos or drama without accountability.",
     points: 2,
-    short: "Drama",
-    sin: "Wrath",
+    sin: "Gluttony",
+    summary:
+      "Emotional chaos can be addictive. Releasing such patterns ends drama addiction.",
   },
   {
     id: 14,
     text: "You no longer feel curiosity, longing, or nostalgia toward them.",
     points: 1,
-    short: "No Longing",
-    sin: "Sloth",
+    sin: "Lust",
+    summary:
+      "Emotional neutrality here marks the fading of lust or longing-based ties.",
   },
   {
     id: 15,
     text: "Their involvement obstructed your spiritual or personal growth.",
     points: 2,
-    short: "Blocked Growth",
     sin: "Envy",
+    summary:
+      "If they hinder evolution, they anchor envy or stagnation. Letting go allows transcendence.",
   },
   {
     id: 16,
     text: "You feel mentally and emotionally free when thinking about them, not triggered.",
     points: 1,
-    short: "Freedom",
     sin: "Sloth",
+    summary:
+      "This peace reflects spiritual stillness, not detachment through numbness, but integration.",
   },
 ];
 
@@ -189,6 +205,13 @@ const Graph = ({ data }) => {
           t
         );
 
+        // Convert sin label to vertical text with line breaks:
+        const sinLabel = c.sin.split("").map((char, idx) => (
+          <tspan key={idx} x={x + barWidth / 2} dy={idx === 0 ? 0 : 14}>
+            {char}
+          </tspan>
+        ));
+
         return (
           <g
             key={c.id}
@@ -231,7 +254,7 @@ const Graph = ({ data }) => {
             </text>
             <text
               x={x + barWidth / 2}
-              y={y + barHeight / 2 + 5}
+              y={y + barHeight / 2}
               fill="rgba(255, 255, 255, 0.85)"
               fontSize={barHeight > 30 ? 16 : 12}
               fontWeight="700"
@@ -241,9 +264,13 @@ const Graph = ({ data }) => {
                 userSelect: "none",
                 fontStyle: "italic",
                 textShadow: "0 0 3px #000000aa",
+                whiteSpace: "pre",
               }}
             >
-              {deadlySinsIcons[c.sin]} {c.sin}
+              {deadlySinsIcons[c.sin]}
+              <tspan x={x + barWidth / 2} dy="1.2em">
+                {sinLabel}
+              </tspan>
             </text>
           </g>
         );
