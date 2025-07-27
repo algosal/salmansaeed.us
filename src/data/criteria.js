@@ -3,6 +3,7 @@
 const criteria = [
   {
     id: 1,
+    shortName: "Mental Loop",
     text: "The emotional loop is complete — no need for apology, revenge, or reconciliation.",
     points: 1,
     sin: "Wrath",
@@ -11,6 +12,7 @@ const criteria = [
   },
   {
     id: 2,
+    shortName: "No Reaction",
     text: "Their name, image, or memory no longer causes a physical reaction.",
     points: 1,
     sin: "Sloth",
@@ -19,6 +21,7 @@ const criteria = [
   },
   {
     id: 3,
+    shortName: "No Threat",
     text: "They do not represent a source of future betrayal, chaos, or energetic drain.",
     points: 1,
     sin: "Envy",
@@ -27,6 +30,7 @@ const criteria = [
   },
   {
     id: 4,
+    shortName: "Outgrown Bond",
     text: "No longer spiritually, mentally, or emotionally resonant — even if history was strong.",
     points: 1,
     sin: "Pride",
@@ -35,6 +39,7 @@ const criteria = [
   },
   {
     id: 5,
+    shortName: "Failed Communication",
     text: "You've tried communicating with clarity but they remain defensive, manipulative, or elusive.",
     points: 1,
     sin: "Pride",
@@ -43,6 +48,7 @@ const criteria = [
   },
   {
     id: 6,
+    shortName: "Lesson Done",
     text: "They symbolize a karmic loop or lesson that has been fully learned.",
     points: 1,
     sin: "Greed",
@@ -51,6 +57,7 @@ const criteria = [
   },
   {
     id: 7,
+    shortName: "Unavailable Pattern",
     text: "They consistently choose selfishness, disloyalty, or emotional absence — even if subtly.",
     points: 1,
     sin: "Lust",
@@ -59,6 +66,7 @@ const criteria = [
   },
   {
     id: 8,
+    shortName: "Forgiven ≠ Access",
     text: "Forgiveness has been given — but access is no longer warranted.",
     points: 1,
     sin: "Wrath",
@@ -67,6 +75,7 @@ const criteria = [
   },
   {
     id: 9,
+    shortName: "Past Self",
     text: "They remind you of past versions of yourself you’ve transcended.",
     points: 1,
     sin: "Sloth",
@@ -75,6 +84,7 @@ const criteria = [
   },
   {
     id: 10,
+    shortName: "Boundary Breaker",
     text: "They do not respect boundaries — subtle or stated.",
     points: 1,
     sin: "Pride",
@@ -83,6 +93,7 @@ const criteria = [
   },
   {
     id: 11,
+    shortName: "Energetic Drain",
     text: "Your body tightens, your spirit contracts, or you feel drained around their memory.",
     points: 1,
     sin: "Envy",
@@ -91,6 +102,7 @@ const criteria = [
   },
   {
     id: 12,
+    shortName: "Spiritual Expiry",
     text: "They triggered awakening, but now represent stagnation.",
     points: 1,
     sin: "Greed",
@@ -99,6 +111,7 @@ const criteria = [
   },
   {
     id: 13,
+    shortName: "Disloyal to Healing",
     text: "They once mattered deeply, but clinging now feels disloyal to your healing.",
     points: 1,
     sin: "Lust",
@@ -107,6 +120,7 @@ const criteria = [
   },
   {
     id: 14,
+    shortName: "No Peace",
     text: "The thought of seeing them again brings no peace, only stress or analysis.",
     points: 1,
     sin: "Wrath",
@@ -115,6 +129,7 @@ const criteria = [
   },
   {
     id: 15,
+    shortName: "Distrust",
     text: "You would not trust them with a dream, secret, or a deeply vulnerable truth.",
     points: 1,
     sin: "Pride",
@@ -123,6 +138,7 @@ const criteria = [
   },
   {
     id: 16,
+    shortName: "Stagnant Mind",
     text: "They are spiritually closed, intellectually rigid, or emotionally shallow.",
     points: 1,
     sin: "Sloth",
