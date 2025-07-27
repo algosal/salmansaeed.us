@@ -1,197 +1,187 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../styles/DisregardedClassifier.css";
-
-// Deadly sins symbols (simple unicode icons or emojis)
-const deadlySinsIcons = {
-  Pride: "👑",
-  Sloth: "🦥",
-  Greed: "💰",
-  Wrath: "🔥",
-  Envy: "👀",
-};
 
 const criteria = [
   {
     id: 1,
     text: "The emotional loop is complete — no need for apology, revenge, or reconciliation.",
     points: 1,
-    short: "Loop Closed",
+    short: "Loop",
     sin: "Pride",
   },
   {
     id: 2,
     text: "Their name, image, or memory no longer causes a physical reaction.",
     points: 1,
-    short: "No Reaction",
+    short: "No React",
     sin: "Sloth",
   },
   {
     id: 3,
     text: "The connection was mostly one-way — draining or transactional.",
     points: 1,
-    short: "One-way Drain",
+    short: "One-Way",
     sin: "Greed",
   },
   {
     id: 4,
     text: "They play no role in your higher self / ideal life vision.",
     points: 1,
-    short: "No Role Vision",
-    sin: "Sloth",
+    short: "No Role",
+    sin: "Envy",
   },
   {
     id: 5,
     text: "They’ve become a symbol or archetype in your mind — not a person.",
     points: 1,
-    short: "Symbolized Ego",
-    sin: "Pride",
+    short: "Symbol",
+    sin: "Wrath",
   },
   {
     id: 6,
     text: "You feel you’ve fully learned the lesson they were meant to teach.",
     points: 1,
-    short: "Learned Lesson",
+    short: "Lesson",
     sin: "Pride",
   },
   {
     id: 7,
     text: "You no longer check their social media or wonder about them.",
     points: 1,
-    short: "No Curiosity",
+    short: "No Check",
     sin: "Sloth",
   },
   {
     id: 8,
     text: "If they reached out now, you’d feel no urgency to respond.",
     points: 1,
-    short: "No Urgency Reply",
-    sin: "Wrath",
+    short: "No Urgency",
+    sin: "Sloth",
   },
   {
     id: 9,
     text: "They show a pattern of low respect, poor character, or manipulative attitude.",
     points: 2,
-    short: "Poor Respect",
+    short: "Disrespect",
     sin: "Wrath",
   },
   {
     id: 10,
     text: "Their presence lowered your self-worth, delayed your purpose, or confused your moral compass.",
     points: 2,
-    short: "Lowered Self-Worth",
-    sin: "Envy",
+    short: "Low Worth",
+    sin: "Sloth",
   },
   {
     id: 11,
     text: "They consistently disrespect your boundaries or values.",
     points: 2,
-    short: "Disrespects Bound.",
+    short: "Boundary Break",
     sin: "Wrath",
   },
   {
     id: 12,
     text: "Their behavior toward you was often passive-aggressive, dismissive, or controlling.",
     points: 2,
-    short: "Passive-Aggressive",
-    sin: "Wrath",
+    short: "Toxic",
+    sin: "Greed",
   },
   {
     id: 13,
     text: "They caused repeated emotional chaos or drama without accountability.",
     points: 2,
-    short: "Emotional Chaos",
+    short: "Drama",
     sin: "Wrath",
   },
   {
     id: 14,
     text: "You no longer feel curiosity, longing, or nostalgia toward them.",
     points: 1,
-    short: "No Nostalgia",
+    short: "No Longing",
     sin: "Sloth",
   },
   {
     id: 15,
     text: "Their involvement obstructed your spiritual or personal growth.",
     points: 2,
-    short: "Obstructed Growth",
+    short: "Blocked Growth",
     sin: "Envy",
   },
   {
     id: 16,
     text: "You feel mentally and emotionally free when thinking about them, not triggered.",
     points: 1,
-    short: "Mentally Free",
-    sin: "Pride",
+    short: "Freedom",
+    sin: "Sloth",
   },
 ];
 
 const POINTS_THRESHOLD = 6;
 
-const colorGradient = ["#ffcc00", "#ffd633", "#00ffcc"]; // Gold to cyan
-
-// Helper to interpolate color between two colors by t [0-1]
-const interpolateColor = (color1, color2, t) => {
-  const c1 = color1.match(/\w\w/g).map((x) => parseInt(x, 16));
-  const c2 = color2.match(/\w\w/g).map((x) => parseInt(x, 16));
-  const c = c1.map((v, i) => Math.round(v + (c2[i] - v) * t));
-  return `rgb(${c[0]},${c[1]},${c[2]})`;
+const deadlySinsIcons = {
+  Pride: "👑",
+  Greed: "💰",
+  Wrath: "🔥",
+  Envy: "👀",
+  Lust: "❤️",
+  Gluttony: "🍽️",
+  Sloth: "😴",
 };
 
-const Graph = ({ selectedCriteria }) => {
+const interpolateColor = (color1, color2, factor) => {
+  const c1 = parseInt(color1.slice(1), 16);
+  const c2 = parseInt(color2.slice(1), 16);
+
+  const r1 = (c1 >> 16) & 0xff;
+  const g1 = (c1 >> 8) & 0xff;
+  const b1 = c1 & 0xff;
+
+  const r2 = (c2 >> 16) & 0xff;
+  const g2 = (c2 >> 8) & 0xff;
+  const b2 = c2 & 0xff;
+
+  const r = Math.round(r1 + factor * (r2 - r1));
+  const g = Math.round(g1 + factor * (g2 - g1));
+  const b = Math.round(b1 + factor * (b2 - b1));
+
+  return `rgb(${r},${g},${b})`;
+};
+
+const Graph = ({ data }) => {
   const width = 700;
-  const height = 220;
+  const height = 300;
   const padding = 50;
-
-  // Selected criteria data sorted
-  const data = criteria
-    .filter((c) => selectedCriteria.includes(c.id))
-    .sort((a, b) => a.id - b.id);
-
-  if (data.length === 0) return null;
-
-  const maxPoints = 2;
   const barWidth = (width - padding * 2) / data.length - 10;
 
-  // Total integral scaling factor, scale a bit higher than threshold for visual breathing room
-  const integralMax = POINTS_THRESHOLD * 2;
+  const maxPoints = Math.max(...data.map((d) => d.points));
+
+  const integral = data.reduce((sum, d) => sum + d.points, 0);
+
+  const colorGradient = ["#ffcc00", "#ffd633", "#00cc66"];
 
   return (
     <svg
       width={width}
-      height={height + padding}
-      style={{
-        background: "#121212",
-        borderRadius: 8,
-        marginTop: "2rem",
-        boxShadow: "0 0 10px #ffd633aa",
-      }}
+      height={height + 60}
+      role="img"
+      aria-label="Disregarded Entity Criteria Points Graph"
+      style={{ backgroundColor: "#121212", borderRadius: "8px" }}
     >
-      {/* Axes */}
       <line
         x1={padding}
         y1={height}
         x2={width - padding}
         y2={height}
-        stroke="#ffcc00"
-        strokeWidth="2"
-      />
-      <line
-        x1={padding}
-        y1={0}
-        x2={padding}
-        y2={height}
-        stroke="#ffcc00"
+        stroke="#ffd633"
         strokeWidth="2"
       />
 
-      {/* Bars */}
       {data.map((c, i) => {
         const barHeight = (c.points / maxPoints) * (height - 40);
         const x = padding + i * (barWidth + 10);
         const y = height - barHeight;
 
-        // Color interpolation for bars based on index to give gradient effect
         const t = i / (data.length - 1 || 1);
         const fillColor = interpolateColor(
           colorGradient[0],
@@ -207,7 +197,6 @@ const Graph = ({ selectedCriteria }) => {
               deadlySinsIcons[c.sin]
             }`}
           >
-            {/* Bar */}
             <rect
               x={x}
               y={y}
@@ -217,36 +206,6 @@ const Graph = ({ selectedCriteria }) => {
               rx="5"
               ry="5"
             />
-            {/* Bar label - short name */}
-            <text
-              x={x + barWidth / 2}
-              y={height + 20}
-              fill="#ffd633"
-              fontSize="11"
-              textAnchor="middle"
-              pointerEvents="none"
-              style={{ userSelect: "none", fontWeight: "600" }}
-            >
-              {c.short}
-            </text>
-            {/* Sin icon */}
-            <text
-              x={x + barWidth / 2}
-              y={height + 35}
-              fill="#ff9933"
-              fontSize="14"
-              textAnchor="middle"
-              pointerEvents="none"
-              style={{
-                userSelect: "none",
-                fontWeight: "700",
-                fontStyle: "italic",
-              }}
-              aria-label={`Related sin: ${c.sin}`}
-            >
-              {deadlySinsIcons[c.sin]}
-            </text>
-            {/* Points above bar */}
             <text
               x={x + barWidth / 2}
               y={y - 8}
@@ -259,39 +218,46 @@ const Graph = ({ selectedCriteria }) => {
             >
               {c.points}
             </text>
+            <text
+              x={x + barWidth / 2}
+              y={height + 20}
+              fill="#ffd633"
+              fontSize="11"
+              textAnchor="middle"
+              pointerEvents="none"
+              style={{ userSelect: "none", fontWeight: "600" }}
+            >
+              {c.short}
+            </text>
+            <text
+              x={x + barWidth / 2}
+              y={y + barHeight / 2 + 5}
+              fill="rgba(255, 255, 255, 0.85)"
+              fontSize={barHeight > 30 ? 16 : 12}
+              fontWeight="700"
+              textAnchor="middle"
+              pointerEvents="none"
+              style={{
+                userSelect: "none",
+                fontStyle: "italic",
+                textShadow: "0 0 3px #000000aa",
+              }}
+            >
+              {deadlySinsIcons[c.sin]} {c.sin}
+            </text>
           </g>
         );
       })}
 
-      {/* Integral polyline */}
-      <polyline
-        fill="none"
-        stroke="#00ffcc"
-        strokeWidth="3"
-        points={data
-          .map((c, i) => {
-            const x = padding + i * (barWidth + 10) + barWidth / 2;
-            const cumulativePoints = data
-              .slice(0, i + 1)
-              .reduce((sum, item) => sum + item.points, 0);
-            const y = height - (cumulativePoints / integralMax) * (height - 50);
-            return `${x},${y}`;
-          })
-          .join(" ")}
-      />
-
-      {/* Total points text */}
       <text
-        x={width - padding}
-        y={padding / 2}
-        fill="#00ffcc"
+        x={width / 2}
+        y={height + 50}
+        fill="#ffd633"
         fontSize="20"
         fontWeight="700"
-        textAnchor="end"
-        pointerEvents="none"
-        style={{ userSelect: "none" }}
+        textAnchor="middle"
       >
-        Total: {data.reduce((sum, c) => sum + c.points, 0)}
+        Total Score (Integral): {integral}
       </text>
     </svg>
   );
@@ -307,7 +273,6 @@ const DisregardedClassifier = () => {
     setSelected((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
-    setShowGraph(false); // hide graph on change to refresh visualization
   };
 
   const totalPoints = selected.reduce((sum, id) => {
@@ -318,12 +283,21 @@ const DisregardedClassifier = () => {
   const isDisregarded = totalPoints >= POINTS_THRESHOLD;
 
   const handleSave = () => {
+    if (!name) {
+      alert("Please enter a name first.");
+      return;
+    }
+    if (selected.length === 0) {
+      alert("Please select at least one criterion.");
+      return;
+    }
     setShowGraph(true);
   };
 
   return (
     <div className="dec-page-container">
       <h1 className="dec-section-title">Disregarded Entity Classifier</h1>
+
       <div className="dec-input-block">
         <label htmlFor="nameInput">Enter their name:</label>
         <input
@@ -337,13 +311,7 @@ const DisregardedClassifier = () => {
 
       <div className="dec-criteria-list">
         {criteria.map((c) => (
-          <label
-            key={c.id}
-            className="dec-criteria-item"
-            title={`${c.text} (Points: ${c.points}, Sin: ${c.sin} ${
-              deadlySinsIcons[c.sin]
-            })`}
-          >
+          <label key={c.id} className="dec-criteria-item">
             <input
               type="checkbox"
               checked={selected.includes(c.id)}
@@ -356,17 +324,18 @@ const DisregardedClassifier = () => {
         ))}
       </div>
 
-      {showGraph && <Graph selectedCriteria={selected} />}
-
       <div className="dec-result-block">
         <h2>Result:</h2>
         {name ? (
           isDisregarded ? (
             <div className="dec-result passed">
-              ✅ <strong>{name}</strong> qualifies as a{" "}
-              <Link to="/DisregardedEntities" className="dec-result-link">
-                <u>Disregarded Entity</u>
-              </Link>
+              ✅ <strong>{name}</strong>{" "}
+              <a
+                href="/DisregardedEntities"
+                style={{ color: "#ffd633", textDecoration: "underline" }}
+              >
+                qualifies as a Disregarded Entity
+              </a>
               .
               <blockquote>
                 “You once mattered. Now you are mist. I honor your role. I
@@ -375,12 +344,14 @@ const DisregardedClassifier = () => {
             </div>
           ) : (
             <div className="dec-result failed">
-              ❌ <strong>{name}</strong> does{" "}
-              <Link to="/DisregardedEntities" className="dec-result-link">
-                <u>not yet</u>
-              </Link>{" "}
-              meet the threshold for being Disregarded.
-              <p>Further healing or clarity may still be in process.</p>
+              ❌ <strong>{name}</strong>{" "}
+              <a
+                href="/DisregardedEntities"
+                style={{ color: "#ffd633", textDecoration: "underline" }}
+              >
+                does not yet meet the threshold for being Disregarded
+              </a>
+              .<p>Further healing or clarity may still be in process.</p>
             </div>
           )
         ) : (
@@ -388,9 +359,19 @@ const DisregardedClassifier = () => {
         )}
       </div>
 
-      <div className="dec-buttons-container">
-        <button onClick={handleSave} className="dec-button">
-          Save & Show Graph
+      {showGraph && (
+        <div className="dec-graph-container">
+          <h2>Criteria Points Graph</h2>
+          <Graph data={criteria.filter((c) => selected.includes(c.id))} />
+        </div>
+      )}
+
+      <div
+        className="dec-buttons-container"
+        style={{ justifyContent: "flex-end" }}
+      >
+        <button onClick={handleSave} className="dec-button dec-save-button">
+          Save
         </button>
         <button
           onClick={() => navigate("/DisregardedEntities")}
