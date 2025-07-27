@@ -1,9 +1,17 @@
 RewriteEngine On
 RewriteBase /
 
-# Redirect all requests to index.html except for existing files/folders
+# Skip rewrite for existing files and directories
 
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# Skip rewrite for the /static-data/ folder
+
+RewriteCond %{REQUEST_URI} ^/static-data/
+RewriteRule ^ - [L]
+
+# Redirect everything else to index.html
 
 RewriteRule ^ index.html [L]

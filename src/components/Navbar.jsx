@@ -109,7 +109,7 @@ function Navbar() {
               <NavLink to="/GraphNavPanel" onClick={toggleMenu}>
                 Graphs
               </NavLink>
-            </li>
+            </li>{" "}
           </ul>
         </div>
       )}

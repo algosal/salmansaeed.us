@@ -13,6 +13,8 @@ const GraphNavPanel = () => {
     { label: "Metaphysical Reflections", path: "/MetaphysicalReflections" },
     { label: "Mental Momentum", path: "/MentalMomentum" },
     { label: "Emotional Inertia", path: "/EmotionalInertia" },
+    { label: "Disregarded Entities", path: "/DisregardedEntities" },
+    { label: "DE Criteria List", path: "/CriteriaList" },
   ];
 
   return (
