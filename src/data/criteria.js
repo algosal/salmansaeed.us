@@ -179,6 +179,52 @@ const criteria = [
     summary:
       "Expansive spirituality honors the divine in all forms. When one transcends dogma with humility, truth flows freely.",
   },
+  // ✨ Virtue Boosts — These reduce the overall disregard score
+  {
+    id: 21,
+    shortName: "Grace Under Fire",
+    text: "They handle conflict with maturity, clarity, and calm presence.",
+    points: -4,
+    sin: "Virtue",
+    summary:
+      "Grace in conflict shows inner mastery — a sign of emotional intelligence and self-possession.",
+  },
+  {
+    id: 22,
+    shortName: "Empathic Depth",
+    text: "They demonstrate deep, intuitive empathy — even toward those who wronged them.",
+    points: -5,
+    sin: "Virtue",
+    summary:
+      "Empathy toward all beings — especially difficult ones — reflects spiritual depth and humility.",
+  },
+  {
+    id: 23,
+    shortName: "Truth Carrier",
+    text: "They speak truth gently, consistently — even when it’s hard.",
+    points: -3,
+    sin: "Virtue",
+    summary:
+      "Honesty with compassion is a rare virtue. When truth becomes love, it transcends ego.",
+  },
+  {
+    id: 24,
+    shortName: "Accountability",
+    text: "They take ownership of their impact — without deflection or shame spirals.",
+    points: -4,
+    sin: "Virtue",
+    summary:
+      "True strength lies in accountability. It builds trust and accelerates healing.",
+  },
+  {
+    id: 25,
+    shortName: "Elevates Others",
+    text: "They actively support others' growth, joy, and well-being — without hidden agenda.",
+    points: -5,
+    sin: "Virtue",
+    summary:
+      "When someone roots for others without competition, they move from wholeness — not lack.",
+  },
 ];
 
 export default criteria;
