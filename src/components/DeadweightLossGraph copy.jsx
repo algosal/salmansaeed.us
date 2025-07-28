@@ -56,7 +56,6 @@ const DeadweightLossGraph = ({ demand, supply }) => {
         viewBox={`0 0 ${width} ${height}`}
         preserveAspectRatio="xMidYMid meet"
       >
-        {/* Axes */}
         <line
           x1={margin.left}
           y1={margin.top + innerHeight}
@@ -72,7 +71,6 @@ const DeadweightLossGraph = ({ demand, supply }) => {
           className="axis-line"
         />
 
-        {/* Demand & Supply Lines */}
         <line
           x1={demandStart.x}
           y1={demandStart.y}
@@ -88,12 +86,10 @@ const DeadweightLossGraph = ({ demand, supply }) => {
           className="supply-line"
         />
 
-        {/* Labels */}
         <text
           x={demandEnd.x - 80}
           y={demandEnd.y - 15}
-          //   fill="#00ffff"
-          fill="#ffd700"
+          fill="#00ffff"
           fontSize={16}
           fontWeight="600"
         >
@@ -102,15 +98,13 @@ const DeadweightLossGraph = ({ demand, supply }) => {
         <text
           x={supplyEnd.x - 90}
           y={supplyEnd.y + 30}
-          //   fill="#ffd700"
-          fill="#00ffff"
+          fill="#ffd700"
           fontSize={16}
           fontWeight="600"
         >
           Supply (S)
         </text>
 
-        {/* Equilibrium point */}
         <circle cx={eqXClamped} cy={eqY} r={8} fill="#fff" />
         <text
           x={eqXClamped + 12}
@@ -122,7 +116,6 @@ const DeadweightLossGraph = ({ demand, supply }) => {
           EQ
         </text>
 
-        {/* Dotted Lines */}
         <line
           x1={eqXClamped}
           y1={eqY}
@@ -138,32 +131,29 @@ const DeadweightLossGraph = ({ demand, supply }) => {
           className="dotted-line"
         />
 
-        {/* Surplus Above EQ */}
-        {showSurplus && (
-          <polygon
-            points={`
-              ${eqXClamped},${eqY}
-              ${eqXClamped - 40},${eqY - 60}
-              ${eqXClamped + 40},${eqY - 60}
-            `}
-            className="area-surplus"
-          />
-        )}
-
-        {/* Deadweight Loss Below EQ */}
         {showDWL && (
           <polygon
             points={`
               ${eqXClamped},${eqY}
-              ${eqXClamped - 40},${eqY + 60}
-              ${eqXClamped + 40},${eqY + 60}
+              ${eqXClamped - 30},${eqY - 50}
+              ${eqXClamped + 30},${eqY - 50}
             `}
             className="area-loss"
           />
         )}
+
+        {showSurplus && (
+          <polygon
+            points={`
+              ${eqXClamped},${eqY}
+              ${eqXClamped - 30},${eqY + 50}
+              ${eqXClamped + 30},${eqY + 50}
+            `}
+            className="area-surplus"
+          />
+        )}
       </svg>
 
-      {/* Legend */}
       <div
         style={{
           maxWidth: width,
@@ -184,7 +174,7 @@ const DeadweightLossGraph = ({ demand, supply }) => {
             style={{
               width: 20,
               height: 20,
-              backgroundColor: "#ffd700", // Yellow = Demand
+              backgroundColor: "#00ffff",
               borderRadius: 3,
             }}
           />
@@ -195,7 +185,7 @@ const DeadweightLossGraph = ({ demand, supply }) => {
             style={{
               width: 20,
               height: 20,
-              backgroundColor: "#00ffff", // Cyan = Supply
+              backgroundColor: "#ffd700",
               borderRadius: 3,
             }}
           />
