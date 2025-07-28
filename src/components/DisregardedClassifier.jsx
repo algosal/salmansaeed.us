@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import criteria from "../data/criteria";
 import "../styles/DisregardedClassifier.css";
+import DeadweightLossGraph from "./DeadweightLossGraph";
 
 const DisregardedClassifier = () => {
   const [scores, setScores] = useState({});
@@ -52,13 +53,14 @@ const DisregardedClassifier = () => {
   });
 
   const percentage = ((totalPoints / maxPossiblePoints) * 100).toFixed(1);
-  // Calculate demand (Disregard Points)
+
+  // Calculate disregard points (sins)
   const disregardPoints = criteria.reduce(
     (acc, c) => acc + (scores[c.id] && c.points > 0 ? c.points : 0),
     0
   );
 
-  // Calculate redemption (Virtue Points)
+  // Calculate redemption points (virtues)
   const redemptionPoints = Math.abs(
     criteria.reduce(
       (acc, c) => acc + (scores[c.id] && c.points < 0 ? c.points : 0),
@@ -72,6 +74,11 @@ const DisregardedClassifier = () => {
   // Deadweight Loss or Surplus
   const deadweightLoss = demand > supply ? demand - supply : 0;
   const surplus = supply > demand ? supply - demand : 0;
+
+  // Equilibrium values for display
+  // const disregardDemand =
+  //   ((maxPossiblePoints - totalPoints) / maxPossiblePoints) * 100;
+  // const redemptionSupply = (totalPoints / maxPossiblePoints) * 100;
 
   return (
     <div className="classifier-page">
@@ -94,7 +101,7 @@ const DisregardedClassifier = () => {
           className="name-input"
         />
         {nameError && (
-          <p style={{ color: "crimson", marginTop: "6px", fontWeight: "600" }}>
+          <p style={{ color: "crimson", marginTop: 6, fontWeight: 600 }}>
             Please enter a name before saving.
           </p>
         )}
@@ -200,21 +207,18 @@ const DisregardedClassifier = () => {
               ) : (
                 <span>
                   ✅ {personName}{" "}
-                  <u>
-                    <a
-                      href="/reflections#DisregardedEntities"
-                      className="flag-link"
-                    >
-                      does not qualify
-                    </a>
+                  <u
+                    href="/reflections#DisregardedEntities"
+                    className="flag-link"
+                    as="a"
+                  >
+                    does not qualify
                   </u>{" "}
                   as a Disregarded Entity.
                 </span>
               )}
             </h3>
-            <p
-              style={{ marginTop: "4px", fontWeight: "600", color: "#ffd700" }}
-            >
+            <p style={{ marginTop: 4, fontWeight: 600, color: "#ffd700" }}>
               Score: {totalPoints} / {maxPossiblePoints} points ({percentage}%)
             </p>
 
@@ -253,14 +257,14 @@ const DisregardedClassifier = () => {
 
           <div
             style={{
-              marginTop: "30px",
-              padding: "15px",
+              marginTop: 30,
+              padding: 15,
               backgroundColor: "#1a1f35",
               borderLeft: "4px solid #00ffff",
-              borderRadius: "8px",
+              borderRadius: 8,
               fontFamily: "'Inter', sans-serif",
               color: "#00ffff",
-              fontWeight: "600",
+              fontWeight: 600,
               fontSize: "1rem",
               textAlign: "center",
             }}
@@ -276,6 +280,7 @@ const DisregardedClassifier = () => {
               Seriously flagged: {seriousThreshold} points (~35%)
             </p>
           </div>
+
           <h2 className="graph-title">Sins vs Virtues Equilibrium</h2>
           <div className="equilibrium-graph">
             <div className="equilibrium-bars">
@@ -290,17 +295,24 @@ const DisregardedClassifier = () => {
                   +{disregardPoints}
                 </div>
               </div>
-              <div className="virtue-bar">
-                <div className="label">Virtues</div>
-                <div
-                  className="bar-fill green"
-                  style={{
-                    width: `${(redemptionPoints / maxPossiblePoints) * 100}%`,
-                  }}
-                >
-                  {redemptionPoints}
+
+              {redemptionPoints > 0 ? (
+                <div className="virtue-bar">
+                  <div className="label">Virtues</div>
+                  <div
+                    className="bar-fill green"
+                    style={{
+                      width: `${(redemptionPoints / maxPossiblePoints) * 100}%`,
+                    }}
+                  >
+                    {redemptionPoints}
+                  </div>
                 </div>
-              </div>
+              ) : (
+                <p style={{ color: "#888", fontStyle: "italic", marginTop: 8 }}>
+                  No redeeming virtues detected.
+                </p>
+              )}
             </div>
 
             <p className="equilibrium-note">
@@ -310,151 +322,44 @@ const DisregardedClassifier = () => {
             </p>
           </div>
 
+          {/* === Your cleaned up Demand & Supply Reflection block === */}
           <h2 className="graph-title">Demand & Supply Reflection</h2>
-          <div className="ds-graph-container">
-            <div className="ds-bar-row">
-              <div className="ds-label">⚖️ Disregard Demand</div>
-              <div
-                className="ds-bar demand-bar"
-                style={{ width: `${(totalPoints / maxPossiblePoints) * 100}%` }}
-              ></div>
-              <div className="ds-value">
-                {((totalPoints / maxPossiblePoints) * 100).toFixed(1)}%
+          <div
+            className="ds-graph-container"
+            style={{ maxWidth: 700, margin: "auto" }}
+          >
+            <DeadweightLossGraph demand={demand} supply={supply} />
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-around",
+                marginTop: 16,
+                fontWeight: 600,
+                color: "#ffd700",
+                fontFamily: "'Inter', sans-serif",
+              }}
+            >
+              <div>
+                <span style={{ color: "#00ffff" }}>⚖️ Disregard Demand:</span>{" "}
+                {demand.toFixed(1)}%
               </div>
-            </div>
-
-            <div className="ds-bar-row">
-              <div className="ds-label">🕊️ Redemption Supply</div>
-              <div
-                className="ds-bar supply-bar"
-                style={{
-                  width: `${
-                    ((maxPossiblePoints - totalPoints) / maxPossiblePoints) *
-                    100
-                  }%`,
-                }}
-              ></div>
-              <div className="ds-value">
-                {(
-                  ((maxPossiblePoints - totalPoints) / maxPossiblePoints) *
-                  100
-                ).toFixed(1)}
-                %
+              <div>
+                <span style={{ color: "#ffd700" }}>🕊️ Redemption Supply:</span>{" "}
+                {supply.toFixed(1)}%
               </div>
+              {deadweightLoss > 0 ? (
+                <div style={{ color: "crimson" }}>
+                  <strong>Deadweight Loss:</strong> {deadweightLoss.toFixed(1)}%
+                  (Emotional burden you carry)
+                </div>
+              ) : surplus > 0 ? (
+                <div style={{ color: "#00ff99" }}>
+                  <strong>Surplus:</strong> {surplus.toFixed(1)}% (Positive
+                  redeeming qualities outweigh disregard)
+                </div>
+              ) : null}
             </div>
-
-            <div className="ds-deadweight-loss">
-              Deadweight Loss:{" "}
-              <strong>
-                {Math.abs(
-                  (totalPoints / maxPossiblePoints) * 100 -
-                    ((maxPossiblePoints - totalPoints) / maxPossiblePoints) *
-                      100
-                ).toFixed(1)}
-                %
-              </strong>
-            </div>
-          </div>
-
-          <div className="ds-explanation">
-            <h3>📘 Psychological Supply-Demand Analysis</h3>
-            <p>
-              <strong>Disregard Demand (D):</strong> D = (Disregard Points / Max
-              Possible Points) × 100
-            </p>
-            <p>
-              <strong>Redemption Supply (S):</strong> S = (Redemption Points /
-              Max Possible Points) × 100
-            </p>
-            <p>
-              <strong>Deadweight Loss (if D &gt; S):</strong> You are carrying
-              an unnecessary emotional burden — this person costs you more than
-              they offer.
-            </p>
-            <p>
-              <strong>Surplus (if S &gt; D):</strong> You may be undervaluing
-              their redeeming traits — consider recalibrating.
-            </p>
-            <p>
-              The closer the Demand and Supply curves intersect, the more
-              emotionally and spiritually justified your stance.
-            </p>
-          </div>
-
-          <div className="ds-svg-container">
-            <h3>📈 Graphical Representation</h3>
-            <svg width="300" height="300" className="ds-cross-graph">
-              {/* Axes */}
-              <line
-                x1="40"
-                y1="250"
-                x2="280"
-                y2="250"
-                stroke="#aaa"
-                strokeWidth="1"
-              />
-              <line
-                x1="40"
-                y1="250"
-                x2="40"
-                y2="40"
-                stroke="#aaa"
-                strokeWidth="1"
-              />
-
-              {/* Demand Curve: Downward Sloping */}
-              <line
-                x1="40"
-                y1="60"
-                x2="250"
-                y2="250"
-                stroke="#00ffff"
-                strokeWidth="2"
-              />
-              <text x="200" y="240" fill="#00ffff">
-                Demand (D)
-              </text>
-
-              {/* Supply Curve: Upward Sloping */}
-              <line
-                x1="40"
-                y1="250"
-                x2="250"
-                y2="60"
-                stroke="#ffd700"
-                strokeWidth="2"
-              />
-              <text x="200" y="80" fill="#ffd700">
-                Supply (S)
-              </text>
-
-              {/* Equilibrium Point */}
-              <circle cx="145" cy="155" r="4" fill="#fff" />
-              <text x="150" y="150" fill="#fff">
-                Equilibrium
-              </text>
-            </svg>
-          </div>
-          <div className="ds-calculations">
-            <h3>🔢 Calculated Values</h3>
-            <p>
-              <strong>Disregard Demand (D):</strong> {demand.toFixed(1)}%
-            </p>
-            <p>
-              <strong>Redemption Supply (S):</strong> {supply.toFixed(1)}%
-            </p>
-            {deadweightLoss > 0 ? (
-              <p style={{ color: "crimson" }}>
-                <strong>Deadweight Loss:</strong> {deadweightLoss.toFixed(1)}%{" "}
-                <br />
-                (Emotional burden you carry)
-              </p>
-            ) : (
-              <p style={{ color: "#00ff99" }}>
-                <strong>Surplus:</strong> {surplus.toFixed(1)}% <br />
-                (Positive redeeming qualities outweigh disregard)
-              </p>
-            )}
           </div>
         </>
       )}

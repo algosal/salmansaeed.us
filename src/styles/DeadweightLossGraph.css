@@ -1,0 +1,48 @@
+/* .graph-svg {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  margin: 20px auto;
+  display: block;
+} */
+.graph-container {
+  background-color: #0a0f24;
+  padding: 1rem;
+  border: 1px solid #1f2a48;
+  border-radius: 12px;
+  max-width: 340px;
+  margin: auto;
+}
+
+.graph-svg {
+  background-color: #1f2a48;
+  border-radius: 8px;
+}
+
+.axis-line {
+  stroke: #ccc;
+  stroke-width: 1;
+}
+
+.dotted-line {
+  stroke: #aaa;
+  stroke-dasharray: 4;
+}
+
+.supply-line {
+  stroke: #00ffcc;
+  stroke-width: 2;
+}
+
+.demand-line {
+  stroke: #ffd700;
+  stroke-width: 2;
+}
+
+.area-surplus {
+  fill: rgba(0, 255, 0, 0.2);
+}
+
+.area-loss {
+  fill: rgba(255, 0, 0, 0.2);
+}
