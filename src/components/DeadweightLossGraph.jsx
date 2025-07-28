@@ -173,6 +173,70 @@ const DeadweightLossGraph = ({ demand, supply }) => {
           />
         ) : null}
       </svg>
+
+      {/* Legend below SVG */}
+      <div
+        style={{
+          maxWidth: width,
+          margin: "16px auto 0",
+          display: "flex",
+          justifyContent: "space-around",
+          color: "#ffd700",
+          fontWeight: "600",
+          fontFamily: "'Inter', sans-serif",
+          fontSize: 14,
+          gap: "1rem",
+          flexWrap: "wrap",
+          textAlign: "center",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <div
+            style={{
+              width: 20,
+              height: 20,
+              backgroundColor: "#00ffff",
+              borderRadius: 3,
+            }}
+          />
+          Demand (D)
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <div
+            style={{
+              width: 20,
+              height: 20,
+              backgroundColor: "#ffd700",
+              borderRadius: 3,
+            }}
+          />
+          Supply (S)
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <div
+            style={{
+              width: 20,
+              height: 20,
+              backgroundColor: "rgba(255,0,0,0.3)",
+              borderRadius: 3,
+              border: "1px solid crimson",
+            }}
+          />
+          Deadweight Loss
+        </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <div
+            style={{
+              width: 20,
+              height: 20,
+              backgroundColor: "rgba(0,255,0,0.3)",
+              borderRadius: 3,
+              border: "1px solid #00ff00",
+            }}
+          />
+          Surplus
+        </div>
+      </div>
     </div>
   );
 };
