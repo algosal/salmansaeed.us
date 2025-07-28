@@ -1,19 +1,38 @@
-.graph-container {
-  background-color: #0a0f24;
+..graph-container {
+  max-width: 100%;
   padding: 1rem;
-  border: 1px solid #1f2a48;
-  border-radius: 12px;
-  max-width: 340px;
-  margin: auto;
+  background: #f8f9fc;
+  color: #1f2a48;
 }
 
-.graph-svg {
-  background-color: #1f2a48;
-  border-radius: 8px;
+.graph-wrapper {
   width: 100%;
   height: auto;
-  display: block;
-  max-height: 300px;
+}
+
+.legend {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 14px;
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  margin-right: 5px;
+  vertical-align: middle;
+  border: 1px solid #999;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .legend {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 /* Axis and lines styling */

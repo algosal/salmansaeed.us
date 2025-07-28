@@ -1,229 +1,140 @@
 import React from "react";
+import {
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  ReferenceLine,
+  Label,
+  LabelList,
+} from "recharts";
 import "../styles/DeadweightLossGraph.css";
 
 const DeadweightLossGraph = ({ demand, supply }) => {
-  const width = 700;
-  const height = 400;
+  const safeDemand = typeof demand === "number" && !isNaN(demand) ? demand : 0;
+  const safeSupply = typeof supply === "number" && !isNaN(supply) ? supply : 0;
 
-  const margin = { top: 40, right: 100, bottom: 50, left: 60 };
-  const innerWidth = width - margin.left - margin.right;
-  const innerHeight = height - margin.top - margin.bottom;
+  const equilibrium = (safeDemand + safeSupply) / 2;
+  const surplus = safeSupply - safeDemand;
+  const showSurplus = surplus > 0;
+  const showDWL = surplus < 0;
 
-  const clamp = (v) => Math.min(Math.max(v, 0), 100);
-
-  const safeDemand = clamp(demand);
-  const safeSupply = clamp(supply);
-
-  const demandStart = { x: margin.left, y: margin.top };
-  const demandEnd = {
-    x: margin.left + innerWidth,
-    y: margin.top + innerHeight,
-  };
-
-  const supplyStart = { x: margin.left, y: margin.top + innerHeight };
-  const supplyEnd = { x: margin.left + innerWidth, y: margin.top };
-
-  const mDemand = (demandEnd.y - demandStart.y) / (demandEnd.x - demandStart.x);
-  const bDemand = demandStart.y - mDemand * demandStart.x;
-
-  const mSupply = (supplyEnd.y - supplyStart.y) / (supplyEnd.x - supplyStart.x);
-  const bSupply = supplyStart.y - mSupply * supplyStart.x;
-
-  const eqX = (bSupply - bDemand) / (mDemand - mSupply);
-  const eqY = mDemand * eqX + bDemand;
-
-  const eqXClamped = Math.min(
-    Math.max(eqX, margin.left),
-    margin.left + innerWidth
-  );
-
-  const showDWL = safeDemand > safeSupply;
-  const showSurplus = safeSupply > safeDemand;
+  const data = [
+    { x: 0, demand: 100 - safeDemand, supply: safeSupply },
+    { x: 50, demand: 50 - safeDemand / 2, supply: safeSupply / 2 },
+    { x: 100, demand: 0, supply: 0 },
+  ];
 
   return (
     <div className="graph-container">
-      <h2
-        className="section-title"
-        style={{ textAlign: "center", marginBottom: 12 }}
-      >
-        Deadweight Loss Graph
-      </h2>
+      <h2>Deadweight Loss / Surplus Graph</h2>
+      <div className="graph-wrapper">
+        <ResponsiveContainer width="100%" height={400}>
+          <LineChart data={data}>
+            <CartesianGrid stroke="#ccc" />
+            <XAxis dataKey="x">
+              <Label value="Quantity" offset={-5} position="insideBottom" />
+            </XAxis>
+            <YAxis>
+              <Label value="Price" angle={-90} position="insideLeft" />
+            </YAxis>
 
-      <svg
-        width={width}
-        height={height}
-        className="graph-svg"
-        viewBox={`0 0 ${width} ${height}`}
-        preserveAspectRatio="xMidYMid meet"
-      >
-        {/* Axes */}
-        <line
-          x1={margin.left}
-          y1={margin.top + innerHeight}
-          x2={margin.left + innerWidth}
-          y2={margin.top + innerHeight}
-          className="axis-line"
-        />
-        <line
-          x1={margin.left}
-          y1={margin.top}
-          x2={margin.left}
-          y2={margin.top + innerHeight}
-          className="axis-line"
-        />
+            {/* Demand Line (Downward) */}
+            <Line
+              type="monotone"
+              dataKey="demand"
+              stroke="#00C49F"
+              strokeWidth={2}
+              dot={false}
+              name="Demand"
+            >
+              <LabelList value="Demand" position="top" />
+            </Line>
 
-        {/* Demand & Supply Lines */}
-        <line
-          x1={demandStart.x}
-          y1={demandStart.y}
-          x2={demandEnd.x}
-          y2={demandEnd.y}
-          className="demand-line"
-        />
-        <line
-          x1={supplyStart.x}
-          y1={supplyStart.y}
-          x2={supplyEnd.x}
-          y2={supplyEnd.y}
-          className="supply-line"
-        />
+            {/* Supply Line (Upward) */}
+            <Line
+              type="monotone"
+              dataKey="supply"
+              stroke="#FF8042"
+              strokeWidth={2}
+              dot={false}
+              name="Supply"
+            >
+              <LabelList value="Supply" position="bottom" />
+            </Line>
 
-        {/* Labels */}
-        <text
-          x={demandEnd.x - 80}
-          y={demandEnd.y - 15}
-          //   fill="#00ffff"
-          fill="#ffd700"
-          fontSize={16}
-          fontWeight="600"
-        >
-          Demand (D)
-        </text>
-        <text
-          x={supplyEnd.x - 90}
-          y={supplyEnd.y + 30}
-          //   fill="#ffd700"
-          fill="#00ffff"
-          fontSize={16}
-          fontWeight="600"
-        >
-          Supply (S)
-        </text>
+            {/* Crosshair Reference Lines at Equilibrium */}
+            <ReferenceLine
+              x={50}
+              stroke="black"
+              strokeDasharray="3 3"
+              strokeWidth={1}
+            />
+            <ReferenceLine
+              y={100 - equilibrium}
+              stroke="black"
+              strokeDasharray="3 3"
+              strokeWidth={1}
+            />
 
-        {/* Equilibrium point */}
-        <circle cx={eqXClamped} cy={eqY} r={8} fill="#fff" />
-        <text
-          x={eqXClamped + 12}
-          y={eqY - 12}
-          fill="#fff"
-          fontSize={16}
-          fontWeight="600"
-        >
-          EQ
-        </text>
+            {/* Surplus Triangle (above equilibrium) */}
+            {showSurplus && (
+              <>
+                <polygon
+                  points="50,200 50,100 100,150"
+                  fill="rgba(0, 255, 0, 0.3)"
+                />
+                <text x="60" y="120" fill="green" fontSize="12">
+                  Surplus
+                </text>
+              </>
+            )}
 
-        {/* Dotted Lines */}
-        <line
-          x1={eqXClamped}
-          y1={eqY}
-          x2={eqXClamped}
-          y2={margin.top + innerHeight}
-          className="dotted-line"
-        />
-        <line
-          x1={margin.left}
-          y1={eqY}
-          x2={eqXClamped}
-          y2={eqY}
-          className="dotted-line"
-        />
-
-        {/* Surplus Above EQ */}
-        {showSurplus && (
-          <polygon
-            points={`
-              ${eqXClamped},${eqY}
-              ${eqXClamped - 40},${eqY - 60}
-              ${eqXClamped + 40},${eqY - 60}
-            `}
-            className="area-surplus"
-          />
-        )}
-
-        {/* Deadweight Loss Below EQ */}
-        {showDWL && (
-          <polygon
-            points={`
-              ${eqXClamped},${eqY}
-              ${eqXClamped - 40},${eqY + 60}
-              ${eqXClamped + 40},${eqY + 60}
-            `}
-            className="area-loss"
-          />
-        )}
-      </svg>
-
-      {/* Legend */}
-      <div
-        style={{
-          maxWidth: width,
-          margin: "16px auto 0",
-          display: "flex",
-          justifyContent: "space-around",
-          color: "#ffd700",
-          fontWeight: "600",
-          fontFamily: "'Inter', sans-serif",
-          fontSize: 14,
-          gap: "1rem",
-          flexWrap: "wrap",
-          textAlign: "center",
-        }}
-      >
-        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-          <div
-            style={{
-              width: 20,
-              height: 20,
-              backgroundColor: "#ffd700", // Yellow = Demand
-              borderRadius: 3,
-            }}
-          />
-          Demand (D)
+            {/* DWL Triangle (below equilibrium) */}
+            {showDWL && (
+              <>
+                <polygon
+                  points="50,200 50,300 100,250"
+                  fill="rgba(255, 0, 0, 0.3)"
+                />
+                <text x="60" y="270" fill="red" fontSize="12">
+                  Deadweight Loss
+                </text>
+              </>
+            )}
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+      <div className="legend">
+        <div>
+          <span
+            className="legend-color"
+            style={{ background: "#00C49F" }}
+          ></span>{" "}
+          Disregard Demand
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-          <div
-            style={{
-              width: 20,
-              height: 20,
-              backgroundColor: "#00ffff", // Cyan = Supply
-              borderRadius: 3,
-            }}
-          />
-          Supply (S)
+        <div>
+          <span
+            className="legend-color"
+            style={{ background: "#FF8042" }}
+          ></span>{" "}
+          Supply
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-          <div
-            style={{
-              width: 20,
-              height: 20,
-              backgroundColor: "rgba(255,0,0,0.3)",
-              borderRadius: 3,
-              border: "1px solid crimson",
-            }}
-          />
-          Deadweight Loss
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-          <div
-            style={{
-              width: 20,
-              height: 20,
-              backgroundColor: "rgba(0,255,0,0.3)",
-              borderRadius: 3,
-              border: "1px solid #00ff00",
-            }}
-          />
+        <div>
+          <span
+            className="legend-color"
+            style={{ background: "rgba(0,255,0,0.3)" }}
+          ></span>{" "}
           Surplus
+        </div>
+        <div>
+          <span
+            className="legend-color"
+            style={{ background: "rgba(255,0,0,0.3)" }}
+          ></span>{" "}
+          Deadweight Loss
         </div>
       </div>
     </div>

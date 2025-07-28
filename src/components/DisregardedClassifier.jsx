@@ -329,7 +329,9 @@ const DisregardedClassifier = () => {
           </div>
 
           {/* === Your cleaned up Demand & Supply Reflection block === */}
-          <h2 className="graph-title">Demand & Supply Reflection</h2>
+          <h2 className="graph-title">
+            Disregarded Demand & Supply Reflection
+          </h2>
           <div
             className="ds-graph-container"
             style={{ maxWidth: 700, margin: "auto" }}
