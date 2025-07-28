@@ -80,6 +80,12 @@ const DisregardedClassifier = () => {
   //   ((maxPossiblePoints - totalPoints) / maxPossiblePoints) * 100;
   // const redemptionSupply = (totalPoints / maxPossiblePoints) * 100;
 
+  console.log("maxPossiblePoints:", maxPossiblePoints);
+  console.log("disregardPoints:", disregardPoints);
+  console.log("redemptionPoints:", redemptionPoints);
+  console.log("demand %:", demand);
+  console.log("supply %:", supply);
+
   return (
     <div className="classifier-page">
       <h1 className="title">Disregarded Entity Classifier</h1>

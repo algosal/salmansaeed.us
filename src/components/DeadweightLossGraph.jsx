@@ -2,9 +2,6 @@ import React from "react";
 import "../styles/DeadweightLossGraph.css";
 
 const DeadweightLossGraph = ({ demand, supply }) => {
-  const safeDemand = typeof demand === "number" && !isNaN(demand) ? demand : 0;
-  const safeSupply = typeof supply === "number" && !isNaN(supply) ? supply : 0;
-
   const width = 700;
   const height = 400;
 
@@ -12,25 +9,67 @@ const DeadweightLossGraph = ({ demand, supply }) => {
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
 
-  const mapPercentToX = (percent) => margin.left + (innerWidth * percent) / 100;
-  const mapPercentToY = (percent) =>
-    margin.top + innerHeight - (innerHeight * percent) / 100;
+  // Clamp and convert input demand and supply (0-100) to Y coordinates on graph (price axis)
+  const clamp = (v) => Math.min(Math.max(v, 0), 100);
 
-  // Demand line: from top-left to bottom-right
+  const safeDemand = clamp(demand);
+  const safeSupply = clamp(supply);
+
+  // Coordinates of demand line (downward sloping)
+  // Demand line goes from top-left (x0, y0) to bottom-right (x1, y1)
   const demandStart = { x: margin.left, y: margin.top };
   const demandEnd = {
     x: margin.left + innerWidth,
     y: margin.top + innerHeight,
   };
 
-  // Supply line: from bottom-left to top-right
+  // Coordinates of supply line (upward sloping)
+  // Supply line goes from bottom-left (x0, y2) to top-right (x1, y3)
   const supplyStart = { x: margin.left, y: margin.top + innerHeight };
   const supplyEnd = { x: margin.left + innerWidth, y: margin.top };
 
-  // Equilibrium point (mid of demand and supply)
-  const equilibriumPercent = (safeDemand + safeSupply) / 2;
-  const equilibriumX = mapPercentToX(equilibriumPercent);
-  const equilibriumY = mapPercentToY(100 - equilibriumPercent);
+  // Map percent (0-100) to y-coordinate on price axis (vertical)
+  // 0% = bottom (max y), 100% = top (min y)
+  const percentToY = (percent) =>
+    margin.top + innerHeight - (innerHeight * percent) / 100;
+
+  // At right edge (x = margin.left + innerWidth), y values from inputs:
+  const demandY = percentToY(safeDemand);
+  const supplyY = percentToY(safeSupply);
+
+  // Equilibrium is intersection of the two lines:
+  // Demand line: y = m1 * x + b1
+  // Supply line: y = m2 * x + b2
+  // Calculate slopes and intercepts:
+
+  // Demand line slope (downward)
+  const mDemand = (demandEnd.y - demandStart.y) / (demandEnd.x - demandStart.x); // positive (bottom - top)/(right - left)
+  const bDemand = demandStart.y - mDemand * demandStart.x;
+
+  // Supply line slope (upward)
+  const mSupply = (supplyEnd.y - supplyStart.y) / (supplyEnd.x - supplyStart.x); // negative (top - bottom)/(right - left)
+  const bSupply = supplyStart.y - mSupply * supplyStart.x;
+
+  // However, your demand line goes top-left to bottom-right: slope >0 (positive)
+  // Your supply line goes bottom-left to top-right: slope <0 (negative)
+  // So mDemand >0, mSupply <0
+
+  // Solve for intersection x:
+  const eqX = (bSupply - bDemand) / (mDemand - mSupply);
+  const eqY = mDemand * eqX + bDemand;
+
+  // Clamp eqX to graph bounds
+  const eqXClamped = Math.min(
+    Math.max(eqX, margin.left),
+    margin.left + innerWidth
+  );
+
+  // Deadweight Loss area is the triangle between demand, supply and equilibrium,
+  // shaded either above or below equilibrium depending on demand/supply
+
+  // Determine which is higher at right edge:
+  const showDWL = safeDemand > safeSupply; // demand > supply => deadweight loss (consumer burden)
+  const showSurplus = safeSupply > safeDemand; // surplus (producer benefit)
 
   return (
     <div className="graph-container">
@@ -64,25 +103,7 @@ const DeadweightLossGraph = ({ demand, supply }) => {
           className="axis-line"
         />
 
-        {/* Demand dashed line */}
-        <line
-          x1={demandStart.x}
-          y1={demandStart.y}
-          x2={demandEnd.x}
-          y2={demandEnd.y}
-          className="dotted-line"
-        />
-
-        {/* Supply dashed line */}
-        <line
-          x1={supplyStart.x}
-          y1={supplyStart.y}
-          x2={supplyEnd.x}
-          y2={supplyEnd.y}
-          className="dotted-line"
-        />
-
-        {/* Solid Demand Line */}
+        {/* Demand line (downward) */}
         <line
           x1={demandStart.x}
           y1={demandStart.y}
@@ -90,6 +111,16 @@ const DeadweightLossGraph = ({ demand, supply }) => {
           y2={demandEnd.y}
           className="demand-line"
         />
+        {/* Supply line (upward) */}
+        <line
+          x1={supplyStart.x}
+          y1={supplyStart.y}
+          x2={supplyEnd.x}
+          y2={supplyEnd.y}
+          className="supply-line"
+        />
+
+        {/* Labels */}
         <text
           x={demandEnd.x - 80}
           y={demandEnd.y - 15}
@@ -99,15 +130,6 @@ const DeadweightLossGraph = ({ demand, supply }) => {
         >
           Demand (D)
         </text>
-
-        {/* Solid Supply Line */}
-        <line
-          x1={supplyStart.x}
-          y1={supplyStart.y}
-          x2={supplyEnd.x}
-          y2={supplyEnd.y}
-          className="supply-line"
-        />
         <text
           x={supplyEnd.x - 90}
           y={supplyEnd.y + 30}
@@ -118,25 +140,11 @@ const DeadweightLossGraph = ({ demand, supply }) => {
           Supply (S)
         </text>
 
-        {/* Consumer Surplus Triangle (above eq) */}
-        <polygon
-          points={`${margin.left},${margin.top} ${equilibriumX},${equilibriumY} ${margin.left},${equilibriumY}`}
-          className="area-surplus"
-        />
-
-        {/* Producer Surplus Triangle (below eq) */}
-        <polygon
-          points={`${margin.left},${
-            margin.top + innerHeight
-          } ${equilibriumX},${equilibriumY} ${margin.left},${equilibriumY}`}
-          className="area-loss"
-        />
-
-        {/* Equilibrium Marker */}
-        <circle cx={equilibriumX} cy={equilibriumY} r={8} fill="#fff" />
+        {/* Equilibrium marker */}
+        <circle cx={eqXClamped} cy={eqY} r={8} fill="#fff" />
         <text
-          x={equilibriumX + 12}
-          y={equilibriumY - 12}
+          x={eqXClamped + 12}
+          y={eqY - 12}
           fill="#fff"
           fontSize={16}
           fontWeight="600"
@@ -144,31 +152,48 @@ const DeadweightLossGraph = ({ demand, supply }) => {
           EQ
         </text>
 
-        {/* Deadweight Loss or Surplus shading */}
-        {safeDemand > safeSupply ? (
-          // Deadweight loss **below** equilibrium — between supply line & demand line, bottom right area
+        {/* Equilibrium dotted guide lines */}
+        <line
+          x1={eqXClamped}
+          y1={eqY}
+          x2={eqXClamped}
+          y2={margin.top + innerHeight}
+          className="dotted-line"
+        />
+        <line
+          x1={margin.left}
+          y1={eqY}
+          x2={eqXClamped}
+          y2={eqY}
+          className="dotted-line"
+        />
+
+        {/* Deadweight Loss Polygon */}
+        {showDWL && (
           <polygon
             points={`
-                ${equilibriumX},${equilibriumY}
-                ${margin.left + innerWidth},${margin.top + innerHeight}
-                ${margin.left + innerWidth},${equilibriumY}
-                `}
-            fill="rgba(255,0,0,0.3)"
+              ${eqXClamped},${eqY}
+              ${demandEnd.x},${demandEnd.y}
+              ${demandEnd.x},${eqY}
+            `}
+            className="area-loss"
           />
-        ) : safeSupply > safeDemand ? (
-          // Surplus — above equilibrium (same as before)
+        )}
+
+        {/* Surplus Polygon */}
+        {showSurplus && (
           <polygon
             points={`
-                ${equilibriumX},${equilibriumY}
-                ${margin.left + innerWidth},${margin.top}
-                ${margin.left + innerWidth},${equilibriumY}
-                `}
-            fill="rgba(0,255,0,0.3)"
+              ${eqXClamped},${eqY}
+              ${supplyEnd.x},${supplyEnd.y}
+              ${supplyEnd.x},${eqY}
+            `}
+            className="area-surplus"
           />
-        ) : null}
+        )}
       </svg>
 
-      {/* Legend below SVG */}
+      {/* Legend */}
       <div
         style={{
           maxWidth: width,
