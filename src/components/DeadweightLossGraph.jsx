@@ -2,25 +2,17 @@ import React from "react";
 import "../styles/DeadweightLossGraph.css";
 
 const DeadweightLossGraph = ({ demand, supply }) => {
-  // Safety checks to avoid NaN errors
   const safeDemand = typeof demand === "number" && !isNaN(demand) ? demand : 0;
   const safeSupply = typeof supply === "number" && !isNaN(supply) ? supply : 0;
 
-  // SVG dimensions - will scale with CSS max-width & max-height
-  const width = 700; // max width desktop
-  const height = 400; // max height desktop
+  const width = 700;
+  const height = 400;
 
-  // Margins inside SVG
   const margin = { top: 40, right: 100, bottom: 50, left: 60 };
-
-  // Inner drawing area
   const innerWidth = width - margin.left - margin.right;
   const innerHeight = height - margin.top - margin.bottom;
 
-  // Map percent (0-100) to x coordinate inside SVG
   const mapPercentToX = (percent) => margin.left + (innerWidth * percent) / 100;
-
-  // Map percent (0-100) to y coordinate inside SVG (inverted Y axis)
   const mapPercentToY = (percent) =>
     margin.top + innerHeight - (innerHeight * percent) / 100;
 
@@ -35,7 +27,7 @@ const DeadweightLossGraph = ({ demand, supply }) => {
   const supplyStart = { x: margin.left, y: margin.top + innerHeight };
   const supplyEnd = { x: margin.left + innerWidth, y: margin.top };
 
-  // Equilibrium point - midpoint between demand and supply percents
+  // Equilibrium point (mid of demand and supply)
   const equilibriumPercent = (safeDemand + safeSupply) / 2;
   const equilibriumX = mapPercentToX(equilibriumPercent);
   const equilibriumY = mapPercentToY(100 - equilibriumPercent);
@@ -72,7 +64,7 @@ const DeadweightLossGraph = ({ demand, supply }) => {
           className="axis-line"
         />
 
-        {/* Demand line dashed */}
+        {/* Demand dashed line */}
         <line
           x1={demandStart.x}
           y1={demandStart.y}
@@ -81,7 +73,7 @@ const DeadweightLossGraph = ({ demand, supply }) => {
           className="dotted-line"
         />
 
-        {/* Supply line dashed */}
+        {/* Supply dashed line */}
         <line
           x1={supplyStart.x}
           y1={supplyStart.y}
@@ -126,13 +118,13 @@ const DeadweightLossGraph = ({ demand, supply }) => {
           Supply (S)
         </text>
 
-        {/* Consumer Surplus Triangle */}
+        {/* Consumer Surplus Triangle (above eq) */}
         <polygon
           points={`${margin.left},${margin.top} ${equilibriumX},${equilibriumY} ${margin.left},${equilibriumY}`}
           className="area-surplus"
         />
 
-        {/* Producer Surplus Triangle */}
+        {/* Producer Surplus Triangle (below eq) */}
         <polygon
           points={`${margin.left},${
             margin.top + innerHeight
@@ -152,23 +144,25 @@ const DeadweightLossGraph = ({ demand, supply }) => {
           EQ
         </text>
 
-        {/* Dynamic shading for Deadweight Loss or Surplus */}
+        {/* Deadweight Loss or Surplus shading */}
         {safeDemand > safeSupply ? (
+          // Deadweight loss **below** equilibrium — between supply line & demand line, bottom right area
           <polygon
             points={`
-              ${equilibriumX},${equilibriumY}
-              ${margin.left + innerWidth},${margin.top + innerHeight}
-              ${margin.left + innerWidth},${equilibriumY}
-            `}
+                ${equilibriumX},${equilibriumY}
+                ${margin.left + innerWidth},${margin.top + innerHeight}
+                ${margin.left + innerWidth},${equilibriumY}
+                `}
             fill="rgba(255,0,0,0.3)"
           />
         ) : safeSupply > safeDemand ? (
+          // Surplus — above equilibrium (same as before)
           <polygon
             points={`
-              ${equilibriumX},${equilibriumY}
-              ${margin.left + innerWidth},${margin.top}
-              ${margin.left + innerWidth},${equilibriumY}
-            `}
+                ${equilibriumX},${equilibriumY}
+                ${margin.left + innerWidth},${margin.top}
+                ${margin.left + innerWidth},${equilibriumY}
+                `}
             fill="rgba(0,255,0,0.3)"
           />
         ) : null}
