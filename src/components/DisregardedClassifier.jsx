@@ -104,7 +104,7 @@ const DisregardedClassifier = () => {
       <div className="button-row">
         <button
           className="back-button"
-          onClick={() => navigate("/reflections")}
+          onClick={() => navigate("/DisregardedEntities")}
         >
           ⬅ Go Back
         </button>
@@ -118,7 +118,7 @@ const DisregardedClassifier = () => {
             cursor: !personName.trim() ? "not-allowed" : "pointer",
           }}
         >
-          Save
+          Save & Analyse
         </button>
       </div>
 
@@ -162,10 +162,7 @@ const DisregardedClassifier = () => {
                 <span style={{ color: "crimson" }}>
                   ⚠️ {personName}{" "}
                   <u>
-                    <a
-                      href="/reflections#DisregardedEntities"
-                      className="flag-link"
-                    >
+                    <a href="/DisregardedEntities" className="flag-link">
                       is seriously flagged
                     </a>
                   </u>{" "}
@@ -175,10 +172,7 @@ const DisregardedClassifier = () => {
                 <span style={{ color: "#ffd700" }}>
                   ⚠️ {personName}{" "}
                   <u>
-                    <a
-                      href="/reflections#DisregardedEntities"
-                      className="flag-link"
-                    >
+                    <a href="/DisregardedEntities" className="flag-link">
                       is flagged
                     </a>
                   </u>{" "}

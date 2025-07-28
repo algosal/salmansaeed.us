@@ -143,6 +143,42 @@ const criteria = [
     summary:
       "Stagnation in others invites stagnation in you. Sometimes loving yourself means letting go.",
   },
+  {
+    id: 17,
+    shortName: "Ego Clash",
+    text: "Their presence triggers competition, comparison, or a sense of being diminished.",
+    points: 5,
+    sin: "Pride",
+    summary:
+      "When ego battles ego, connection becomes performance. True harmony requires inner security.",
+  },
+  {
+    id: 18,
+    shortName: "Delusional Lens",
+    text: "They consistently distort truth — theirs or yours — creating confusion or unreality.",
+    points: 6,
+    sin: "Envy",
+    summary:
+      "Delusion is often envy in disguise — denying truth to maintain illusion. Clarity is compassion.",
+  },
+  {
+    id: 19,
+    shortName: "Dogmatic Belief",
+    text: "They are overly rigid in religious views, often using faith to judge, exclude, or limit others.",
+    points: 4,
+    sin: "Pride",
+    summary:
+      "True faith is expansive, not exclusive. When religion becomes control, the spirit retreats.",
+  },
+  {
+    id: 20,
+    shortName: "Spiritual Openness",
+    text: "They embody an inclusive, non-dogmatic spiritual outlook — integrating wisdom from multiple traditions and respecting others’ paths.",
+    points: -3,
+    sin: "N/A",
+    summary:
+      "Expansive spirituality honors the divine in all forms. When one transcends dogma with humility, truth flows freely.",
+  },
 ];
 
 export default criteria;
