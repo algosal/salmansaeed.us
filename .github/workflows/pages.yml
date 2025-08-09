@@ -12,7 +12,7 @@ jobs:
       # 1) Pull your repo
       - uses: actions/checkout@v4
 
-      # 2) Setup Node.js (exact version you use locally)
+      # 2) Setup Node.js
       - uses: actions/setup-node@v4
         with:
           node-version: 20.18.2
@@ -46,6 +46,6 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ${{ steps.outdir.outputs.dir }}
-          server-dir: public_html/website_551e287b
+          server-dir: /public_html/website_551e287b/ # <-- now has trailing slash
           # optional:
           # dangerous-clean-slate: true
