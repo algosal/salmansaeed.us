@@ -12,39 +12,53 @@ jobs:
       # 1) Pull your repo
       - uses: actions/checkout@v4
 
-      # 2) Setup Node.js
+      # 2) Setup Node.js (exact version)
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 20.18.2
           cache: npm
 
       # 3) Install dependencies
       - run: npm ci
 
-      # 4) Build → if CRA, force output to dist; if Vite, normal build
+      # 4) Build
+      # If CRA is present, this produces "build/"; otherwise (Vite, etc.) it produces "dist/"
       - name: Build for production
         run: |
           if [ -f node_modules/.bin/react-scripts ]; then
-            BUILD_PATH=dist npm run build
+            npm run build
           else
             npm run build
           fi
 
-      # 5) Copy SPA .htaccess into dist
+      # 5) Determine output directory (dist or build)
+      - name: Detect output directory
+        id: outdir
+        run: |
+          if [ -d dist ]; then
+            echo "dir=dist" >> "$GITHUB_OUTPUT"
+          elif [ -d build ]; then
+            echo "dir=build" >> "$GITHUB_OUTPUT"
+          else
+            echo "❌ Build output not found (dist/ or build/)" >&2
+            exit 1
+          fi
+
+      # 6) Copy SPA .htaccess into the detected output dir
       - name: Add .htaccess
         run: |
           if [ -f public/_htaccess ]; then
-            cp public/_htaccess dist/.htaccess
+            cp public/_htaccess "${{ steps.outdir.outputs.dir }}/.htaccess"
           fi
 
-      # 6) FTP Deploy
+      # 7) FTP Deploy
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }} # e.g. ftp.yourdomain.com
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: dist
-          server-dir: /public_html/website_551e287b # <<< your web root folder
-          # Uncomment to wipe before upload:
+          local-dir: ${{ steps.outdir.outputs.dir }}
+          server-dir: /public_html/website_551e287b
+          # optional:
           # dangerous-clean-slate: true
