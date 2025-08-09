@@ -1,0 +1,50 @@
+name: Build & Deploy (FTP)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1) Pull your repo
+      - uses: actions/checkout@v4
+
+      # 2) Setup Node.js
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # 3) Install dependencies
+      - run: npm ci
+
+      # 4) Build → if CRA, force output to dist; if Vite, normal build
+      - name: Build for production
+        run: |
+          if [ -f node_modules/.bin/react-scripts ]; then
+            BUILD_PATH=dist npm run build
+          else
+            npm run build
+          fi
+
+      # 5) Copy SPA .htaccess into dist
+      - name: Add .htaccess
+        run: |
+          if [ -f public/_htaccess ]; then
+            cp public/_htaccess dist/.htaccess
+          fi
+
+      # 6) FTP Deploy
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }} # e.g. ftp.yourdomain.com
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: dist
+          server-dir: /public_html/website_551e287b # <<< your web root folder
+          # Uncomment to wipe before upload:
+          # dangerous-clean-slate: true
