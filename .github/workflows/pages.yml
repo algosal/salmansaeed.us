@@ -12,7 +12,7 @@ jobs:
       # 1) Pull your repo
       - uses: actions/checkout@v4
 
-      # 2) Setup Node.js (exact version)
+      # 2) Setup Node.js (exact version you use locally)
       - uses: actions/setup-node@v4
         with:
           node-version: 20.18.2
@@ -21,37 +21,24 @@ jobs:
       # 3) Install dependencies
       - run: npm ci
 
-      # 4) Build
-      # If CRA is present, this produces "build/"; otherwise (Vite, etc.) it produces "dist/"
+      # 4) Build (CRA outputs build/, Vite outputs dist/)
       - name: Build for production
-        run: |
-          if [ -f node_modules/.bin/react-scripts ]; then
-            npm run build
-          else
-            npm run build
-          fi
+        run: npm run build
 
-      # 5) Determine output directory (dist or build)
+      # 5) Detect output directory (must end with / for FTP action)
       - name: Detect output directory
         id: outdir
         run: |
           if [ -d dist ]; then
-            echo "dir=dist" >> "$GITHUB_OUTPUT"
+            echo "dir=dist/" >> "$GITHUB_OUTPUT"
           elif [ -d build ]; then
-            echo "dir=build" >> "$GITHUB_OUTPUT"
+            echo "dir=build/" >> "$GITHUB_OUTPUT"
           else
             echo "❌ Build output not found (dist/ or build/)" >&2
             exit 1
           fi
 
-      # 6) Copy SPA .htaccess into the detected output dir
-      - name: Add .htaccess
-        run: |
-          if [ -f public/_htaccess ]; then
-            cp public/_htaccess "${{ steps.outdir.outputs.dir }}/.htaccess"
-          fi
-
-      # 7) FTP Deploy
+      # 6) FTP Deploy
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
