@@ -21,7 +21,8 @@ const MeetSalman = () => {
               strategic visionary shaping the future across multiple sectors.
               Leveraging deep expertise in artificial intelligence, finance, and
               software architecture, he designs integrated business ecosystems
-              that harmonize innovation with operational excellence.
+              that harmonize innovation with operational excellence and
+              subtlety.
             </p>
             <p className="meet-paragraph">
               Mr. Saeed is an avid believer in the power of imagination and the
