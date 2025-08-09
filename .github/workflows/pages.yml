@@ -46,6 +46,6 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ${{ steps.outdir.outputs.dir }}
-          server-dir: /public_html/website_551e287b
+          server-dir: public_html/website_551e287b
           # optional:
           # dangerous-clean-slate: true
