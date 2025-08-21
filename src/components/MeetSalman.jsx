@@ -54,6 +54,7 @@ const MeetSalman = () => {
               mystics and now applied to modern enterprise with elegance and
               force.
             </p>
+            <p className="meet-paragraph">I love Sheela!</p>
           </div>
           <div className="meet-imageContainer">
             <img src={profileImage} alt="Salman Saeed" className="meet-image" />
