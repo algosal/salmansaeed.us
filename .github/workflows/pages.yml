@@ -18,30 +18,27 @@ jobs:
           node-version: 20.18.2
           cache: npm
 
-      # 3) Clear npm cache
-      - run: npm cache clean --force
+      # 3) Install dependencies
+      - run: npm ci
 
-      # 4) Install dependencies
-      - run: npm install
-
-      # 5) Build
+      # 4) Build
       - name: Build for production
         run: npm run build
 
-      # 6) Detect output directory
+      # 5) Detect output directory
       - name: Detect output directory
         id: outdir
         run: |
-          if [ -d "dist" ]; then
+          if [ -d dist ]; then
             echo "dir=dist/" >> "$GITHUB_OUTPUT"
-          elif [ -d "build" ]; then
+          elif [ -d build ]; then
             echo "dir=build/" >> "$GITHUB_OUTPUT"
           else
             echo "❌ Build output not found (dist/ or build/)" >&2
             exit 1
           fi
 
-      # 7) Deploy via FTP
+      # 6) Deploy via FTP
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -50,3 +47,5 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ${{ steps.outdir.outputs.dir }}
           server-dir: /public_html/website_551e287b/
+          # optional:
+          # dangerous-clean-slate: true
