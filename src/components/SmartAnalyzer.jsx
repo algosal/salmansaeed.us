@@ -306,7 +306,7 @@ const SmartAnalyzer = () => {
           <h2 className="graph-title">Normal Distribution Analysis</h2>
           <Line data={data} options={options} />
           <p>
-            <b>Approximate size (inches based on percentile):</b>{" "}
+            <b>Approximate Size (inches based on percentile):</b>{" "}
             {sizeInInches.toFixed(1)}" (1–18 scale)
           </p>
 
@@ -320,8 +320,22 @@ const SmartAnalyzer = () => {
               {(errorRate * 100).toFixed(1)}%
             </p>
             <p>
-              <b>Normalized size:</b> {normalizedSizeInInches.toFixed(1)}" (1–18
+              <b>Normalized Size:</b> {normalizedSizeInInches.toFixed(1)}" (1–18
               scale)
+            </p>
+            <p>
+              <b>Likely Likeable Size:</b>{" "}
+              {(() => {
+                const n1 = parseFloat(normalizedSizeInInches?.toFixed?.(1));
+                const n2 = parseFloat(sizeInInches?.toFixed?.(1));
+
+                if (isNaN(n1) || isNaN(n2)) {
+                  return "N/A"; // fallback if one is missing or invalid
+                }
+
+                return ((n1 + n2) / 2).toFixed(1);
+              })()}
+              " (1–18 scale)
             </p>
           </div>
 
