@@ -18,7 +18,7 @@ jobs:
           node-version: 20.18.2
           cache: npm
 
-      # 3) Clear npm cache (prevents weird CI caching issues)
+      # 3) Clear npm cache
       - run: npm cache clean --force
 
       # 4) Install dependencies
@@ -32,13 +32,14 @@ jobs:
       - name: Detect output directory
         id: outdir
         run: |
-          if [ -d dist ]; then
+          if [ -d "dist" ]; then
             echo "dir=dist/" >> "$GITHUB_OUTPUT"
-          elif [ -d build ]; then
+          elif [ -d "build" ]; then
             echo "dir=build/" >> "$GITHUB_OUTPUT"
           else
             echo "❌ Build output not found (dist/ or build/)" >&2
             exit 1
+          fi
 
       # 7) Deploy via FTP
       - name: Deploy via FTP
