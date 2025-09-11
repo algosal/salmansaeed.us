@@ -9,7 +9,7 @@ import {
   CategoryScale,
   LinearScale,
   PointElement,
-  Tooltip,
+  Tooltip as ChartTooltip,
 } from "chart.js";
 import { BlockMath } from "react-katex";
 import "katex/dist/katex.min.css";
@@ -19,7 +19,7 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
-  Tooltip
+  ChartTooltip
 );
 
 const SmartAnalyzer = () => {
@@ -27,6 +27,7 @@ const SmartAnalyzer = () => {
   const [saved, setSaved] = useState(false);
   const [personName, setPersonName] = useState("");
   const [nameError, setNameError] = useState(false);
+  const [showFxInfo, setShowFxInfo] = useState(false);
   const navigate = useNavigate();
 
   // === Normal Distribution Function ===
@@ -37,7 +38,6 @@ const SmartAnalyzer = () => {
 
   // Standard error function (erf)
   const erf = (x) => {
-    // Numerical approximation
     const sign = x >= 0 ? 1 : -1;
     x = Math.abs(x);
     const t = 1 / (1 + 0.3275911 * x);
@@ -60,13 +60,11 @@ const SmartAnalyzer = () => {
   const percentile = 0.5 * (1 + erf((totalScore - mean) / (sd * Math.sqrt(2))));
   const percentileText = `${(percentile * 100).toFixed(1)}%`;
 
-  // Handle question change
   const handleChange = (id, value) => {
     setScores({ ...scores, [id]: value ? 1 : 0 });
     setSaved(false);
   };
 
-  // Handle save
   const handleSave = () => {
     if (!personName.trim()) {
       setNameError(true);
@@ -116,7 +114,6 @@ const SmartAnalyzer = () => {
     },
   };
 
-  // Interpretation
   let comment = "";
   if (totalScore < -2) comment = "Strongly aligned with virtues.";
   else if (totalScore >= -2 && totalScore <= 2)
@@ -212,8 +209,17 @@ const SmartAnalyzer = () => {
                 <b>σ</b> = standard deviation = {sd}
               </li>
               <li>
-                <b>f(x)</b> = probability density value at x ={" "}
-                {personY.toFixed(5)}
+                <b>f(x)</b> ={" "}
+                <span
+                  onClick={() => setShowFxInfo(true)}
+                  style={{
+                    textDecoration: "underline",
+                    cursor: "pointer",
+                    color: "#ffd700",
+                  }}
+                >
+                  {personY.toFixed(5)}
+                </span>
               </li>
             </ul>
             <BlockMath
@@ -250,6 +256,107 @@ const SmartAnalyzer = () => {
             />
           </div>
         </>
+      )}
+
+      {/* f(x) Info Modal */}
+      {showFxInfo && (
+        <div
+          className="fx-info-modal"
+          onClick={() => setShowFxInfo(false)}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(10,15,36,0.9)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 9999,
+            color: "#00ffff",
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              maxWidth: "600px",
+              maxHeight: "70vh",
+              overflowY: "auto",
+              backgroundColor: "#1a1f35",
+              padding: "20px",
+              borderRadius: "12px",
+              boxShadow: "0 0 20px #00ffff",
+              lineHeight: "1.6",
+              fontSize: "1rem",
+            }}
+          >
+            <h3 style={{ color: "#ffd700" }}>
+              Probability Density Value (f(x))
+            </h3>
+
+            <p>
+              1. <b>What it is:</b> In a{" "}
+              <b>continuous probability distribution</b> like the normal
+              distribution, <b>f(x)</b> gives the{" "}
+              <b>height of the curve at a particular score x</b>. It tells you{" "}
+              <b>how dense or likely values are around that point</b>, but{" "}
+              <b>not the probability itself</b>.
+            </p>
+
+            <p>
+              2. <b>Important distinction:</b>
+              <br />- f(x) is <b>not a probability</b>; it can be greater than
+              1.
+              <br />- To get a probability over an interval:
+            </p>
+            <BlockMath math={`P(a \\le X \\le b) = \\int_a^b f(x) \\, dx`} />
+
+            <p>
+              3. <b>Equations (book style):</b>
+              <br />
+              Normal Distribution:
+            </p>
+            <BlockMath
+              math={`f(x) = \\frac{1}{\\sigma \\sqrt{2\\pi}} e^{-\\frac{(x-\\mu)^2}{2\\sigma^2}}`}
+            />
+
+            <p>Standard Error Function (erf):</p>
+            <BlockMath
+              math={`\\text{erf}(x) = \\frac{2}{\\sqrt{\\pi}} \\int_0^x e^{-t^2} dt`}
+            />
+
+            <p>
+              4. <b>Intuitive meaning:</b>
+              <br />- Think of the curve as a <b>mountain of likelihood</b>.
+              <br />- f(x) tells you <b>how high the mountain is at x</b>:
+              higher = values more common, lower = rarer.
+            </p>
+            <p>
+              5. <b>In your analysis:</b>
+              <br />- f(x) at the person's score = {personY.toFixed(5)}
+              <br />
+              - Very low f(x) = person is in rare/edge position
+              <br />- High f(x) = person near average (peak of the curve)
+            </p>
+
+            <button
+              onClick={() => setShowFxInfo(false)}
+              style={{
+                marginTop: "15px",
+                padding: "8px 16px",
+                backgroundColor: "#ffd700",
+                color: "#0a0f24",
+                border: "none",
+                borderRadius: "8px",
+                cursor: "pointer",
+                fontWeight: "600",
+              }}
+            >
+              Close
+            </button>
+          </div>
+        </div>
       )}
     </div>
   );
