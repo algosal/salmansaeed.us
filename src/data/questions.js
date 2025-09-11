@@ -108,6 +108,36 @@ const questions = [
     text: "Do they drain more energy from you than they give?",
     weight: 2,
   },
+  {
+    id: "q_high_1",
+    text: "Would you like a size that gives you pain?",
+    weight: 5, // very high weight
+  },
+  {
+    id: "q_high_2",
+    text: "Do you enjoy extremes even if they are intense?",
+    weight: 4,
+  },
+  {
+    id: "q_high_3",
+    text: "Do you prefer situations that push boundaries or discomfort?",
+    weight: 4,
+  },
+  {
+    id: "q_high_4",
+    text: "Do you get satisfaction from reaching unusual or rare experiences?",
+    weight: 3,
+  },
+  {
+    id: "q_high_5",
+    text: "Do you enjoy being in positions that most people avoid due to intensity?",
+    weight: 4,
+  },
+  {
+    id: "q_high_6",
+    text: "Do you prefer more time in intimacy, or less than an hour?",
+    weight: 5, // high weight to push toward right tail
+  },
 ];
 
 export default questions;

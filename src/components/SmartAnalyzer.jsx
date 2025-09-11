@@ -80,6 +80,38 @@ const SmartAnalyzer = () => {
   const yValues = xValues.map((x) => normalDistribution(x, mean, sd));
   const personY = normalDistribution(totalScore, mean, sd);
 
+  // === 6% tails ===
+  const leftTailCut = mean - 1.5548 * sd; // z-score ~6% left
+  const rightTailCut = mean + 1.5548 * sd; // z-score ~6% right
+
+  //   Map percentile to 1-18 inches scale
+
+  // === Piecewise mapping for size (inches) ===
+  const mapScoreToInches = (score) => {
+    const leftTailCut = mean - 1.5548 * sd; // ~6% left
+    const rightTailCut = mean + 1.5548 * sd; // ~6% right
+
+    // Helper: linear interpolation
+    const interpolate = (x, x0, x1, y0, y1) =>
+      y0 + ((x - x0) / (x1 - x0)) * (y1 - y0);
+
+    if (score <= leftTailCut) {
+      // Left extreme tail: 1 → 5 inches
+      return interpolate(score, leftTailCut - 10, leftTailCut, 1, 5); // extend left for smoothness
+    } else if (score > leftTailCut && score <= mean) {
+      // Left slope to center: 5 → 6 inches
+      return interpolate(score, leftTailCut, mean, 5, 6);
+    } else if (score > mean && score <= rightTailCut) {
+      // Right slope to center: 6 → 7 inches
+      return interpolate(score, mean, rightTailCut, 6, 7);
+    } else {
+      // Right extreme tail: 7 → 18 inches
+      return interpolate(score, rightTailCut, rightTailCut + 10, 7, 18); // extend right for smoothness
+    }
+  };
+
+  const sizeInInches = mapScoreToInches(totalScore);
+
   const data = {
     labels: xValues,
     datasets: [
@@ -96,6 +128,19 @@ const SmartAnalyzer = () => {
         borderColor: "#ffd700",
         pointBackgroundColor: "#ffd700",
         pointRadius: 6,
+      },
+      {
+        label: "6% Tails",
+        data: xValues.map((x) =>
+          x <= leftTailCut || x >= rightTailCut
+            ? normalDistribution(x, mean, sd)
+            : null
+        ),
+        borderColor: "#ff4d4d",
+        borderWidth: 1,
+        pointRadius: 3,
+        pointStyle: "rectRot",
+        showLine: false,
       },
     ],
   };
@@ -191,6 +236,10 @@ const SmartAnalyzer = () => {
         <>
           <h2 className="graph-title">Normal Distribution Analysis</h2>
           <Line data={data} options={options} />
+          <p>
+            <b>Approximate size (inches) based on percentile:</b>{" "}
+            {sizeInInches.toFixed(1)}" (1–18 scale)
+          </p>
 
           {/* Equation Section */}
           <div className="equation-section" style={{ marginTop: 30 }}>
