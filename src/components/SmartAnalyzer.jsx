@@ -384,7 +384,6 @@ const SmartAnalyzer = () => {
       )}
 
       {/* f(x) Info Modal */}
-      {/* f(x) Info Modal */}
       {showFxInfo && (
         <div
           className="fx-info-modal"
@@ -406,8 +405,8 @@ const SmartAnalyzer = () => {
           <div
             onClick={(e) => e.stopPropagation()}
             style={{
-              maxWidth: "600px",
-              maxHeight: "70vh",
+              maxWidth: "700px",
+              maxHeight: "75vh",
               overflowY: "auto",
               backgroundColor: "#1a1f35",
               padding: "20px",
@@ -420,6 +419,7 @@ const SmartAnalyzer = () => {
             <h3 style={{ color: "#ffd700" }}>
               Probability Density Value (f(x))
             </h3>
+
             <p>
               At <b>{personName}'s</b> score of <b>{totalScore}</b>, the
               probability density value is:{" "}
@@ -427,22 +427,81 @@ const SmartAnalyzer = () => {
                 {personY.toFixed(5)}
               </span>
             </p>
+
+            <h4 style={{ marginTop: "15px", color: "#ffd700" }}>
+              1. What it is:
+            </h4>
             <p>
-              This represents the <i>height</i> of the normal distribution curve
-              at <b>{personName}'s</b> score. A higher value means the score is
-              closer to the mean; a lower value means it lies further in the
-              tails.
+              In a continuous probability distribution like the normal
+              distribution, <code>f(x)</code> gives the height of the curve at a
+              particular score <b>x</b>. It tells you how dense or likely values
+              are around that point, but <b>not the probability itself</b>.
             </p>
+
+            <h4 style={{ marginTop: "15px", color: "#ffd700" }}>
+              2. Important distinction:
+            </h4>
+            <ul>
+              <li>
+                <code>f(x)</code> is <b>not a probability</b>; it can be greater
+                than 1.
+              </li>
+              <li>
+                To get a probability over an interval:
+                <BlockMath math={`P(a \\leq X \\leq b) = \\int_a^b f(x) dx`} />
+              </li>
+            </ul>
+
+            <h4 style={{ marginTop: "15px", color: "#ffd700" }}>
+              3. Equations (book style):
+            </h4>
             <p>
-              <b>Interpretation:</b> f(x) does not tell you the probability of
-              that score directly, but how <i>likely</i> it is relative to other
-              scores, based on the distribution.
+              <b>Normal Distribution:</b>
             </p>
+            <BlockMath
+              math={`f(x) = \\frac{1}{\\sigma \\sqrt{2\\pi}} e^{-\\frac{(x-\\mu)^2}{2\\sigma^2}}`}
+            />
+            <p>
+              <b>Standard Error Function (erf):</b>
+            </p>
+            <BlockMath
+              math={`erf(x) = \\frac{2}{\\sqrt{\\pi}} \\int_0^x e^{-t^2} dt`}
+            />
+
+            <h4 style={{ marginTop: "15px", color: "#ffd700" }}>
+              4. Intuitive meaning:
+            </h4>
+            <ul>
+              <li>
+                Think of the curve as a <b>mountain of likelihood</b>.
+              </li>
+              <li>
+                <code>f(x)</code> tells you how high the mountain is at <b>x</b>
+                : higher = values more common, lower = rarer.
+              </li>
+            </ul>
+
+            <h4 style={{ marginTop: "15px", color: "#ffd700" }}>
+              5. In your analysis:
+            </h4>
+            <ul>
+              <li>
+                <code>f(x)</code> at <b>{personName}'s</b> score ={" "}
+                <span style={{ color: "#00ff7f", fontWeight: "bold" }}>
+                  {personY.toFixed(5)}
+                </span>
+              </li>
+              <li>Very low f(x) → {personName} is in a rare/edge position.</li>
+              <li>
+                High f(x) → {personName} is near the average (peak of curve).
+              </li>
+            </ul>
+
             <button
               onClick={() => setShowFxInfo(false)}
               style={{
-                marginTop: "15px",
-                padding: "8px 16px",
+                marginTop: "20px",
+                padding: "10px 20px",
                 backgroundColor: "#ffd700",
                 color: "#0a0f24",
                 border: "none",
@@ -451,7 +510,7 @@ const SmartAnalyzer = () => {
                 fontWeight: "600",
               }}
             >
-              Close Me
+              Close
             </button>
           </div>
         </div>
