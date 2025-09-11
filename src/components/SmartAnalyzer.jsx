@@ -353,7 +353,7 @@ const SmartAnalyzer = () => {
                 fontWeight: "600",
               }}
             >
-              Close.
+              Close
             </button>
           </div>
         </div>
