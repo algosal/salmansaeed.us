@@ -112,6 +112,14 @@ const SmartAnalyzer = () => {
 
   const sizeInInches = mapScoreToInches(totalScore);
 
+  // === Determine dot color based on totalScore / percentile position ===
+  const getDotColor = (score) => {
+    if (score <= mean - 1.5548 * sd) return "#00ff00"; // left tail → green
+    else if (score >= mean + 1.5548 * sd) return "#ff0000"; // right tail → red
+    else return "#ffd700"; // center → yellow
+  };
+
+  // Update chart dataset for person position
   const data = {
     labels: xValues,
     datasets: [
@@ -125,8 +133,8 @@ const SmartAnalyzer = () => {
       {
         label: `${personName}'s Position`,
         data: xValues.map((x) => (x === totalScore ? personY : null)),
-        borderColor: "#ffd700",
-        pointBackgroundColor: "#ffd700",
+        borderColor: getDotColor(totalScore),
+        pointBackgroundColor: getDotColor(totalScore),
         pointRadius: 6,
       },
       {
@@ -164,6 +172,34 @@ const SmartAnalyzer = () => {
   else if (totalScore >= -2 && totalScore <= 2)
     comment = "Balanced / neutral traits.";
   else comment = "Red flags detected; leaning toward disregard.";
+
+  // === Determine entity type based on sizeInInches ===
+  let entityComment = "";
+  if (sizeInInches > 9) entityComment = "Hedonistic Entity!";
+  else if (sizeInInches > 8) entityComment = "Disregarded Entity!";
+  else if (sizeInInches > 7)
+    entityComment = "Leaning towards Disregarded Entity";
+  else entityComment = comment; // use previous comment for <=7
+
+  // === Percentile-based comment ===
+  let percentileComment = "";
+  if (percentile < 0.005) {
+    percentileComment = "Queer"; // bottom 1%
+  } else if (percentile < 0.03) {
+    percentileComment = "Suitable but too good to be true, Revision Required"; // bottom 3%
+  } else if (percentile >= 0.99) {
+    percentileComment = "Animalistic"; // top 1%
+  } else if (percentile >= 0.97) {
+    percentileComment = "BDSM"; // top 3%
+  } else if (totalScore <= leftTailCut) {
+    percentileComment = "Revision required"; // below left 6%
+  } else if (totalScore > leftTailCut && totalScore <= mean) {
+    percentileComment = "Suitable to very suitable"; // left slope to top
+  } else if (totalScore > rightTailCut) {
+    percentileComment = "Revision required, please re-estimate"; // right tail above top 6%
+  } else {
+    percentileComment = "Balanced / neutral traits."; // center zone
+  }
 
   return (
     <div className="classifier-page">
@@ -291,7 +327,7 @@ const SmartAnalyzer = () => {
             <h3>Result for {personName}</h3>
             <textarea
               readOnly
-              value={`${personName}'s score is ${totalScore}. ${comment}`}
+              value={`${personName}'s score is ${totalScore}. ${entityComment}. Percentile note: ${percentileComment}`}
               style={{
                 width: "100%",
                 minHeight: 80,

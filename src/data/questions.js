@@ -135,8 +135,13 @@ const questions = [
   },
   {
     id: "q_high_6",
-    text: "Do you prefer more time in intimacy, or less than an hour?",
+    text: "Do you prefer more time in intimacy than half an hour?",
     weight: 5, // high weight to push toward right tail
+  },
+  {
+    id: "q_high_7",
+    text: "Do you prefer less time in intimacy than three minutes?",
+    weight: -5, // high weight to push toward left tail
   },
 ];
 
