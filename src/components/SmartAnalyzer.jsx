@@ -29,17 +29,39 @@ const SmartAnalyzer = () => {
 
   // === Normal Distribution Function ===
   const normalDistribution = (x, mean = 0, sd = 1) => {
-    const exponent = -Math.pow(x - mean, 2) / (2 * Math.pow(sd, 2));
+    const exponent = -Math.pow(x - mean, 2) / (2 * sd * sd);
     return (1 / (sd * Math.sqrt(2 * Math.PI))) * Math.exp(exponent);
   };
 
-  // Handle question check
+  // Simple erf approximation
+  const erf = (x) => {
+    // Abramowitz and Stegun approximation
+    const a1 = 0.254829592;
+    const a2 = -0.284496736;
+    const a3 = 1.421413741;
+    const a4 = -1.453152027;
+    const a5 = 1.061405429;
+    const p = 0.3275911;
+    const sign = x >= 0 ? 1 : -1;
+    const absX = Math.abs(x);
+    const t = 1 / (1 + p * absX);
+    const y =
+      1 -
+      ((((a5 * t + a4) * t + a3) * t + a2) * t + a1) *
+        t *
+        Math.exp(-absX * absX);
+    return sign * y;
+  };
+
+  // Normal CDF for percentile
+  const normalCDF = (x, mean = 0, sd = 1) =>
+    0.5 * (1 + erf((x - mean) / (sd * Math.sqrt(2))));
+
   const handleChange = (id, value) => {
     setScores({ ...scores, [id]: value ? 1 : 0 });
     setSaved(false);
   };
 
-  // Handle save
   const handleSave = () => {
     if (!personName.trim()) {
       setNameError(true);
@@ -50,16 +72,24 @@ const SmartAnalyzer = () => {
     setSaved(true);
   };
 
-  // Calculate total score (X value)
-  const totalScore = questions.reduce((acc, q) => {
-    return acc + (scores[q.id] ? q.weight : 0);
-  }, 0);
+  // Total score
+  const totalScore = questions.reduce(
+    (acc, q) => acc + (scores[q.id] ? q.weight : 0),
+    0
+  );
 
-  // Chart data for bell curve
+  // Percentile
+  const percentile = normalCDF(totalScore, 0, 5) * 100;
+  let positionComment = "";
+  if (percentile < 6)
+    positionComment = "Falls in the first 6% (far left tail).";
+  else if (percentile > 94)
+    positionComment = "Falls in the last 6% (far right tail).";
+  else positionComment = "Falls in the central 88% (normal range).";
+
+  // Chart data
   const xValues = Array.from({ length: 61 }, (_, i) => i - 30);
   const yValues = xValues.map((x) => normalDistribution(x, 0, 5));
-  const personY = normalDistribution(totalScore, 0, 5);
-
   const data = {
     labels: xValues,
     datasets: [
@@ -72,7 +102,11 @@ const SmartAnalyzer = () => {
       },
       {
         label: `${personName}'s Position`,
-        data: xValues.map((x) => (x === totalScore ? personY : null)),
+        data: xValues.map((x) =>
+          Math.abs(x - totalScore) < 0.5
+            ? normalDistribution(totalScore, 0, 5)
+            : null
+        ),
         borderColor: "#ffd700",
         pointBackgroundColor: "#ffd700",
         pointRadius: 6,
@@ -82,19 +116,13 @@ const SmartAnalyzer = () => {
 
   const options = {
     responsive: true,
-    plugins: {
-      tooltip: {
-        mode: "index",
-        intersect: false,
-      },
-    },
+    plugins: { tooltip: { mode: "index", intersect: false } },
     scales: {
       x: { title: { display: true, text: "Score (x)" } },
       y: { title: { display: true, text: "f(x)" } },
     },
   };
 
-  // Interpretation
   let comment = "";
   if (totalScore < -2) comment = "Strongly aligned with virtues.";
   else if (totalScore >= -2 && totalScore <= 2)
@@ -104,7 +132,7 @@ const SmartAnalyzer = () => {
   return (
     <div className="classifier-page">
       <h1 className="title">Smart Analyzer</h1>
-      {/* Name input */}
+
       <div className="name-input-container">
         <label htmlFor="person-name" className="name-label">
           Enter Person's Name:
@@ -127,10 +155,11 @@ const SmartAnalyzer = () => {
           </p>
         )}
       </div>
+
       <p className="description">
         Select the statements that apply to the person you're evaluating:
       </p>
-      {/* Question list */}
+
       <div className="criteria-list">
         {questions.map((q) => (
           <div key={q.id} className="criterion-block">
@@ -145,7 +174,7 @@ const SmartAnalyzer = () => {
           </div>
         ))}
       </div>
-      {/* Buttons */}
+
       <div className="button-row">
         <button className="back-button" onClick={() => navigate("/")}>
           ⬅ Go Back
@@ -162,13 +191,12 @@ const SmartAnalyzer = () => {
           Save & Analyse
         </button>
       </div>
-      {/* Results */}
+
       {saved && (
         <>
           <h2 className="graph-title">Normal Distribution Analysis</h2>
           <Line data={data} options={options} />
 
-          {/* Equation Section */}
           <div className="equation-section" style={{ marginTop: 30 }}>
             <h3>Normal Distribution Formula</h3>
             <p style={{ fontFamily: "monospace", fontSize: "1.1rem" }}>
@@ -185,28 +213,28 @@ const SmartAnalyzer = () => {
                 <b>σ</b> = standard deviation = 5
               </li>
               <li>
-                <b>f(x)</b> = probability density value at x
+                <b>f(x)</b> = probability density at x
               </li>
             </ul>
-
             <p style={{ marginTop: 15 }}>
               Substitution: f({totalScore}) = (1 / (5 √(2π))) * e^(-(
-              {totalScore} - 0)² / (2 * 25))
+              {totalScore} - 0)² / 50)
             </p>
             <p>
-              Computed Value: <b>{personY.toFixed(5)}</b>
+              Computed Value:{" "}
+              <b>{normalDistribution(totalScore, 0, 5).toFixed(5)}</b>
             </p>
           </div>
 
-          {/* Result summary */}
           <div className="summary-box" style={{ marginTop: 20 }}>
             <h3>Result for {personName}</h3>
             <textarea
               readOnly
-              value={`${personName}'s score is ${totalScore}. ${comment}`}
+              value={`${personName}'s score is ${totalScore}. ${comment}
+Percentile: ${percentile.toFixed(2)}%. ${positionComment}`}
               style={{
                 width: "100%",
-                minHeight: 80,
+                minHeight: 100,
                 background: "#1a1f35",
                 color: "#00ffff",
                 fontWeight: 600,
