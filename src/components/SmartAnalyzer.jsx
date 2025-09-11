@@ -29,39 +29,36 @@ const SmartAnalyzer = () => {
 
   // === Normal Distribution Function ===
   const normalDistribution = (x, mean = 0, sd = 1) => {
-    const exponent = -Math.pow(x - mean, 2) / (2 * sd * sd);
+    const exponent = -Math.pow(x - mean, 2) / (2 * Math.pow(sd, 2));
     return (1 / (sd * Math.sqrt(2 * Math.PI))) * Math.exp(exponent);
   };
 
-  // Simple erf approximation
+  // === Error Function (erf) approximation ===
   const erf = (x) => {
-    // Abramowitz and Stegun approximation
-    const a1 = 0.254829592;
-    const a2 = -0.284496736;
-    const a3 = 1.421413741;
-    const a4 = -1.453152027;
-    const a5 = 1.061405429;
-    const p = 0.3275911;
     const sign = x >= 0 ? 1 : -1;
-    const absX = Math.abs(x);
-    const t = 1 / (1 + p * absX);
-    const y =
-      1 -
-      ((((a5 * t + a4) * t + a3) * t + a2) * t + a1) *
+    x = Math.abs(x);
+    const t = 1 / (1 + 0.3275911 * x);
+    const tau =
+      t *
+      (0.254829592 +
         t *
-        Math.exp(-absX * absX);
-    return sign * y;
+          (-0.284496736 +
+            t * (1.421413741 + t * (-1.453152027 + t * 1.061405429))));
+    return sign * (1 - tau * Math.exp(-x * x));
   };
 
-  // Normal CDF for percentile
-  const normalCDF = (x, mean = 0, sd = 1) =>
-    0.5 * (1 + erf((x - mean) / (sd * Math.sqrt(2))));
+  // Compute percentile using erf
+  const computePercentile = (x, mean = 0, sd = 1) => {
+    return ((1 + erf((x - mean) / (sd * Math.sqrt(2)))) / 2) * 100;
+  };
 
+  // Handle question check
   const handleChange = (id, value) => {
     setScores({ ...scores, [id]: value ? 1 : 0 });
     setSaved(false);
   };
 
+  // Handle save
   const handleSave = () => {
     if (!personName.trim()) {
       setNameError(true);
@@ -78,18 +75,14 @@ const SmartAnalyzer = () => {
     0
   );
 
-  // Percentile
-  const percentile = normalCDF(totalScore, 0, 5) * 100;
-  let positionComment = "";
-  if (percentile < 6)
-    positionComment = "Falls in the first 6% (far left tail).";
-  else if (percentile > 94)
-    positionComment = "Falls in the last 6% (far right tail).";
-  else positionComment = "Falls in the central 88% (normal range).";
+  const mean = 0;
+  const sd = 5;
 
-  // Chart data
+  // Chart data for bell curve
   const xValues = Array.from({ length: 61 }, (_, i) => i - 30);
-  const yValues = xValues.map((x) => normalDistribution(x, 0, 5));
+  const yValues = xValues.map((x) => normalDistribution(x, mean, sd));
+  const personY = normalDistribution(totalScore, mean, sd);
+
   const data = {
     labels: xValues,
     datasets: [
@@ -102,11 +95,7 @@ const SmartAnalyzer = () => {
       },
       {
         label: `${personName}'s Position`,
-        data: xValues.map((x) =>
-          Math.abs(x - totalScore) < 0.5
-            ? normalDistribution(totalScore, 0, 5)
-            : null
-        ),
+        data: xValues.map((x) => (x === totalScore ? personY : null)),
         borderColor: "#ffd700",
         pointBackgroundColor: "#ffd700",
         pointRadius: 6,
@@ -123,6 +112,14 @@ const SmartAnalyzer = () => {
     },
   };
 
+  // Percentile & tail interpretation
+  const percentile = computePercentile(totalScore, mean, sd).toFixed(1);
+  let tailComment = "";
+  if (percentile < 6) tailComment = "Left tail (lowest 6%)";
+  else if (percentile > 94) tailComment = "Right tail (highest 6%)";
+  else tailComment = "Middle range";
+
+  // Interpretation comment
   let comment = "";
   if (totalScore < -2) comment = "Strongly aligned with virtues.";
   else if (totalScore >= -2 && totalScore <= 2)
@@ -133,6 +130,7 @@ const SmartAnalyzer = () => {
     <div className="classifier-page">
       <h1 className="title">Smart Analyzer</h1>
 
+      {/* Name input */}
       <div className="name-input-container">
         <label htmlFor="person-name" className="name-label">
           Enter Person's Name:
@@ -160,6 +158,7 @@ const SmartAnalyzer = () => {
         Select the statements that apply to the person you're evaluating:
       </p>
 
+      {/* Question list */}
       <div className="criteria-list">
         {questions.map((q) => (
           <div key={q.id} className="criterion-block">
@@ -175,6 +174,7 @@ const SmartAnalyzer = () => {
         ))}
       </div>
 
+      {/* Buttons */}
       <div className="button-row">
         <button className="back-button" onClick={() => navigate("/")}>
           ⬅ Go Back
@@ -192,11 +192,13 @@ const SmartAnalyzer = () => {
         </button>
       </div>
 
+      {/* Results */}
       {saved && (
         <>
           <h2 className="graph-title">Normal Distribution Analysis</h2>
           <Line data={data} options={options} />
 
+          {/* Equation Section */}
           <div className="equation-section" style={{ marginTop: 30 }}>
             <h3>Normal Distribution Formula</h3>
             <p style={{ fontFamily: "monospace", fontSize: "1.1rem" }}>
@@ -207,34 +209,30 @@ const SmartAnalyzer = () => {
                 <b>x</b> = person’s score = {totalScore}
               </li>
               <li>
-                <b>μ</b> = mean = 0
+                <b>μ</b> = mean = {mean}
               </li>
               <li>
-                <b>σ</b> = standard deviation = 5
+                <b>σ</b> = standard deviation = {sd}
               </li>
               <li>
-                <b>f(x)</b> = probability density at x
+                <b>f(x)</b> = probability density value at x ={" "}
+                {personY.toFixed(5)}
+              </li>
+              <li>
+                <b>Percentile</b> = {percentile}% ({tailComment})
               </li>
             </ul>
-            <p style={{ marginTop: 15 }}>
-              Substitution: f({totalScore}) = (1 / (5 √(2π))) * e^(-(
-              {totalScore} - 0)² / 50)
-            </p>
-            <p>
-              Computed Value:{" "}
-              <b>{normalDistribution(totalScore, 0, 5).toFixed(5)}</b>
-            </p>
           </div>
 
+          {/* Result summary */}
           <div className="summary-box" style={{ marginTop: 20 }}>
             <h3>Result for {personName}</h3>
             <textarea
               readOnly
-              value={`${personName}'s score is ${totalScore}. ${comment}
-Percentile: ${percentile.toFixed(2)}%. ${positionComment}`}
+              value={`${personName}'s score is ${totalScore}. ${comment} Percentile: ${percentile}% (${tailComment})`}
               style={{
                 width: "100%",
-                minHeight: 100,
+                minHeight: 80,
                 background: "#1a1f35",
                 color: "#00ffff",
                 fontWeight: 600,
