@@ -9,7 +9,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      # 1) Pull your repo
+      # 1) Pull repo
       - uses: actions/checkout@v4
 
       # 2) Setup Node.js
@@ -18,14 +18,17 @@ jobs:
           node-version: 20.18.2
           cache: npm
 
-      # 3) Install dependencies
-      - run: npm ci
+      # 3) Clear npm cache (prevents weird CI caching issues)
+      - run: npm cache clean --force
 
-      # 4) Build (CRA outputs build/, Vite outputs dist/)
+      # 4) Install dependencies
+      - run: npm install
+
+      # 5) Build
       - name: Build for production
         run: npm run build
 
-      # 5) Detect output directory (must end with / for FTP action)
+      # 6) Detect output directory
       - name: Detect output directory
         id: outdir
         run: |
@@ -36,16 +39,13 @@ jobs:
           else
             echo "❌ Build output not found (dist/ or build/)" >&2
             exit 1
-          fi
 
-      # 6) FTP Deploy
+      # 7) Deploy via FTP
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          server: ${{ secrets.FTP_SERVER }} # e.g. ftp.yourdomain.com
+          server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ${{ steps.outdir.outputs.dir }}
-          server-dir: /public_html/website_551e287b/ # <-- now has trailing slash
-          # optional:
-          # dangerous-clean-slate: true
+          server-dir: /public_html/website_551e287b/
