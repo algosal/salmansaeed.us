@@ -337,7 +337,7 @@ const SmartAnalyzer = () => {
               <br />- f(x) at the person's score = {personY.toFixed(5)}
               <br />
               - Very low f(x) = person is in rare/edge position
-              <br />- High f(x) = person near average (peak of the curve).
+              <br />- High f(x) = person near average (peak of the curve)
             </p>
 
             <button
