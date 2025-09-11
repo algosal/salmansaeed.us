@@ -11,6 +11,8 @@ import {
   PointElement,
   Tooltip,
 } from "chart.js";
+import { BlockMath } from "react-katex";
+import "katex/dist/katex.min.css";
 
 ChartJS.register(
   LineElement,
@@ -33,8 +35,9 @@ const SmartAnalyzer = () => {
     return (1 / (sd * Math.sqrt(2 * Math.PI))) * Math.exp(exponent);
   };
 
-  // === Error Function (erf) approximation ===
+  // Standard error function (erf)
   const erf = (x) => {
+    // Numerical approximation
     const sign = x >= 0 ? 1 : -1;
     x = Math.abs(x);
     const t = 1 / (1 + 0.3275911 * x);
@@ -47,12 +50,17 @@ const SmartAnalyzer = () => {
     return sign * (1 - tau * Math.exp(-x * x));
   };
 
-  // Compute percentile using erf
-  const computePercentile = (x, mean = 0, sd = 1) => {
-    return ((1 + erf((x - mean) / (sd * Math.sqrt(2)))) / 2) * 100;
-  };
+  // Percentile based on totalScore (normal CDF)
+  const totalScore = questions.reduce(
+    (acc, q) => acc + (scores[q.id] ? q.weight : 0),
+    0
+  );
+  const mean = 0;
+  const sd = 5;
+  const percentile = 0.5 * (1 + erf((totalScore - mean) / (sd * Math.sqrt(2))));
+  const percentileText = `${(percentile * 100).toFixed(1)}%`;
 
-  // Handle question check
+  // Handle question change
   const handleChange = (id, value) => {
     setScores({ ...scores, [id]: value ? 1 : 0 });
     setSaved(false);
@@ -68,15 +76,6 @@ const SmartAnalyzer = () => {
     setNameError(false);
     setSaved(true);
   };
-
-  // Total score
-  const totalScore = questions.reduce(
-    (acc, q) => acc + (scores[q.id] ? q.weight : 0),
-    0
-  );
-
-  const mean = 0;
-  const sd = 5;
 
   // Chart data for bell curve
   const xValues = Array.from({ length: 61 }, (_, i) => i - 30);
@@ -105,21 +104,19 @@ const SmartAnalyzer = () => {
 
   const options = {
     responsive: true,
-    plugins: { tooltip: { mode: "index", intersect: false } },
+    plugins: {
+      tooltip: {
+        mode: "index",
+        intersect: false,
+      },
+    },
     scales: {
       x: { title: { display: true, text: "Score (x)" } },
       y: { title: { display: true, text: "f(x)" } },
     },
   };
 
-  // Percentile & tail interpretation
-  const percentile = computePercentile(totalScore, mean, sd).toFixed(1);
-  let tailComment = "";
-  if (percentile < 6) tailComment = "Left tail (lowest 6%)";
-  else if (percentile > 94) tailComment = "Right tail (highest 6%)";
-  else tailComment = "Middle range";
-
-  // Interpretation comment
+  // Interpretation
   let comment = "";
   if (totalScore < -2) comment = "Strongly aligned with virtues.";
   else if (totalScore >= -2 && totalScore <= 2)
@@ -201,12 +198,12 @@ const SmartAnalyzer = () => {
           {/* Equation Section */}
           <div className="equation-section" style={{ marginTop: 30 }}>
             <h3>Normal Distribution Formula</h3>
-            <p style={{ fontFamily: "monospace", fontSize: "1.1rem" }}>
-              f(x) = (1 / (σ √(2π))) * e^(-(x - μ)² / (2σ²))
-            </p>
+            <BlockMath
+              math={`f(x) = \\frac{1}{\\sigma \\sqrt{2\\pi}} e^{-\\frac{(x-\\mu)^2}{2\\sigma^2}}`}
+            />
             <ul style={{ marginTop: 10, lineHeight: "1.6" }}>
               <li>
-                <b>x</b> = person’s score = {totalScore}
+                <b>x</b> = person's score = {totalScore}
               </li>
               <li>
                 <b>μ</b> = mean = {mean}
@@ -218,10 +215,20 @@ const SmartAnalyzer = () => {
                 <b>f(x)</b> = probability density value at x ={" "}
                 {personY.toFixed(5)}
               </li>
-              <li>
-                <b>Percentile</b> = {percentile}% ({tailComment})
-              </li>
             </ul>
+            <BlockMath
+              math={`f(${totalScore}) = \\frac{1}{${sd} \\sqrt{2\\pi}} e^{-\\frac{(${totalScore}-${mean})^2}{2*${sd}^2}}`}
+            />
+            <p>
+              Percentile: <b>{percentileText}</b> (falls in{" "}
+              {percentile > 0.5 ? "right" : "left"} tail)
+            </p>
+            <p>
+              Score out of Total:{" "}
+              <b>
+                {totalScore}/{questions.reduce((acc, q) => acc + q.weight, 0)}
+              </b>
+            </p>
           </div>
 
           {/* Result summary */}
@@ -229,7 +236,7 @@ const SmartAnalyzer = () => {
             <h3>Result for {personName}</h3>
             <textarea
               readOnly
-              value={`${personName}'s score is ${totalScore}. ${comment} Percentile: ${percentile}% (${tailComment})`}
+              value={`${personName}'s score is ${totalScore}. ${comment}`}
               style={{
                 width: "100%",
                 minHeight: 80,
