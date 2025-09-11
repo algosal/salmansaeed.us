@@ -15,6 +15,7 @@ const GraphNavPanel = () => {
     { label: "Emotional Inertia", path: "/EmotionalInertia" },
     { label: "Disregarded Entities", path: "/DisregardedEntities" },
     { label: "DE Criteria List", path: "/CriteriaList" },
+    { label: "Smart Analyzer", path: "/SmartAnalyzer" },
   ];
 
   return (

@@ -19,6 +19,7 @@ import MomentumEquation from "./components/MomentumEquation";
 import DisregardedEntities from "./components/DisregardedEntities";
 import CriteriaList from "./components/CriteriaList";
 import DisregardedClassifier from "./components/DisregardedClassifier";
+import SmartAnalyzer from "./components/SmartAnalyzer";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
         <Route path="/MomentumEquation" element={<MomentumEquation />} />
         <Route path="/DisregardedEntities" element={<DisregardedEntities />} />
         <Route path="/CriteriaList" element={<CriteriaList />} />
+        <Route path="/SmartAnalyzer" element={<SmartAnalyzer />} />
         <Route
           path="/DisregardedClassifier"
           element={<DisregardedClassifier />}
