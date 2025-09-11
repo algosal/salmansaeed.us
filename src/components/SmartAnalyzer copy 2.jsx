@@ -1,5 +1,7 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import questions from "../data/questions";
+import "../styles/DisregardedClassifier.css";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -12,17 +14,6 @@ import {
 import { BlockMath } from "react-katex";
 import "katex/dist/katex.min.css";
 
-import questions from "../data/questions";
-import pairedQuestions from "../data/pairedQuestions";
-
-import { getEntityComment, getPercentileComment } from "../formulas/comments";
-import { mapScoreToInches } from "../formulas/mapping";
-import { normalDistribution, getPercentile } from "../formulas/distributions";
-import { mapNormalizedToInches } from "../formulas/normalization";
-import { calculateAccuracyRates } from "../utils/accuracy";
-
-import "../styles/DisregardedClassifier.css";
-
 ChartJS.register(
   LineElement,
   CategoryScale,
@@ -33,122 +24,102 @@ ChartJS.register(
 
 const SmartAnalyzer = () => {
   const [scores, setScores] = useState({});
-  const [excluded, setExcluded] = useState({});
   const [saved, setSaved] = useState(false);
   const [personName, setPersonName] = useState("");
   const [nameError, setNameError] = useState(false);
   const [showFxInfo, setShowFxInfo] = useState(false);
-
   const navigate = useNavigate();
 
-  // Toggle exclusion (with paired questions)
-  const handleExcludeToggle = (id) => {
-    setExcluded((prev) => {
-      const newExcluded = { ...prev, [id]: !prev[id] };
-      const pairId = pairedQuestions[id];
-      if (pairId) newExcluded[pairId] = !prev[id];
-      return newExcluded;
-    });
-    setSaved(false);
+  // === Normal Distribution Function ===
+  const normalDistribution = (x, mean = 0, sd = 1) => {
+    const exponent = -Math.pow(x - mean, 2) / (2 * Math.pow(sd, 2));
+    return (1 / (sd * Math.sqrt(2 * Math.PI))) * Math.exp(exponent);
   };
 
+  // Standard error function (erf)
+  const erf = (x) => {
+    const sign = x >= 0 ? 1 : -1;
+    x = Math.abs(x);
+    const t = 1 / (1 + 0.3275911 * x);
+    const tau =
+      t *
+      (0.254829592 +
+        t *
+          (-0.284496736 +
+            t * (1.421413741 + t * (-1.453152027 + t * 1.061405429))));
+    return sign * (1 - tau * Math.exp(-x * x));
+  };
+
+  // Percentile based on totalScore (normal CDF)
+  const totalScore = questions.reduce(
+    (acc, q) => acc + (scores[q.id] ? q.weight : 0),
+    0
+  );
+  const mean = 0;
+  const sd = 5;
+  const percentile = 0.5 * (1 + erf((totalScore - mean) / (sd * Math.sqrt(2))));
+  const percentileText = `${(percentile * 100).toFixed(1)}%`;
+
   const handleChange = (id, value) => {
-    setScores((prev) => ({ ...prev, [id]: value ? 1 : 0 }));
+    setScores({ ...scores, [id]: value ? 1 : 0 });
     setSaved(false);
   };
 
   const handleSave = () => {
     if (!personName.trim()) {
       setNameError(true);
+      setSaved(false);
       return;
     }
     setNameError(false);
     setSaved(true);
   };
 
-  // === Compute Scores & Normalized ===
-  const { totalScore, totalMaxScore, normalizedScore } = useMemo(() => {
-    let total = 0;
-    let maxScore = 0;
-    questions.forEach((q) => {
-      if (!excluded[q.id]) {
-        const w = q.weight ?? 1;
-        maxScore += Math.abs(w);
-        total += scores[q.id] ? w : 0;
-      }
-    });
-    const normalized = maxScore > 0 ? total / maxScore : 0;
-    // console.log("toal is " + total + "and max is " + maxScore);
-    return {
-      totalScore: total,
-      totalMaxScore: maxScore,
-      normalizedScore: normalized,
-    };
-  }, [scores, excluded]);
-
-  // Mean and SD for chart
-  const mean = 0;
-  const sd = 5;
-
-  const percentile = getPercentile(totalScore, mean, sd);
-  const percentileText = `${(percentile * 100).toFixed(1)}%`;
-
-  const sizeInInches = mapScoreToInches(totalScore, mean, sd);
-  // derive arrays first
-  const answeredIds = useMemo(
-    () => Object.keys(scores).filter((id) => scores[id]),
-    [scores]
-  );
-  const excludedIds = useMemo(
-    () => Object.keys(excluded).filter((id) => excluded[id]),
-    [excluded]
-  );
-  //success and error rates
-  const { successRate, errorRate } = calculateAccuracyRates(
-    questions,
-    excludedIds
-  );
-
-  //   console.log("Success rate:", successRate.toFixed(2));
-  //   console.log("Error rate:", errorRate.toFixed(2));
-
-  const normalizedSizeInInches = useMemo(() => {
-    let valueOfNormalizedInches = mapNormalizedToInches(
-      questions,
-      answeredIds,
-      excludedIds,
-      mean,
-      sd
-    );
-    // console.log("value of normalized inches" + valueOfNormalizedInches);
-    return valueOfNormalizedInches;
-  }, [answeredIds, excludedIds, mean, sd]);
-
-  const entityComment = getEntityComment(
-    sizeInInches,
-    "Balanced / neutral traits."
-  );
-  const percentileComment = getPercentileComment(
-    percentile,
-    totalScore,
-    mean - 1.5548 * sd,
-    mean + 1.5548 * sd,
-    mean
-  );
-
-  // Chart setup
+  // Chart data for bell curve
   const xValues = Array.from({ length: 61 }, (_, i) => i - 30);
   const yValues = xValues.map((x) => normalDistribution(x, mean, sd));
   const personY = normalDistribution(totalScore, mean, sd);
-  const leftTailCut = mean - 1.5548 * sd;
-  const rightTailCut = mean + 1.5548 * sd;
 
-  const getDotColor = (score) => {
-    if (score <= leftTailCut) return "#00ff00";
-    if (score >= rightTailCut) return "#ff0000";
-    return "#ffd700";
+  // === 6% tails ===
+  const leftTailCut = mean - 1.5548 * sd; // z-score ~6% left
+  const rightTailCut = mean + 1.5548 * sd; // z-score ~6% right
+
+  //   Map percentile to 1-18 inches scale
+
+  // === Piecewise mapping for size (inches) ===
+  const mapScoreToInches = (score) => {
+    const leftTailCut = mean - 1.5548 * sd; // ~6% left
+    const rightTailCut = mean + 1.5548 * sd; // ~6% right
+
+    // Helper: linear interpolation
+    const interpolate = (x, x0, x1, y0, y1) =>
+      y0 + ((x - x0) / (x1 - x0)) * (y1 - y0);
+
+    if (score <= leftTailCut) {
+      // Left extreme tail: 1 → 5 inches
+      return interpolate(score, leftTailCut - 10, leftTailCut, 1, 5); // extend left for smoothness
+    } else if (score > leftTailCut && score <= mean) {
+      // Left slope to center: 5 → 6 inches
+      return interpolate(score, leftTailCut, mean, 5, 6);
+    } else if (score > mean && score <= rightTailCut) {
+      // Right slope to center: 6 → 7 inches
+      return interpolate(score, mean, rightTailCut, 6, 7);
+    } else {
+      // Right extreme tail: 7 → 18 inches
+      return interpolate(score, rightTailCut, rightTailCut + 10, 7, 18); // extend right for smoothness
+    }
   };
 
+  const sizeInInches = mapScoreToInches(totalScore);
+
+  // === Determine dot color based on totalScore / percentile position ===
+  const getDotColor = (score) => {
+    if (score <= mean - 1.5548 * sd) return "#00ff00"; // left tail → green
+    else if (score >= mean + 1.5548 * sd) return "#ff0000"; // right tail → red
+    else return "#ffd700"; // center → yellow
+  };
+
+  // Update chart dataset for person position
   const data = {
     labels: xValues,
     datasets: [
@@ -184,12 +155,51 @@ const SmartAnalyzer = () => {
 
   const options = {
     responsive: true,
-    plugins: { tooltip: { mode: "index", intersect: false } },
+    plugins: {
+      tooltip: {
+        mode: "index",
+        intersect: false,
+      },
+    },
     scales: {
       x: { title: { display: true, text: "Score (x)" } },
       y: { title: { display: true, text: "f(x)" } },
     },
   };
+
+  let comment = "";
+  if (totalScore < -2) comment = "Strongly aligned with virtues.";
+  else if (totalScore >= -2 && totalScore <= 2)
+    comment = "Balanced / neutral traits.";
+  else comment = "Red flags detected; leaning toward disregard.";
+
+  // === Determine entity type based on sizeInInches ===
+  let entityComment = "";
+  if (sizeInInches > 9) entityComment = "Hedonistic Entity!";
+  else if (sizeInInches > 8) entityComment = "Disregarded Entity!";
+  else if (sizeInInches > 7)
+    entityComment = "Leaning towards Disregarded Entity";
+  else entityComment = comment; // use previous comment for <=7
+
+  // === Percentile-based comment ===
+  let percentileComment = "";
+  if (percentile < 0.005) {
+    percentileComment = "Queer"; // bottom 1%
+  } else if (percentile < 0.03) {
+    percentileComment = "Suitable but too good to be true, Revision Required"; // bottom 3%
+  } else if (percentile >= 0.99) {
+    percentileComment = "Animalistic"; // top 1%
+  } else if (percentile >= 0.97) {
+    percentileComment = "BDSM"; // top 3%
+  } else if (totalScore <= leftTailCut) {
+    percentileComment = "Revision required"; // below left 6%
+  } else if (totalScore > leftTailCut && totalScore <= mean) {
+    percentileComment = "Suitable to very suitable"; // left slope to top
+  } else if (totalScore > rightTailCut) {
+    percentileComment = "Revision required, please re-estimate"; // right tail above top 6%
+  } else {
+    percentileComment = "Balanced / neutral traits."; // center zone
+  }
 
   return (
     <div className="classifier-page">
@@ -222,58 +232,21 @@ const SmartAnalyzer = () => {
       <p className="description">
         Select the statements that apply to the person you're evaluating:
       </p>
-      <div className="criteria-list">
-        {questions.map((q) => {
-          const pairId = pairedQuestions[q.id];
-          // Disable checkbox if excluded OR its contradictory pair is selected
-          const isCheckboxDisabled =
-            !!excluded[q.id] || (pairId && scores[pairId]);
 
-          return (
-            <div
-              key={q.id}
-              className="criterion-block"
-              style={{ display: "flex", alignItems: "center", marginBottom: 8 }}
-            >
-              {/* Red exclusion box */}
-              <button
-                type="button"
-                title="This question is excluded from analysis."
-                onClick={() => handleExcludeToggle(q.id)}
-                style={{
-                  width: 20,
-                  height: 20,
-                  marginRight: 8,
-                  backgroundColor: excluded[q.id] ? "red" : "#ccc",
-                  border: "none",
-                  cursor: "pointer",
-                  borderRadius: 3,
-                }}
+      {/* Question list */}
+      <div className="criteria-list">
+        {questions.map((q) => (
+          <div key={q.id} className="criterion-block">
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                checked={!!scores[q.id]}
+                onChange={(e) => handleChange(q.id, e.target.checked)}
               />
-              {/* Checkbox */}
-              <label
-                className="checkbox-label"
-                style={{ display: "flex", alignItems: "center" }}
-              >
-                <input
-                  type="checkbox"
-                  checked={!!scores[q.id]}
-                  disabled={isCheckboxDisabled}
-                  onChange={(e) => handleChange(q.id, e.target.checked)}
-                />
-                <span
-                  style={{
-                    marginLeft: 4,
-                    color: isCheckboxDisabled ? "#888" : "#fff",
-                    textDecoration: excluded[q.id] ? "line-through" : "none",
-                  }}
-                >
-                  {q.text}
-                </span>
-              </label>
-            </div>
-          );
-        })}
+              <span className="criterion-text">{q.text}</span>
+            </label>
+          </div>
+        ))}
       </div>
 
       {/* Buttons */}
@@ -297,34 +270,14 @@ const SmartAnalyzer = () => {
       {/* Results */}
       {saved && (
         <>
-          {/* Score display under result */}
-          <p style={{ marginTop: 10 }}>
-            <b>Score:</b> {totalScore} / {totalMaxScore} | Normalized:{" "}
-            {(normalizedScore * 100).toFixed(1)}%
-          </p>
-
           <h2 className="graph-title">Normal Distribution Analysis</h2>
           <Line data={data} options={options} />
           <p>
-            <b>Approximate size (inches based on percentile):</b>{" "}
+            <b>Approximate size (inches) based on percentile:</b>{" "}
             {sizeInInches.toFixed(1)}" (1–18 scale)
           </p>
 
-          <div className="result-metrics">
-            <p style={{ color: "green" }}>
-              <strong>Success Rate in Approximation:</strong>{" "}
-              {(successRate * 100).toFixed(1)}%
-            </p>
-            <p style={{ color: "red" }}>
-              <strong>Error Rate in Approximation:</strong>{" "}
-              {(errorRate * 100).toFixed(1)}%
-            </p>
-            <p>
-              <b>Normalized size:</b> {normalizedSizeInInches.toFixed(1)}" (1–18
-              scale)
-            </p>
-          </div>
-
+          {/* Equation Section */}
           <div className="equation-section" style={{ marginTop: 30 }}>
             <h3>Normal Distribution Formula</h3>
             <BlockMath
@@ -341,7 +294,7 @@ const SmartAnalyzer = () => {
                 <b>σ</b> = standard deviation = {sd}
               </li>
               <li>
-                <b>f(x)</b>{" "}
+                <b>f(x)</b> ={" "}
                 <span
                   onClick={() => setShowFxInfo(true)}
                   style={{
@@ -361,13 +314,20 @@ const SmartAnalyzer = () => {
               Percentile: <b>{percentileText}</b> (falls in{" "}
               {percentile > 0.5 ? "right" : "left"} tail)
             </p>
+            <p>
+              Score out of Total:{" "}
+              <b>
+                {totalScore}/{questions.reduce((acc, q) => acc + q.weight, 0)}
+              </b>
+            </p>
           </div>
 
+          {/* Result summary */}
           <div className="summary-box" style={{ marginTop: 20 }}>
             <h3>Result for {personName}</h3>
             <textarea
               readOnly
-              value={`${personName}'s score is ${totalScore} / ${totalMaxScore}. ${entityComment}. Percentile note: ${percentileComment}`}
+              value={`${personName}'s score is ${totalScore}. ${entityComment}. Percentile note: ${percentileComment}`}
               style={{
                 width: "100%",
                 minHeight: 80,
@@ -383,7 +343,6 @@ const SmartAnalyzer = () => {
         </>
       )}
 
-      {/* f(x) Info Modal */}
       {/* f(x) Info Modal */}
       {showFxInfo && (
         <div
@@ -420,24 +379,52 @@ const SmartAnalyzer = () => {
             <h3 style={{ color: "#ffd700" }}>
               Probability Density Value (f(x))
             </h3>
+
             <p>
-              At <b>{personName}'s</b> score of <b>{totalScore}</b>, the
-              probability density value is:{" "}
-              <span style={{ color: "#00ff7f", fontWeight: "bold" }}>
-                {personY.toFixed(5)}
-              </span>
+              1. <b>What it is:</b> In a{" "}
+              <b>continuous probability distribution</b> like the normal
+              distribution, <b>f(x)</b> gives the{" "}
+              <b>height of the curve at a particular score x</b>. It tells you{" "}
+              <b>how dense or likely values are around that point</b>, but{" "}
+              <b>not the probability itself</b>.
+            </p>
+
+            <p>
+              2. <b>Important distinction:</b>
+              <br />- f(x) is <b>not a probability</b>; it can be greater than
+              1.
+              <br />- To get a probability over an interval:
+            </p>
+            <BlockMath math={`P(a \\le X \\le b) = \\int_a^b f(x) \\, dx`} />
+
+            <p>
+              3. <b>Equations (book style):</b>
+              <br />
+              Normal Distribution:
+            </p>
+            <BlockMath
+              math={`f(x) = \\frac{1}{\\sigma \\sqrt{2\\pi}} e^{-\\frac{(x-\\mu)^2}{2\\sigma^2}}`}
+            />
+
+            <p>Standard Error Function (erf):</p>
+            <BlockMath
+              math={`\\text{erf}(x) = \\frac{2}{\\sqrt{\\pi}} \\int_0^x e^{-t^2} dt`}
+            />
+
+            <p>
+              4. <b>Intuitive meaning:</b>
+              <br />- Think of the curve as a <b>mountain of likelihood</b>.
+              <br />- f(x) tells you <b>how high the mountain is at x</b>:
+              higher = values more common, lower = rarer.
             </p>
             <p>
-              This represents the <i>height</i> of the normal distribution curve
-              at <b>{personName}'s</b> score. A higher value means the score is
-              closer to the mean; a lower value means it lies further in the
-              tails.
+              5. <b>In your analysis:</b>
+              <br />- f(x) at the person's score = {personY.toFixed(5)}
+              <br />
+              - Very low f(x) = person is in rare/edge position
+              <br />- High f(x) = person near average (peak of the curve)
             </p>
-            <p>
-              <b>Interpretation:</b> f(x) does not tell you the probability of
-              that score directly, but how <i>likely</i> it is relative to other
-              scores, based on the distribution.
-            </p>
+
             <button
               onClick={() => setShowFxInfo(false)}
               style={{
@@ -451,7 +438,7 @@ const SmartAnalyzer = () => {
                 fontWeight: "600",
               }}
             >
-              Close Me
+              Close
             </button>
           </div>
         </div>
