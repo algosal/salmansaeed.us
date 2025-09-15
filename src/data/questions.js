@@ -4,16 +4,31 @@ const questions = [
     id: 1,
     text: "Does the person often avoid responsibility?",
     weight: 1,
+    pillar: "Integrity",
   },
   {
     id: 2,
     text: "Does the person stay consistent with promises?",
     weight: -2,
+    pillar: "Integrity",
   },
   {
     id: 3,
     text: "Do they make excuses instead of finding solutions?",
     weight: 1,
+    pillar: "Integrity",
+  },
+  {
+    id: 21,
+    text: "Do they admit mistakes openly without shifting blame?",
+    weight: -2,
+    pillar: "Integrity",
+  },
+  {
+    id: 22,
+    text: "Do they cut corners even when no one is watching?",
+    weight: 2,
+    pillar: "Integrity",
   },
 
   // Empathy & Relationships
@@ -21,21 +36,37 @@ const questions = [
     id: 4,
     text: "Does the person show empathy in difficult situations?",
     weight: -1,
+    pillar: "Relationships",
   },
   {
     id: 5,
     text: "Do they frequently criticize or belittle others?",
     weight: 2,
+    pillar: "Relationships",
   },
   {
     id: 6,
     text: "Do they prioritize material gain over relationships?",
     weight: 2,
+    pillar: "Relationships",
   },
   {
     id: 7,
     text: "Do they genuinely celebrate the success of others?",
     weight: -1,
+    pillar: "Relationships",
+  },
+  {
+    id: 23,
+    text: "Do they maintain healthy and supportive friendships?",
+    weight: -1,
+    pillar: "Relationships",
+  },
+  {
+    id: 24,
+    text: "Do they gossip or spread rumors about people close to them?",
+    weight: 2,
+    pillar: "Relationships",
   },
 
   // Manipulation & Trust
@@ -43,21 +74,37 @@ const questions = [
     id: 8,
     text: "Does the person manipulate or guilt-trip others?",
     weight: 2,
+    pillar: "Trust",
   },
   {
     id: 9,
     text: "Do they exaggerate or twist facts to their advantage?",
     weight: 2,
+    pillar: "Trust",
   },
   {
     id: 10,
     text: "Do they admit when they are wrong?",
     weight: -2,
+    pillar: "Trust",
   },
   {
     id: 11,
     text: "Do they break trust but expect forgiveness quickly?",
     weight: 2,
+    pillar: "Trust",
+  },
+  {
+    id: 25,
+    text: "Do they keep secrets that should be shared for honesty’s sake?",
+    weight: 1,
+    pillar: "Trust",
+  },
+  {
+    id: 26,
+    text: "Do they honor confidentiality when someone shares in trust?",
+    weight: -2,
+    pillar: "Trust",
   },
 
   // Stability & Growth
@@ -65,21 +112,37 @@ const questions = [
     id: 12,
     text: "Are they consistent in their values and actions?",
     weight: -2,
+    pillar: "Stability",
   },
   {
     id: 13,
     text: "Do they lose interest or withdraw when things get hard?",
     weight: 1,
+    pillar: "Stability",
   },
   {
     id: 14,
     text: "Do they seek personal growth and learning?",
     weight: -1,
+    pillar: "Stability",
   },
   {
     id: 15,
     text: "Do they blame others for their own mistakes?",
     weight: 2,
+    pillar: "Stability",
+  },
+  {
+    id: 27,
+    text: "Do they stay resilient and calm under stress?",
+    weight: -2,
+    pillar: "Stability",
+  },
+  {
+    id: 28,
+    text: "Do they often quit commitments without explanation?",
+    weight: 2,
+    pillar: "Stability",
   },
 
   // Social & Spiritual
@@ -87,61 +150,87 @@ const questions = [
     id: 16,
     text: "Do they respect other people’s boundaries?",
     weight: -1,
+    pillar: "Social/Spiritual",
   },
   {
     id: 17,
     text: "Do they act differently in public vs private?",
     weight: 1,
+    pillar: "Social/Spiritual",
   },
   {
     id: 18,
     text: "Do they use others for convenience?",
     weight: 2,
+    pillar: "Social/Spiritual",
   },
   {
     id: 19,
     text: "Do they acknowledge gratitude and show humility?",
     weight: -2,
+    pillar: "Social/Spiritual",
   },
   {
     id: 20,
     text: "Do they drain more energy from you than they give?",
     weight: 2,
+    pillar: "Social/Spiritual",
   },
+  {
+    id: 29,
+    text: "Do they respect cultural, spiritual, or personal differences?",
+    weight: -1,
+    pillar: "Social/Spiritual",
+  },
+  {
+    id: 30,
+    text: "Do they act entitled as if rules don’t apply to them?",
+    weight: 2,
+    pillar: "Social/Spiritual",
+  },
+
+  // High-intensity extremes
   {
     id: "q_high_1",
     text: "Would you like a size that gives you pain?",
-    weight: 5, // very high weight
+    weight: 5,
+    pillar: "Intensity",
   },
   {
     id: "q_high_2",
     text: "Do you enjoy extremes even if they are intense?",
     weight: 4,
+    pillar: "Intensity",
   },
   {
     id: "q_high_3",
     text: "Do you prefer situations that push boundaries or discomfort?",
     weight: 4,
+    pillar: "Intensity",
   },
   {
     id: "q_high_4",
     text: "Do you get satisfaction from reaching unusual or rare experiences?",
     weight: 3,
+    pillar: "Intensity",
   },
   {
     id: "q_high_5",
     text: "Do you enjoy being in positions that most people avoid due to intensity?",
     weight: 4,
+    pillar: "Intensity",
   },
   {
     id: "q_high_6",
     text: "Do you prefer more time in intimacy than half an hour?",
-    weight: 5, // high weight to push toward right tail
+    weight: 5,
+    pillar: "Intensity",
   },
   {
     id: "q_high_7",
     text: "Do you prefer less time in intimacy than three minutes?",
-    weight: -5, // high weight to push toward left tail
+    weight: -5,
+    pillar: "Intensity",
   },
 ];
 
