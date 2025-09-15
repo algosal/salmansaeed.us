@@ -33,11 +33,10 @@ const pairedQuestions = {
   16: [18], // respect boundaries ↔ use others for convenience
   18: [16],
   17: [29], // public vs private ↔ respect differences
-  29: [17],
+  29: [17, 30],
   19: [20], // acknowledge gratitude ↔ drain energy
   20: [19],
   30: [29], // act entitled ↔ respect differences
-  29: [30],
 
   // High-intensity extremes
   q_high_6: ["q_high_7"], // long intimacy ↔ very short intimacy
