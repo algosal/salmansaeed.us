@@ -19,20 +19,6 @@ const questions = [
     pillar: "Integrity",
   },
   {
-    id: 21,
-    text: "Do they admit mistakes openly without shifting blame?",
-    weight: -2,
-    pillar: "Integrity",
-  },
-  {
-    id: 22,
-    text: "Do they cut corners even when no one is watching?",
-    weight: 2,
-    pillar: "Integrity",
-  },
-
-  // Empathy & Relationships
-  {
     id: 4,
     text: "Does the person show empathy in difficult situations?",
     weight: -1,
@@ -56,20 +42,6 @@ const questions = [
     weight: -1,
     pillar: "Relationships",
   },
-  {
-    id: 23,
-    text: "Do they maintain healthy and supportive friendships?",
-    weight: -1,
-    pillar: "Relationships",
-  },
-  {
-    id: 24,
-    text: "Do they gossip or spread rumors about people close to them?",
-    weight: 2,
-    pillar: "Relationships",
-  },
-
-  // Manipulation & Trust
   {
     id: 8,
     text: "Does the person manipulate or guilt-trip others?",
@@ -95,20 +67,6 @@ const questions = [
     pillar: "Trust",
   },
   {
-    id: 25,
-    text: "Do they keep secrets that should be shared for honesty’s sake?",
-    weight: 1,
-    pillar: "Trust",
-  },
-  {
-    id: 26,
-    text: "Do they honor confidentiality when someone shares in trust?",
-    weight: -2,
-    pillar: "Trust",
-  },
-
-  // Stability & Growth
-  {
     id: 12,
     text: "Are they consistent in their values and actions?",
     weight: -2,
@@ -132,20 +90,6 @@ const questions = [
     weight: 2,
     pillar: "Stability",
   },
-  {
-    id: 27,
-    text: "Do they stay resilient and calm under stress?",
-    weight: -2,
-    pillar: "Stability",
-  },
-  {
-    id: 28,
-    text: "Do they often quit commitments without explanation?",
-    weight: 2,
-    pillar: "Stability",
-  },
-
-  // Social & Spiritual
   {
     id: 16,
     text: "Do they respect other people’s boundaries?",
@@ -175,6 +119,54 @@ const questions = [
     text: "Do they drain more energy from you than they give?",
     weight: 2,
     pillar: "Social/Spiritual",
+  },
+  {
+    id: 21,
+    text: "Do they admit mistakes openly without shifting blame?",
+    weight: -2,
+    pillar: "Integrity",
+  },
+  {
+    id: 22,
+    text: "Do they cut corners even when no one is watching?",
+    weight: 2,
+    pillar: "Integrity",
+  },
+  {
+    id: 23,
+    text: "Do they maintain healthy and supportive friendships?",
+    weight: -1,
+    pillar: "Relationships",
+  },
+  {
+    id: 24,
+    text: "Do they gossip or spread rumors about people close to them?",
+    weight: 2,
+    pillar: "Relationships",
+  },
+  {
+    id: 25,
+    text: "Do they keep secrets that should be shared for honesty’s sake?",
+    weight: 1,
+    pillar: "Trust",
+  },
+  {
+    id: 26,
+    text: "Do they honor confidentiality when someone shares in trust?",
+    weight: -2,
+    pillar: "Trust",
+  },
+  {
+    id: 27,
+    text: "Do they stay resilient and calm under stress?",
+    weight: -2,
+    pillar: "Stability",
+  },
+  {
+    id: 28,
+    text: "Do they often quit commitments without explanation?",
+    weight: 2,
+    pillar: "Stability",
   },
   {
     id: 29,
