@@ -1,43 +1,37 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Chart from "chart.js/auto";
+import { BlockMath } from "react-katex";
+import "katex/dist/katex.min.css";
+
 import Navbar from "./Navbar";
+
 import "./EmotionalInertia.css";
 
 const EmotionalInertia = () => {
   const chartRef = useRef(null);
+  const [showLagModal, setShowLagModal] = useState(false);
 
   useEffect(() => {
     const ctx = chartRef.current.getContext("2d");
 
-    // Data for Thought (T), Emotional Lag (L), Emotional Load (S)
-    // Using sample functions for demonstration:
-    // T(t) = 10 * sin(0.3 * t) + 10 (Thought leading)
-    // L(t) = 0.7 * T(t - 3) (Lagging response, shifted right)
-    // S(t) = Integral from 0 to t of (T(u) - L(u)) du (Emotional load)
-
     const totalPoints = 60;
     const labels = Array.from({ length: totalPoints }, (_, i) => i);
 
-    // Generate T and L data arrays:
     const T = labels.map((t) => 10 * Math.sin(0.3 * t) + 10);
 
-    // For lag, shift by 3 points, pad with initial values
     const lagShift = 3;
     const L = labels.map((t) =>
       t - lagShift >= 0 ? 0.7 * T[t - lagShift] : 0
     );
 
-    // Calculate emotional load S as cumulative integral approx (sum of differences)
     const S = [];
     let cumSum = 0;
     for (let i = 0; i < totalPoints; i++) {
-      // difference T - L, approximate integral by summing differences
       const diff = T[i] - L[i];
-      cumSum += diff > 0 ? diff : 0; // only positive differences contribute
+      cumSum += diff > 0 ? diff : 0;
       S.push(cumSum);
     }
 
-    // Prepare datasets
     const datasets = [
       {
         label: "Thought (T)",
@@ -68,7 +62,6 @@ const EmotionalInertia = () => {
       },
     ];
 
-    // Destroy previous chart if any
     let chartInstance;
     if (chartRef.current.chartInstance) {
       chartRef.current.chartInstance.destroy();
@@ -76,25 +69,14 @@ const EmotionalInertia = () => {
 
     chartInstance = new Chart(ctx, {
       type: "line",
-      data: {
-        labels,
-        datasets,
-      },
+      data: { labels, datasets },
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        interaction: {
-          mode: "index",
-          intersect: false,
-        },
+        interaction: { mode: "index", intersect: false },
         stacked: false,
         plugins: {
-          legend: {
-            labels: {
-              color: "#eee",
-              font: { size: 14 },
-            },
-          },
+          legend: { labels: { color: "#eee", font: { size: 14 } } },
           tooltip: {
             enabled: true,
             backgroundColor: "#222",
@@ -112,11 +94,7 @@ const EmotionalInertia = () => {
             position: "left",
             ticks: { color: "#eee" },
             grid: { color: "#333" },
-            title: {
-              display: true,
-              text: "Value",
-              color: "#aaa",
-            },
+            title: { display: true, text: "Value", color: "#aaa" },
           },
           right: {
             type: "linear",
@@ -134,22 +112,15 @@ const EmotionalInertia = () => {
           x: {
             ticks: { color: "#ddd" },
             grid: { color: "#333" },
-            title: {
-              display: true,
-              text: "Time (t)",
-              color: "#aaa",
-            },
+            title: { display: true, text: "Time (t)", color: "#aaa" },
           },
         },
       },
     });
 
-    // Attach instance for cleanup
     chartRef.current.chartInstance = chartInstance;
 
-    return () => {
-      chartInstance.destroy();
-    };
+    return () => chartInstance.destroy();
   }, []);
 
   return (
@@ -185,9 +156,13 @@ const EmotionalInertia = () => {
             <li>
               <span className="emoji">⚖️</span>
               <span>
-                <strong>Lag creates friction:</strong> This delay causes doubt,
-                impatience, or self-sabotage when the emotional state hasn't
-                “caught up.”
+                <strong>Lag creates friction:</strong>{" "}
+                <button
+                  className="info-button"
+                  onClick={() => setShowLagModal(true)}
+                >
+                  What is lagging response?
+                </button>
               </span>
             </li>
             <li>
@@ -212,13 +187,13 @@ const EmotionalInertia = () => {
             release — surrendering to time while trusting your trajectory.
           </p>
 
-          {/* Graph Container */}
           <div className="chart-wrapper">
             <canvas ref={chartRef} />
           </div>
 
-          {/* Equations with integrals */}
+          {/* Equations (keep redundancy) */}
           <div className="equations">
+            <h3>Story Board</h3>
             <p>
               <strong>Thought (T):</strong> T(t) = 10 · sin(0.3t) + 10
             </p>
@@ -231,9 +206,93 @@ const EmotionalInertia = () => {
               L(u)) du
             </p>
           </div>
+          <div className="equations">
+            <h3>Equations</h3>
+            <BlockMath math={`T(t) = 10 \\cdot \\sin(0.3 t) + 10`} />
+            <BlockMath math={`L(t) = 0.7 \\cdot T(t - 3)`} />
+            <BlockMath math={`S(t) = \\int_0^t \\max(0, T(u) - L(u)) \\, du`} />
+          </div>
         </section>
       </main>
       <footer className="footer">© سلمان سعید</footer>
+
+      {/* Lagging Response Modal */}
+      {showLagModal && (
+        <div
+          className="lag-modal"
+          onClick={() => setShowLagModal(false)}
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            backgroundColor: "rgba(10,15,36,0.9)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 9999,
+            color: "#00ffff",
+          }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              maxWidth: "700px",
+              maxHeight: "75vh",
+              overflowY: "auto",
+              backgroundColor: "#1a1f35",
+              padding: "20px",
+              borderRadius: "12px",
+              boxShadow: "0 0 20px #00ffff",
+              lineHeight: "1.6",
+              fontSize: "1rem",
+            }}
+          >
+            <h3 style={{ color: "#ffd700" }}>Lagging Response (L)</h3>
+            <p>
+              Lagging Response models how your emotions react after a delay to
+              conscious thought. In this model:
+            </p>
+            <ul>
+              <li>
+                <strong>T(t)</strong> is the thought at time t.
+              </li>
+              <li>
+                <strong>L(t)</strong> is the emotional reaction at time t,
+                delayed by 3 units: L(t) = 0.7 · T(t - 3)
+              </li>
+              <li>
+                The factor 0.7 indicates emotions may be less intense than the
+                thought.
+              </li>
+              <li>
+                This delay explains why emotion often "catches up" after
+                cognition.
+              </li>
+            </ul>
+            <p>
+              During the lag, friction or doubt may arise because your feeling
+              hasn’t yet aligned with your knowing.
+            </p>
+            <button
+              onClick={() => setShowLagModal(false)}
+              style={{
+                marginTop: "20px",
+                padding: "10px 20px",
+                backgroundColor: "#ffd700",
+                color: "#0a0f24",
+                border: "none",
+                borderRadius: "8px",
+                cursor: "pointer",
+                fontWeight: "600",
+              }}
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
