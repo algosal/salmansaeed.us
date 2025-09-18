@@ -158,3 +158,27 @@
 .close-modal-btn:hover {
   background-color: #38b0d6;
 }
+@media (max-width: 768px) {
+  .page-content {
+    padding-top: 70px; /* increase to push content below top navbar + header */
+  }
+
+  .fixed-header {
+    left: 0;
+    right: 0;
+    top: 60px; /* below top navbar */
+    font-size: 2rem;
+    padding: 10px 20px;
+    justify-content: center; /* centers content horizontally */
+    text-align: center; /* ensures text is centered */
+  }
+
+  .principles-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .principle-card {
+    padding: 16px;
+  }
+}
