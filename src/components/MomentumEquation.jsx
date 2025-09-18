@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import {
-  // LineChart,
   Line,
   CartesianGrid,
   XAxis,
@@ -14,6 +13,8 @@ import {
 } from "recharts";
 import { Tooltip } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
+import { BlockMath } from "react-katex";
+import "katex/dist/katex.min.css";
 import "./MomentumEquation.css";
 
 const data = Array.from({ length: 50 }, (_, i) => {
@@ -37,6 +38,7 @@ const quotes = [
 const MomentumEquation = () => {
   const navigate = useNavigate();
   const [showExplanation, setShowExplanation] = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <div className="page-container">
@@ -50,54 +52,67 @@ const MomentumEquation = () => {
           drains your emotional energy.
         </p>
 
-        <button
-          className="toggle-explanation-btn"
-          onClick={() => setShowExplanation((prev) => !prev)}
-        >
-          {showExplanation ? "Graph Only" : "Show Explanation"}
-        </button>
+        <div className="buttons-row">
+          <button
+            className="toggle-explanation-btn"
+            onClick={() => setShowExplanation((prev) => !prev)}
+          >
+            {showExplanation ? "Graph Only" : "Show Explanation"}
+          </button>
+
+          <button className="open-modal-btn" onClick={() => setShowModal(true)}>
+            Show Detailed Explanation
+          </button>
+        </div>
 
         {showExplanation && (
           <>
             <div className="math-section">
-              <p
+              <div
                 className="equation"
-                data-tooltip-id="tooltip-vt"
-                data-tooltip-content="v(t) is the rate of emotionally resonant, directed thought (cognitive velocity)."
+                data-tooltip-id="tooltip-v"
+                data-tooltip-content="v(t) is the instantaneous rate of emotionally resonant, directed thought."
               >
-                v(t) = sin(t) · e<sup>-t/10</sup>
-              </p>
-              <Tooltip id="tooltip-vt" place="top" effect="solid" />
+                <BlockMath math={`v(t) = \\sin(t) \\cdot e^{-t/10}`} />
+                <p className="explanation">
+                  Here, <strong>v(t)</strong> represents the rate of emotionally
+                  resonant, directed thought — a dynamic cognitive velocity
+                  function.
+                </p>
+              </div>
+              <Tooltip id="tooltip-v" place="top" effect="solid" />
 
-              <p className="explanation">
-                Here, <strong>v(t)</strong> represents the rate of emotionally
-                resonant, directed thought — a dynamic cognitive velocity
-                function.
-              </p>
-
-              <p
+              <div
                 className="equation"
-                data-tooltip-id="tooltip-mm"
+                data-tooltip-id="tooltip-m"
                 data-tooltip-content="Integral of velocity over time gives total Mental Momentum."
               >
-                Mental Momentum = ∫ v(t) dt
-              </p>
-              <Tooltip id="tooltip-mm" place="top" effect="solid" />
+                <BlockMath
+                  math={`\\text{Mental Momentum} = \\int v(t) \\, dt`}
+                />
 
-              <p
+                <p className="explanation">
+                  The integral of velocity over time gives the total Mental
+                  Momentum.
+                </p>
+              </div>
+              <Tooltip id="tooltip-m" place="top" effect="solid" />
+
+              <div
                 className="equation"
-                data-tooltip-id="tooltip-stress"
+                data-tooltip-id="tooltip-s"
                 data-tooltip-content="Integral of absolute velocity captures cumulative resistance or tension."
               >
-                Stress Load = ∫₀<sup>T</sup> |v(t)| dt
-              </p>
-              <Tooltip id="tooltip-stress" place="top" effect="solid" />
-
-              <p className="explanation">
-                The absolute integral reflects accumulated resistance or
-                internal pressure — the more deviation and tension, the more
-                inertia.
-              </p>
+                <BlockMath
+                  math={`\\text{Stress Load} = \\int_0^T |v(t)| \\, dt`}
+                />
+                <p className="explanation">
+                  The absolute integral reflects accumulated resistance or
+                  internal pressure — the more deviation and tension, the more
+                  inertia.
+                </p>
+              </div>
+              <Tooltip id="tooltip-s" place="top" effect="solid" />
             </div>
 
             <div className="quotes-section">
@@ -110,6 +125,7 @@ const MomentumEquation = () => {
           </>
         )}
 
+        {/* Chart Section */}
         <div className="chart-section">
           <ResponsiveContainer width="100%" height={320}>
             <AreaChart data={data}>
@@ -196,6 +212,36 @@ const MomentumEquation = () => {
           © سلمان سعید
           <sup>®</sup>
         </footer>
+
+        {/* Modal */}
+        {showModal && (
+          <div className="modal-overlay" onClick={() => setShowModal(false)}>
+            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+              <h3>Detailed Explanation</h3>
+              <p>
+                <strong>v(t):</strong> The instantaneous rate of thought and
+                emotional alignment. Positive values represent forward momentum;
+                negative values indicate friction or resistance.
+              </p>
+              <p>
+                <strong>Mental Momentum:</strong> The cumulative sum of all
+                directed thoughts — how aligned cognition builds energy over
+                time.
+              </p>
+              <p>
+                <strong>Stress Load:</strong> Accumulated tension from
+                misaligned or resistant thoughts. The greater the deviation, the
+                more the inertia.
+              </p>
+              <button
+                className="close-modal-btn"
+                onClick={() => setShowModal(false)}
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

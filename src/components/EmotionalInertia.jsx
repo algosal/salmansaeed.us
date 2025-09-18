@@ -275,6 +275,10 @@ const EmotionalInertia = () => {
               During the lag, friction or doubt may arise because your feeling
               hasn’t yet aligned with your knowing.
             </p>
+            <p>
+              This delay causes doubt, impatience, or self-sabotage when the
+              emotional state hasn't “caught up.”
+            </p>
             <button
               onClick={() => setShowLagModal(false)}
               style={{

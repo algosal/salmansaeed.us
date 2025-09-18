@@ -278,7 +278,10 @@ const SmartAnalyzer = () => {
 
       {/* Buttons */}
       <div className="button-row">
-        <button className="back-button" onClick={() => navigate("/")}>
+        <button
+          className="back-button"
+          onClick={() => navigate("/GraphNavPanel")}
+        >
           ⬅ Go Back
         </button>
         <button
