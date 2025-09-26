@@ -25,22 +25,39 @@ export default function KarmicQuadrant() {
       ? Math.min(factor, 1 + 0.3 * (income / 100000))
       : 0;
 
-  // Equal weight normalized score for plotting
+  // Normalize for graph plotting
   const normalizedX =
-    ((context + domain + contextFactor) /
-      (3 + 2 + (eventType === "Financial" ? 2 : 0))) *
-    5;
-  const normalizedY = ((severity + baseValue / 200) / (5 + 5)) * 5; // baseValue scaled down
+    eventType === "Financial"
+      ? ((context + domain + contextFactor) / (3 + 2 + 2)) * 5
+      : (domain / 2) * 5; // non-financial uses only domain
 
+  const normalizedY =
+    eventType === "Financial"
+      ? ((severity + baseValue / 200) / (5 + 5)) * 5
+      : ((severity + baseValue / 200) / (5 + 5)) * 5;
+
+  // Karmic score includes contextFactor only for financial
   const karmicScore =
     eventType === "Financial"
-      ? baseValue * severity * context * domain * (contextFactor || 1)
-      : baseValue * severity * context * domain;
+      ? baseValue * severity * context * domain * contextFactor
+      : baseValue * severity * domain;
+
+  //   const data = [
+  //     {
+  //       x: normalizedX,
+  //       y: normalizedY,
+  //       score: karmicScore,
+  //     },
+  //   ];
 
   const data = [
     {
       x: normalizedX,
       y: normalizedY,
+      severity,
+      context,
+      domain,
+      factor: contextFactor,
       score: karmicScore,
     },
   ];
@@ -52,7 +69,6 @@ export default function KarmicQuadrant() {
     return "Minor Ripple";
   };
 
-  // Color based on quadrant (DR / CR)
   const dotColor = (x, y) => {
     const label = quadrantLabel(x, y);
     if (label === "Heavy Karmic Debt" || label === "Harsh Misstep")
@@ -87,6 +103,7 @@ export default function KarmicQuadrant() {
       step: 0.1,
       desc: "Circumstances adjustment",
       example: "Needed $20 = 0.1, Took $2000 = 3",
+      financialOnly: true,
     },
     {
       name: "Domain",
@@ -109,6 +126,50 @@ export default function KarmicQuadrant() {
       financialOnly: true,
     },
   ];
+
+  const currentDotColor = dotColor(normalizedX, normalizedY);
+  const CustomTooltip = ({ active, payload }) => {
+    if (active && payload && payload.length) {
+      const data = payload[0].payload;
+
+      // Check if values exist before calling toFixed
+      const severityVal = data.severity ? data.severity.toFixed(2) : "-";
+      const contextVal = data.context ? data.context.toFixed(2) : "-";
+      const domainVal = data.domain ? data.domain.toFixed(2) : "-";
+      const factorVal = data.factor ? data.factor.toFixed(2) : "-";
+      const scoreVal = data.score ? data.score.toFixed(2) : "-";
+
+      return (
+        <div
+          style={{
+            background: "#0a0f24",
+            color: "#ffffff",
+            border: "1px solid #00ffff",
+            borderRadius: 8,
+            padding: "8px",
+            fontSize: "14px",
+          }}
+        >
+          <div>
+            <strong>Severity:</strong> {severityVal}
+          </div>
+          <div>
+            <strong>Context:</strong> {contextVal}
+          </div>
+          <div>
+            <strong>Domain:</strong> {domainVal}
+          </div>
+          <div>
+            <strong>Factor:</strong> {factorVal}
+          </div>
+          <div>
+            <strong>Karmic Score:</strong> {scoreVal}
+          </div>
+        </div>
+      );
+    }
+    return null;
+  };
 
   return (
     <div
@@ -176,8 +237,8 @@ export default function KarmicQuadrant() {
         ) : (
           <div>
             <strong>Non-Financial Karmic Formula:</strong>
-            <div>KarmicScore = BaseValue × Severity × Context × Domain</div>
-            <div>Factor does not affect non-financial events</div>
+            <div>KarmicScore = BaseValue × Severity × Domain</div>
+            <div>Context and Factor do not affect non-financial events</div>
           </div>
         )}
       </div>
@@ -231,7 +292,7 @@ export default function KarmicQuadrant() {
       <div style={{ marginTop: "1.5rem", textAlign: "center" }}>
         <h3>
           Karmic Score:{" "}
-          <span style={{ color: karmicScore >= 0 ? "lightgreen" : "red" }}>
+          <span style={{ color: currentDotColor }}>
             {karmicScore.toFixed(2)}
           </span>
         </h3>
@@ -246,7 +307,7 @@ export default function KarmicQuadrant() {
       {/* Quadrant ScatterChart */}
       <div style={{ marginTop: "2rem" }}>
         <ResponsiveContainer width="100%" height={400}>
-          <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+          <ScatterChart margin={{ top: 20, right: 20, bottom: 50, left: 20 }}>
             <CartesianGrid stroke="#333" />
             <XAxis
               type="number"
@@ -260,6 +321,8 @@ export default function KarmicQuadrant() {
                 value="Context / Domain / Factor →"
                 position="insideBottom"
                 fill="#ffd700"
+                dy={40} // <-- move label 20px downward
+                offset={20} // gap below axis
               />
             </XAxis>
             <YAxis
@@ -275,24 +338,36 @@ export default function KarmicQuadrant() {
                 angle={-90}
                 position="insideLeft"
                 fill="#ffd700"
+                offset={0} // gap from axis
               />
             </YAxis>
-            <Tooltip
+            {/* <Tooltip
               cursor={{ strokeDasharray: "3 3" }}
               formatter={(val, name, props) => [
-                `${val}`,
-                `${name} | Karmic Score: ${props.payload.score.toFixed(2)}`,
+                val.toFixed(2),
+
+                `${name} • Karmic Score: ${props.payload.score.toFixed(2)}`,
               ]}
               contentStyle={{
-                background: "#1f2a48",
+                background: "#0a0f24",
+                border: "1px solid #00ffff",
                 borderRadius: 8,
-                color: "#f8f9fc",
+                padding: "8px",
+                color: "#ffffff", // tooltip text white
+                fontSize: "14px",
               }}
+              labelStyle={{ color: "#ffd700", fontWeight: "bold" }}
+            /> */}
+
+            <Tooltip
+              content={<CustomTooltip />}
+              cursor={{ strokeDasharray: "3 3" }}
             />
+
             <Scatter
               name="Event"
               data={data}
-              fill={dotColor(normalizedX, normalizedY)}
+              fill={currentDotColor}
               line={{ stroke: "#00ffff" }}
               shape="circle"
             />
@@ -312,19 +387,27 @@ export default function KarmicQuadrant() {
         <div
           style={{
             background: "#111",
-            padding: "1rem",
-            borderRadius: "8px",
+            padding: "1.5rem",
+            borderRadius: "10px",
             color: "#f8f9fc",
+            lineHeight: 1.6,
+            fontSize: "15px",
+            border: "1px solid #00ffff",
           }}
         >
-          <strong>📘 DR / CR Explanation</strong>
+          <strong style={{ fontSize: "16px", color: "#ffd700" }}>
+            📘 DR / CR Explanation
+          </strong>
           <p>
-            DR (Debit) – Negative Karmic actions (Heavy Karmic Debt, Harsh
-            Misstep) – Red dot
+            <span style={{ color: "red", fontWeight: "bold" }}>DR (Debit)</span>{" "}
+            – Negative Karmic actions (Heavy Karmic Debt, Harsh Misstep) – Red
+            dot
           </p>
           <p>
-            CR (Credit) – Positive Karmic actions (Forgivable Act, Minor Ripple)
-            – Green dot
+            <span style={{ color: "lightgreen", fontWeight: "bold" }}>
+              CR (Credit)
+            </span>{" "}
+            – Positive Karmic actions (Forgivable Act, Minor Ripple) – Green dot
           </p>
           <p>Add these points in database as DR or CR depending on quadrant.</p>
         </div>
