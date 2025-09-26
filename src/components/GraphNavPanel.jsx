@@ -16,6 +16,7 @@ const GraphNavPanel = () => {
     { label: "Disregarded Entities", path: "/DisregardedEntities" },
     { label: "DE Criteria List", path: "/CriteriaList" },
     { label: "Smart Analyzer", path: "/SmartAnalyzer" },
+    { label: "Karmic Calculator", path: "/KarmicCalculator" },
   ];
 
   return (

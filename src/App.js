@@ -20,6 +20,7 @@ import DisregardedEntities from "./components/DisregardedEntities";
 import CriteriaList from "./components/CriteriaList";
 import DisregardedClassifier from "./components/DisregardedClassifier";
 import SmartAnalyzer from "./components/SmartAnalyzer";
+import KarmicCalculator from "./components/KarmicCalculator";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
         <Route path="/DisregardedEntities" element={<DisregardedEntities />} />
         <Route path="/CriteriaList" element={<CriteriaList />} />
         <Route path="/SmartAnalyzer" element={<SmartAnalyzer />} />
+        <Route path="/KarmicCalculator" element={<KarmicCalculator />} />
         <Route
           path="/DisregardedClassifier"
           element={<DisregardedClassifier />}
