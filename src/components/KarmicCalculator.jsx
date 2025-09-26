@@ -23,22 +23,26 @@ export default function KarmicQuadrant() {
   const contextFactor =
     eventType === "Financial"
       ? Math.min(factor, 1 + 0.3 * (income / 100000)) // 30% cap for high income
-      : factor;
+      : 1;
 
   const karmicScore =
     eventType === "Financial"
       ? baseValue * severity * context * domain * contextFactor
       : baseValue * severity * context * domain;
 
-  // Data point for scatter
-  const data = [{ severity, context, score: karmicScore }];
-
-  // Quadrant labels
+  // Quadrant labels and color mapping
   const quadrantLabel = (s, c) => {
     if (s > 2.5 && c > 1.5) return "Heavy Karmic Debt";
     if (s > 2.5 && c <= 1.5) return "Harsh Misstep";
     if (s <= 2.5 && c > 1.5) return "Forgivable Act";
     return "Minor Ripple";
+  };
+
+  const quadrantColor = (s, c) => {
+    if (s > 2.5 && c > 1.5) return "red"; // DR
+    if (s > 2.5 && c <= 1.5) return "orange"; // mild DR
+    if (s <= 2.5 && c > 1.5) return "yellow"; // neutral
+    return "lightgreen"; // CR
   };
 
   // Definitions with examples
@@ -49,7 +53,7 @@ export default function KarmicQuadrant() {
       setter: setBaseValue,
       max: 1000,
       step: 1,
-      desc: "Raw moral weight of action",
+      desc: "Raw moral weight of the action",
       example: "Birthday forgotten = 10, Fraud = 1000",
     },
     {
@@ -58,7 +62,7 @@ export default function KarmicQuadrant() {
       setter: setSeverity,
       max: 5,
       step: 0.1,
-      desc: "Intentionality and harm multiplier",
+      desc: "Intentionality / harm multiplier",
       example: "Accidental lie = 0.5, Malicious betrayal = 5",
     },
     {
@@ -85,10 +89,14 @@ export default function KarmicQuadrant() {
       setter: setFactor,
       max: 2,
       step: 0.1,
-      desc: "Privilege / income cap adjustment",
+      desc: "Privilege / income cap adjustment (financial only)",
       example: "Billionaire greed = 2, Struggling = 0.5",
+      financialOnly: true,
     },
   ];
+
+  // Data point for scatter
+  const data = [{ severity, context, score: karmicScore }];
 
   return (
     <div
@@ -128,7 +136,7 @@ export default function KarmicQuadrant() {
         </select>
       </div>
 
-      {/* Formula display */}
+      {/* Formula display with explanations */}
       <div
         style={{
           marginBottom: "1.5rem",
@@ -147,12 +155,47 @@ export default function KarmicQuadrant() {
               KarmicScore = BaseValue × Severity × Context × Domain ×
               ContextFactor
             </div>
-            <div>ContextFactor = min(Factor, 1 + 0.3 × (Income ÷ 100,000))</div>
+            <div>
+              <strong>BaseValue:</strong> Raw moral weight of action (e.g.,
+              Birthday forgotten = 10, Fraud = 1000)
+            </div>
+            <div>
+              <strong>Severity:</strong> Intentionality/harm multiplier
+              (Accidental lie = 0.5, Malicious betrayal = 5)
+            </div>
+            <div>
+              <strong>Context:</strong> Circumstances adjustment (Needed $20 =
+              0.1, Took $2000 = 3)
+            </div>
+            <div>
+              <strong>Domain:</strong> Domain-specific moral weight (Family
+              betrayal = 2, Workplace lateness = 0.5)
+            </div>
+            <div>
+              <strong>ContextFactor:</strong> min(Factor, 1 + 0.3 × (Income ÷
+              100,000))
+            </div>
           </div>
         ) : (
           <div>
             <strong>Non-Financial Karmic Formula:</strong>
             <div>KarmicScore = BaseValue × Severity × Context × Domain</div>
+            <div>
+              <strong>BaseValue:</strong> Raw moral weight of action (e.g.,
+              Saying sorry = 1, Betrayal = 100)
+            </div>
+            <div>
+              <strong>Severity:</strong> Intentionality/harm multiplier (Minor
+              mistake = 0.5, Major intentional harm = 5)
+            </div>
+            <div>
+              <strong>Context:</strong> Circumstances adjustment (Small
+              misunderstanding = 0.5, Large impact = 3)
+            </div>
+            <div>
+              <strong>Domain:</strong> Domain-specific moral weight (Family = 2,
+              Workplace = 1)
+            </div>
           </div>
         )}
       </div>
@@ -176,32 +219,37 @@ export default function KarmicQuadrant() {
       )}
 
       {/* Sliders */}
-      {sliders.map((d) => (
-        <div key={d.name} style={{ marginBottom: "1.5rem" }}>
-          <label style={{ display: "block", fontWeight: "bold" }}>
-            {d.name}: {d.value.toFixed(2)}
-          </label>
-          <small style={{ display: "block", color: "#00ffff" }}>{d.desc}</small>
-          <small style={{ display: "block", color: "#aaa" }}>
-            Example: {d.example}
-          </small>
-          <input
-            type="range"
-            min={0.1}
-            max={d.max}
-            step={d.step}
-            value={d.value}
-            onChange={(e) => d.setter(Number(e.target.value))}
-            style={{ width: "100%" }}
-          />
-        </div>
-      ))}
+      {sliders.map((d) => {
+        if (d.financialOnly && eventType === "Non-Financial") return null;
+        return (
+          <div key={d.name} style={{ marginBottom: "1.5rem" }}>
+            <label style={{ display: "block", fontWeight: "bold" }}>
+              {d.name}: {d.value.toFixed(2)}
+            </label>
+            <small style={{ display: "block", color: "#00ffff" }}>
+              {d.desc}
+            </small>
+            <small style={{ display: "block", color: "#aaa" }}>
+              Example: {d.example}
+            </small>
+            <input
+              type="range"
+              min={0.1}
+              max={d.max}
+              step={d.step}
+              value={d.value}
+              onChange={(e) => d.setter(Number(e.target.value))}
+              style={{ width: "100%" }}
+            />
+          </div>
+        );
+      })}
 
       {/* Karmic score display */}
       <div style={{ marginTop: "1.5rem", textAlign: "center" }}>
         <h3>
           Karmic Score:{" "}
-          <span style={{ color: karmicScore >= 0 ? "lightgreen" : "red" }}>
+          <span style={{ color: quadrantColor(severity, context) }}>
             {karmicScore.toFixed(2)}
           </span>
         </h3>
@@ -260,12 +308,36 @@ export default function KarmicQuadrant() {
             <Scatter
               name="Event"
               data={data}
-              fill="#00ffff"
-              line={{ stroke: "#00ffff" }}
+              fill={quadrantColor(severity, context)}
+              line={{ stroke: quadrantColor(severity, context) }}
               shape="circle"
             />
           </ScatterChart>
         </ResponsiveContainer>
+      </div>
+
+      {/* DR / CR guidance box */}
+      <div
+        style={{
+          marginTop: "2rem",
+          padding: "1rem",
+          border: "1px solid #00ffff",
+          borderRadius: "8px",
+          background: "#1f2a48",
+          color: "#00ffff",
+        }}
+      >
+        <strong>Database Guidance (DR / CR):</strong>
+        <div>
+          <span style={{ color: "red" }}>Red / DR:</span> Events in "Heavy
+          Karmic Debt" quadrant.
+          <span style={{ color: "orange" }}> Orange / mild DR:</span> "Harsh
+          Misstep" quadrant.
+          <span style={{ color: "yellow" }}> Yellow / neutral:</span>{" "}
+          "Forgivable Act".
+          <span style={{ color: "lightgreen" }}> Green / CR:</span> "Minor
+          Ripple".
+        </div>
       </div>
     </div>
   );
