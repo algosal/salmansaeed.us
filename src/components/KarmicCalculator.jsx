@@ -18,12 +18,54 @@ export default function KarmicQuadrant() {
   const [factor, setFactor] = useState(1.0);
   const [income, setIncome] = useState(0);
   const [eventType, setEventType] = useState("Non-Financial");
+  const [amountAsked, setAmountAsked] = useState(0); // add this at the top with your other useStates
 
   // ContextFactor only for financial events
+  //   const contextFactor =
+  //     eventType === "Financial"
+  //       ? Math.min(factor, 1 + 0.3 * (income / 100000))
+  //       : 1;
+
+  // Assume `amountAsked` is the “impact” or “requested amount” of the event
+  // eventType === "Financial" only
+
+  const computeContextFactor = (factor, income, amountAsked) => {
+    // Define comfort amounts
+    const comfortThresholdStruggling = 1000; // struggling person threshold ($)
+    const billionaireThreshold = 100000; // above this, considered wealthy/billionaire
+
+    let contextFactor = 1; // default neutral
+
+    if (income <= 5000) {
+      // struggling person → every extra dollar matters
+      contextFactor = 1 + amountAsked / comfortThresholdStruggling;
+    } else if (income > 5000 && income <= billionaireThreshold) {
+      // normal/middle-income person → linear scale 0–2
+      const comfortAmount = income * 0.01; // 1% of income
+      contextFactor = Math.min(2, 1 + amountAsked / comfortAmount);
+    } else {
+      // billionaire / wealthy
+      if (amountAsked <= 1000) {
+        contextFactor = 1; // small asks don't change anything
+      } else {
+        // linear increase past threshold
+        contextFactor = 1 + (amountAsked - 1000) / 100000;
+      }
+    }
+
+    return contextFactor;
+  };
+
+  // Usage in karmicScore calculation
   const contextFactor =
     eventType === "Financial"
-      ? Math.min(factor, 1 + 0.3 * (income / 100000))
-      : 0;
+      ? computeContextFactor(factor, income, amountAsked)
+      : 0; // non-financial
+
+  const karmicScore =
+    eventType === "Financial"
+      ? baseValue * severity * context * domain * contextFactor
+      : baseValue * severity * domain;
 
   // Normalize for graph plotting
   const normalizedX =
@@ -37,10 +79,10 @@ export default function KarmicQuadrant() {
       : ((severity + baseValue / 200) / (5 + 5)) * 5;
 
   // Karmic score includes contextFactor only for financial
-  const karmicScore =
-    eventType === "Financial"
-      ? baseValue * severity * context * domain * contextFactor
-      : baseValue * severity * domain;
+  //   const karmicScore =
+  //     eventType === "Financial"
+  //       ? baseValue * severity * context * domain * contextFactor
+  //       : baseValue * severity * domain;
 
   //   const data = [
   //     {
@@ -171,6 +213,11 @@ export default function KarmicQuadrant() {
     return null;
   };
 
+  /* Compute percentages */
+
+  const xPercent = ((normalizedX / 5) * 100).toFixed(2);
+  const yPercent = ((normalizedY / 5) * 100).toFixed(2);
+
   return (
     <div
       style={{
@@ -261,6 +308,24 @@ export default function KarmicQuadrant() {
         </div>
       )}
 
+      {/* this is the amount Asked */}
+      {eventType === "Financial" && (
+        <div style={{ marginBottom: "1rem" }}>
+          <label style={{ fontWeight: "bold" }}>
+            Amount Asked: ${amountAsked}
+          </label>
+          <input
+            type="number"
+            value={amountAsked}
+            onChange={(e) => setAmountAsked(Number(e.target.value))}
+            style={{ width: "100%", padding: "0.3rem" }}
+          />
+          <small style={{ color: "#00ffff" }}>
+            How much money is being requested / involved in this event
+          </small>
+        </div>
+      )}
+
       {/* Sliders */}
       {sliders.map(
         (d) =>
@@ -277,7 +342,7 @@ export default function KarmicQuadrant() {
               </small>
               <input
                 type="range"
-                min={0.1}
+                min={0.0}
                 max={d.max}
                 step={d.step}
                 value={d.value}
@@ -410,6 +475,20 @@ export default function KarmicQuadrant() {
             – Positive Karmic actions (Forgivable Act, Minor Ripple) – Green dot
           </p>
           <p>Add these points in database as DR or CR depending on quadrant.</p>
+        </div>
+        <div
+          style={{
+            background: "#111",
+            padding: "1rem",
+            borderRadius: "8px",
+            color: "#f8f9fc",
+          }}
+        >
+          <p>
+            <strong>Current X Tendency Towards Malice(% of max):</strong>{" "}
+            {xPercent}% | <strong>Current Y Intensity (% of max):</strong>{" "}
+            {yPercent}%
+          </p>
         </div>
       </div>
     </div>
