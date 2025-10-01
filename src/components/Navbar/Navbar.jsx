@@ -27,9 +27,9 @@ function Navbar() {
             onClick={toggleMenu}
             aria-label="Toggle menu"
           >
-            <div className={`bar bar1 ${menuOpen ? "open" : ""}`}></div>
-            <div className={`bar bar2 ${menuOpen ? "open" : ""}`}></div>
-            <div className={`bar bar3 ${menuOpen ? "open" : ""}`}></div>
+            <div className={menuOpen ? "bar bar1 open" : "bar bar1"}></div>
+            <div className={menuOpen ? "bar bar2 open" : "bar bar2"}></div>
+            <div className={menuOpen ? "bar bar3 open" : "bar bar3"}></div>
           </button>
         </div>
       )}
@@ -55,12 +55,14 @@ function Navbar() {
           </li>
           <li>
             <NavLink to="/intelligence">Intelligence</NavLink>
-          </li>
+          </li>{" "}
           <li>
             <NavLink to="/consciousness">Consciousness</NavLink>
           </li>
           <li>
-            <NavLink to="/GraphNavPanel">Graphs</NavLink>
+            <NavLink to="/GraphNavPanel" onClick={toggleMenu}>
+              Graphs
+            </NavLink>
           </li>
         </ul>
       )}
@@ -97,17 +99,17 @@ function Navbar() {
               <NavLink to="/intelligence" onClick={toggleMenu}>
                 Intelligence
               </NavLink>
-            </li>
+            </li>{" "}
             <li>
-              <NavLink to="/consciousness" onClick={toggleMenu}>
+              <NavLink to="/Consciousness" onClick={toggleMenu}>
                 Consciousness
               </NavLink>
-            </li>
+            </li>{" "}
             <li>
               <NavLink to="/GraphNavPanel" onClick={toggleMenu}>
                 Graphs
               </NavLink>
-            </li>
+            </li>{" "}
           </ul>
         </div>
       )}
