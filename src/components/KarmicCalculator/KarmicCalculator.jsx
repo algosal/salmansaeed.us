@@ -18,79 +18,59 @@ export default function KarmicQuadrant() {
   const [factor, setFactor] = useState(1.0);
   const [income, setIncome] = useState(0);
   const [eventType, setEventType] = useState("Non-Financial");
-  const [amountAsked, setAmountAsked] = useState(0); // add this at the top with your other useStates
+  const [amountAsked, setAmountAsked] = useState(0);
 
-  // ContextFactor only for financial events
-  //   const contextFactor =
-  //     eventType === "Financial"
-  //       ? Math.min(factor, 1 + 0.3 * (income / 100000))
-  //       : 1;
+  // const computeContextFactor = (factor, income, amountAsked) => {
+  //   const comfortThresholdStruggling = 1000;
+  //   const billionaireThreshold = 100000;
+  //   let contextFactor = 1;
 
-  // Assume `amountAsked` is the “impact” or “requested amount” of the event
-  // eventType === "Financial" only
-
+  //   if (income <= 5000) {
+  //     contextFactor = 1 + amountAsked / comfortThresholdStruggling;
+  //   } else if (income > 5000 && income <= billionaireThreshold) {
+  //     const comfortAmount = income * 0.01;
+  //     contextFactor = Math.min(2, 1 + amountAsked / comfortAmount);
+  //   } else {
+  //     if (amountAsked <= 1000) {
+  //       contextFactor = 1;
+  //     } else {
+  //       contextFactor = 1 + (amountAsked - 1000) / 100000;
+  //     }
+  //   }
+  //   return contextFactor;
+  // };
   const computeContextFactor = (factor, income, amountAsked) => {
-    // Define comfort amounts
-    const comfortThresholdStruggling = 1000; // struggling person threshold ($)
-    const billionaireThreshold = 100000; // above this, considered wealthy/billionaire
+    const base =
+      income <= 5000
+        ? 1 + amountAsked / 1000
+        : income <= 100000
+        ? Math.min(2, 1 + amountAsked / (income * 0.01))
+        : amountAsked <= 1000
+        ? 1
+        : 1 + (amountAsked - 1000) / 100000;
 
-    let contextFactor = 1; // default neutral
-
-    if (income <= 5000) {
-      // struggling person → every extra dollar matters
-      contextFactor = 1 + amountAsked / comfortThresholdStruggling;
-    } else if (income > 5000 && income <= billionaireThreshold) {
-      // normal/middle-income person → linear scale 0–2
-      const comfortAmount = income * 0.01; // 1% of income
-      contextFactor = Math.min(2, 1 + amountAsked / comfortAmount);
-    } else {
-      // billionaire / wealthy
-      if (amountAsked <= 1000) {
-        contextFactor = 1; // small asks don't change anything
-      } else {
-        // linear increase past threshold
-        contextFactor = 1 + (amountAsked - 1000) / 100000;
-      }
-    }
-
-    return contextFactor;
+    return Math.min(factor, base); // 🔑 Factor acts as a cap
   };
 
-  // Usage in karmicScore calculation
   const contextFactor =
     eventType === "Financial"
       ? computeContextFactor(factor, income, amountAsked)
-      : 0; // non-financial
+      : 0;
 
   const karmicScore =
     eventType === "Financial"
       ? baseValue * severity * context * domain * contextFactor
       : baseValue * severity * domain;
 
-  // Normalize for graph plotting
   const normalizedX =
     eventType === "Financial"
       ? ((context + domain + contextFactor) / (3 + 2 + 2)) * 5
-      : (domain / 2) * 5; // non-financial uses only domain
+      : (domain / 2) * 5;
 
   const normalizedY =
     eventType === "Financial"
       ? ((severity + baseValue / 200) / (5 + 5)) * 5
       : ((severity + baseValue / 200) / (5 + 5)) * 5;
-
-  // Karmic score includes contextFactor only for financial
-  //   const karmicScore =
-  //     eventType === "Financial"
-  //       ? baseValue * severity * context * domain * contextFactor
-  //       : baseValue * severity * domain;
-
-  //   const data = [
-  //     {
-  //       x: normalizedX,
-  //       y: normalizedY,
-  //       score: karmicScore,
-  //     },
-  //   ];
 
   const data = [
     {
@@ -173,8 +153,6 @@ export default function KarmicQuadrant() {
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {
       const data = payload[0].payload;
-
-      // Check if values exist before calling toFixed
       const severityVal = data.severity ? data.severity.toFixed(2) : "-";
       const contextVal = data.context ? data.context.toFixed(2) : "-";
       const domainVal = data.domain ? data.domain.toFixed(2) : "-";
@@ -212,8 +190,6 @@ export default function KarmicQuadrant() {
     }
     return null;
   };
-
-  /* Compute percentages */
 
   const xPercent = ((normalizedX / 5) * 100).toFixed(2);
   const yPercent = ((normalizedY / 5) * 100).toFixed(2);
@@ -290,7 +266,6 @@ export default function KarmicQuadrant() {
         )}
       </div>
 
-      {/* Income input for financial */}
       {eventType === "Financial" && (
         <div style={{ marginBottom: "1.5rem" }}>
           <label style={{ display: "block", fontWeight: "bold" }}>
@@ -308,7 +283,6 @@ export default function KarmicQuadrant() {
         </div>
       )}
 
-      {/* this is the amount Asked */}
       {eventType === "Financial" && (
         <div style={{ marginBottom: "1rem" }}>
           <label style={{ fontWeight: "bold" }}>
@@ -326,7 +300,6 @@ export default function KarmicQuadrant() {
         </div>
       )}
 
-      {/* Sliders */}
       {sliders.map(
         (d) =>
           (!d.financialOnly || eventType === "Financial") && (
@@ -353,7 +326,6 @@ export default function KarmicQuadrant() {
           )
       )}
 
-      {/* Karmic score display */}
       <div style={{ marginTop: "1.5rem", textAlign: "center" }}>
         <h3>
           Karmic Score:{" "}
@@ -369,7 +341,6 @@ export default function KarmicQuadrant() {
         </h4>
       </div>
 
-      {/* Quadrant ScatterChart */}
       <div style={{ marginTop: "2rem" }}>
         <ResponsiveContainer width="100%" height={400}>
           <ScatterChart margin={{ top: 20, right: 20, bottom: 50, left: 20 }}>
@@ -386,8 +357,8 @@ export default function KarmicQuadrant() {
                 value="Context / Domain / Factor →"
                 position="insideBottom"
                 fill="#ffd700"
-                dy={40} // <-- move label 20px downward
-                offset={20} // gap below axis
+                dy={55} // pushed further down
+                offset={20}
               />
             </XAxis>
             <YAxis
@@ -403,32 +374,13 @@ export default function KarmicQuadrant() {
                 angle={-90}
                 position="insideLeft"
                 fill="#ffd700"
-                offset={0} // gap from axis
+                offset={0}
               />
             </YAxis>
-            {/* <Tooltip
-              cursor={{ strokeDasharray: "3 3" }}
-              formatter={(val, name, props) => [
-                val.toFixed(2),
-
-                `${name} • Karmic Score: ${props.payload.score.toFixed(2)}`,
-              ]}
-              contentStyle={{
-                background: "#0a0f24",
-                border: "1px solid #00ffff",
-                borderRadius: 8,
-                padding: "8px",
-                color: "#ffffff", // tooltip text white
-                fontSize: "14px",
-              }}
-              labelStyle={{ color: "#ffd700", fontWeight: "bold" }}
-            /> */}
-
             <Tooltip
               content={<CustomTooltip />}
               cursor={{ strokeDasharray: "3 3" }}
             />
-
             <Scatter
               name="Event"
               data={data}
@@ -440,7 +392,6 @@ export default function KarmicQuadrant() {
         </ResponsiveContainer>
       </div>
 
-      {/* DR/CR Storyboard */}
       <div
         style={{
           display: "flex",
