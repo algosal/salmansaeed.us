@@ -92,7 +92,7 @@ const questions = [
   },
   {
     id: 16,
-    text: "Do they respect other people’s boundaries?",
+    text: "Do they respect other peopleâ€™s boundaries?",
     weight: -1,
     pillar: "Social/Spiritual",
   },
@@ -146,7 +146,7 @@ const questions = [
   },
   {
     id: 25,
-    text: "Do they keep secrets that should be shared for honesty’s sake?",
+    text: "Do they keep secrets that should be shared for honestyâ€™s sake?",
     weight: 1,
     pillar: "Trust",
   },
@@ -176,7 +176,7 @@ const questions = [
   },
   {
     id: 30,
-    text: "Do they act entitled as if rules don’t apply to them?",
+    text: "Do they act entitled as if rules donâ€™t apply to them?",
     weight: 2,
     pillar: "Social/Spiritual",
   },

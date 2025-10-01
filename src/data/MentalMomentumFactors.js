@@ -2,7 +2,7 @@ export const principles = [
   {
     title: "Aligned Thought",
     description:
-      "Momentum begins when thought, belief, and emotion align with your vision — creating a focused energetic stream.",
+      "Momentum begins when thought, belief, and emotion align with your vision â€” creating a focused energetic stream.",
     color: "#4cc9f0",
   },
   {
@@ -14,7 +14,7 @@ export const principles = [
   {
     title: "Spiritual Surrender",
     description:
-      "Letting go of resistance allows momentum to become inevitable — the unseen forces begin to conspire in your favor.",
+      "Letting go of resistance allows momentum to become inevitable â€” the unseen forces begin to conspire in your favor.",
     color: "#ff6b6b",
   },
   {

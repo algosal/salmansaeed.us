@@ -11,7 +11,7 @@
  * @param {Array} excludedIds - IDs of excluded questions
  * @param {number} mean - mean (default 0)
  * @param {number} sd - standard deviation (default 5)
- * @returns {number} - size in inches (1–18 scale)
+ * @returns {number} - size in inches (1â€“18 scale)
  */
 export const mapNormalizedToInches = (
   questions,

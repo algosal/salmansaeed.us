@@ -2,7 +2,7 @@ const criteria = [
   {
     id: 1,
     shortName: "Mental Loop",
-    text: "The emotional loop is complete — no need for apology, revenge, or reconciliation.",
+    text: "The emotional loop is complete â€” no need for apology, revenge, or reconciliation.",
     points: 2, // completion is good but lower weight
     sin: "Wrath",
     summary:
@@ -29,7 +29,7 @@ const criteria = [
   {
     id: 4,
     shortName: "Outgrown Bond",
-    text: "No longer spiritually, mentally, or emotionally resonant — even if history was strong.",
+    text: "No longer spiritually, mentally, or emotionally resonant â€” even if history was strong.",
     points: 3,
     sin: "Pride",
     summary:
@@ -56,7 +56,7 @@ const criteria = [
   {
     id: 7,
     shortName: "Unavailable Pattern",
-    text: "They consistently choose selfishness, disloyalty, or emotional absence — even if subtly.",
+    text: "They consistently choose selfishness, disloyalty, or emotional absence â€” even if subtly.",
     points: 6,
     sin: "Lust",
     summary:
@@ -64,8 +64,8 @@ const criteria = [
   },
   {
     id: 8,
-    shortName: "Forgiven ≠ Access",
-    text: "Forgiveness has been given — but access is no longer warranted.",
+    shortName: "Forgiven â‰  Access",
+    text: "Forgiveness has been given â€” but access is no longer warranted.",
     points: 3,
     sin: "Wrath",
     summary:
@@ -74,7 +74,7 @@ const criteria = [
   {
     id: 9,
     shortName: "Past Self",
-    text: "They remind you of past versions of yourself you’ve transcended.",
+    text: "They remind you of past versions of yourself youâ€™ve transcended.",
     points: 2,
     sin: "Sloth",
     summary:
@@ -83,7 +83,7 @@ const criteria = [
   {
     id: 10,
     shortName: "Boundary Breaker",
-    text: "They do not respect boundaries — subtle or stated.",
+    text: "They do not respect boundaries â€” subtle or stated.",
     points: 7, // very critical and harmful
     sin: "Pride",
     summary:
@@ -114,7 +114,7 @@ const criteria = [
     points: 5,
     sin: "Lust",
     summary:
-      "Romanticizing pain can be a form of lust — craving a feeling rather than truth. Release honors healing.",
+      "Romanticizing pain can be a form of lust â€” craving a feeling rather than truth. Release honors healing.",
   },
   {
     id: 14,
@@ -132,7 +132,7 @@ const criteria = [
     points: 6,
     sin: "Pride",
     summary:
-      "Intuition warns where pride reigns — where empathy is lacking, trust cannot thrive.",
+      "Intuition warns where pride reigns â€” where empathy is lacking, trust cannot thrive.",
   },
   {
     id: 16,
@@ -155,11 +155,11 @@ const criteria = [
   {
     id: 18,
     shortName: "Delusional Lens",
-    text: "They consistently distort truth — theirs or yours — creating confusion or unreality.",
+    text: "They consistently distort truth â€” theirs or yours â€” creating confusion or unreality.",
     points: 6,
     sin: "Envy",
     summary:
-      "Delusion is often envy in disguise — denying truth to maintain illusion. Clarity is compassion.",
+      "Delusion is often envy in disguise â€” denying truth to maintain illusion. Clarity is compassion.",
   },
   {
     id: 19,
@@ -173,13 +173,13 @@ const criteria = [
   {
     id: 20,
     shortName: "Spiritual Openness",
-    text: "They embody an inclusive, non-dogmatic spiritual outlook — integrating wisdom from multiple traditions and respecting others’ paths.",
+    text: "They embody an inclusive, non-dogmatic spiritual outlook â€” integrating wisdom from multiple traditions and respecting othersâ€™ paths.",
     points: -3,
     sin: "N/A",
     summary:
       "Expansive spirituality honors the divine in all forms. When one transcends dogma with humility, truth flows freely.",
   },
-  // ✨ Virtue Boosts — These reduce the overall disregard score
+  // âœ¨ Virtue Boosts â€” These reduce the overall disregard score
   {
     id: 21,
     shortName: "Grace Under Fire",
@@ -187,21 +187,21 @@ const criteria = [
     points: -4,
     sin: "Virtue",
     summary:
-      "Grace in conflict shows inner mastery — a sign of emotional intelligence and self-possession.",
+      "Grace in conflict shows inner mastery â€” a sign of emotional intelligence and self-possession.",
   },
   {
     id: 22,
     shortName: "Empathic Depth",
-    text: "They demonstrate deep, intuitive empathy — even toward those who wronged them.",
+    text: "They demonstrate deep, intuitive empathy â€” even toward those who wronged them.",
     points: -5,
     sin: "Virtue",
     summary:
-      "Empathy toward all beings — especially difficult ones — reflects spiritual depth and humility.",
+      "Empathy toward all beings â€” especially difficult ones â€” reflects spiritual depth and humility.",
   },
   {
     id: 23,
     shortName: "Truth Carrier",
-    text: "They speak truth gently, consistently — even when it’s hard.",
+    text: "They speak truth gently, consistently â€” even when itâ€™s hard.",
     points: -3,
     sin: "Virtue",
     summary:
@@ -210,7 +210,7 @@ const criteria = [
   {
     id: 24,
     shortName: "Accountability",
-    text: "They take ownership of their impact — without deflection or shame spirals.",
+    text: "They take ownership of their impact â€” without deflection or shame spirals.",
     points: -4,
     sin: "Virtue",
     summary:
@@ -219,11 +219,11 @@ const criteria = [
   {
     id: 25,
     shortName: "Elevates Others",
-    text: "They actively support others' growth, joy, and well-being — without hidden agenda.",
+    text: "They actively support others' growth, joy, and well-being â€” without hidden agenda.",
     points: -5,
     sin: "Virtue",
     summary:
-      "When someone roots for others without competition, they move from wholeness — not lack.",
+      "When someone roots for others without competition, they move from wholeness â€” not lack.",
   },
 ];
 

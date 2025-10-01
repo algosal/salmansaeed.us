@@ -2,7 +2,7 @@
 const interpolate = (x, x0, x1, y0, y1) =>
   y0 + ((x - x0) / (x1 - x0)) * (y1 - y0);
 
-// Map score → size in inches (piecewise)
+// Map score â†’ size in inches (piecewise)
 export const mapScoreToInches = (score, mean = 0, sd = 5) => {
   const leftTailCut = mean - 1.5548 * sd;
   const rightTailCut = mean + 1.5548 * sd;
