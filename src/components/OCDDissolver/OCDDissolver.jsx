@@ -1,3 +1,4 @@
+// src/components/OCDDissolver/OCDDissolver.jsx
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { steps } from "./steps";
@@ -8,6 +9,21 @@ export default function OCDDissolver() {
   const navigate = useNavigate();
   const [stepIndex, setStepIndex] = useState(0);
   const [completed, setCompleted] = useState(false);
+
+  // Move handleNext inside useEffect for stable reference
+  useEffect(() => {
+    const handleKey = (e) => {
+      if (e.key === "Enter") {
+        if (stepIndex < steps.length - 1) {
+          setStepIndex(stepIndex + 1);
+        } else {
+          setCompleted(true);
+        }
+      }
+    };
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, [stepIndex]);
 
   const handleNext = () => {
     if (stepIndex < steps.length - 1) {
@@ -21,14 +37,6 @@ export default function OCDDissolver() {
     setStepIndex(0);
     setCompleted(false);
   };
-
-  useEffect(() => {
-    const handleKey = (e) => {
-      if (e.key === "Enter") handleNext();
-    };
-    window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
-  }, [stepIndex]);
 
   const progressPercent = ((stepIndex + 1) / steps.length) * 100;
 
