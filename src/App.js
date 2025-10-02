@@ -33,6 +33,7 @@ import SmartAnalyzer from "./components/SmartAnalyzer";
 import KarmicCalculator from "./components/KarmicCalculator";
 import OCDDissolver from "./components/OCDDissolver/OCDDissolver";
 import AlcoholRelease from "./components/AlcoholRelease/AlcoholRelease";
+import { MetaIQDemo } from "./components/MetaIQDemo";
 
 function App() {
   return (
@@ -77,6 +78,7 @@ function App() {
         />
         <Route path="/OCDDissolver" element={<OCDDissolver />} />
         <Route path="/AlcoholRelease" element={<AlcoholRelease />} />
+        <Route path="/MetaIQDemo" element={<MetaIQDemo />} />
       </Routes>
     </BrowserRouter>
   );

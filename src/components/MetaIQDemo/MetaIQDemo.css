@@ -1,0 +1,137 @@
+.meta-iq-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #0a0f24;
+  color: #f8f9fc;
+  border-radius: 1rem;
+  font-family: "Inter", sans-serif;
+}
+
+.meta-iq-container h2 {
+  text-align: center;
+  color: #ffd700;
+  margin-bottom: 1rem;
+}
+
+.meta-iq-container p {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #cfd8fc;
+}
+
+.controls {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.5rem;
+}
+
+.control-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.control-group label {
+  font-size: 0.875rem;
+  color: #ffd700;
+}
+
+input[type="range"] {
+  width: 100%;
+}
+
+select {
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: none;
+  background-color: #1f2a48;
+  color: #f8f9fc;
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.buttons button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.75rem;
+  background-color: #ffd700;
+  color: #0a0f24;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.buttons button:hover {
+  transform: scale(1.05);
+}
+
+.result pre {
+  background-color: #1f2a48;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  white-space: pre-wrap;
+  color: #f8f9fc;
+}
+
+.faculty-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.faculty-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.faculty-label {
+  width: 100px;
+  color: #ffd700;
+}
+
+.faculty-bar {
+  flex: 1;
+  height: 1rem;
+  background-color: #1f2a48;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.faculty-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00ffc6, #ffd700);
+  border-radius: 0.5rem;
+  transition: width 0.3s ease-in-out;
+}
+
+.faculty-value {
+  width: 40px;
+  text-align: right;
+  font-family: monospace;
+  color: #cfd8fc;
+}
+
+.history {
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #1f2a48;
+  padding: 1rem;
+  border-radius: 0.75rem;
+}
+
+.history-item {
+  font-size: 0.875rem;
+  border-bottom: 1px solid #2a3560;
+  padding: 0.25rem 0;
+  color: #cfd8fc;
+}
