@@ -19,6 +19,7 @@ const GraphNavPanel = () => {
     { label: "Karmic Calculator", path: "/KarmicCalculator" },
     { label: "OCD Dissolver", path: "/OCDDissolver" },
     { label: "Alcohol Release", path: "/AlcoholRelease" },
+    { label: "Meta IQ Demo", path: "/MetaIQDemo" },
   ];
 
   return (
