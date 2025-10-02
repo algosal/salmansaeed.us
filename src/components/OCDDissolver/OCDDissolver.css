@@ -1,0 +1,115 @@
+/* Full screen wrapper */
+.ocd-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f5f7fa; /* soft neutral */
+  font-family: "Inter", sans-serif;
+}
+
+/* Container */
+.ocd-container {
+  background: #ffffff;
+  border-left: 5px solid #4db6ac;
+  padding: 25px 25px;
+  max-width: 400px; /* reduced from 480px */
+  width: 90%;
+  min-height: 300px; /* reduced from 380px */
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  color: #333333;
+  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* spacing between elements */
+}
+
+/* Title */
+.ocd-title {
+  font-size: 1.9rem;
+  font-weight: 600;
+  color: #1976d2;
+  margin: 0;
+}
+
+/* Step Text */
+.ocd-step {
+  font-size: 1.2rem;
+  color: #424242;
+  min-height: 50px;
+  margin: 0;
+}
+
+/* Buttons container */
+.ocd-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+/* Buttons */
+.ocd-button {
+  padding: 12px 26px;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  color: #ffffff;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+.ocd-button.next {
+  background: #1976d2;
+}
+.ocd-button.next:hover {
+  background: #1565c0;
+  transform: scale(1.05);
+}
+
+.ocd-button.reset {
+  background: #ffd54f;
+  color: #333333;
+}
+.ocd-button.reset:hover {
+  background: #ffca28;
+  transform: scale(1.05);
+}
+
+.ocd-button.back {
+  background: #4db6ac;
+}
+.ocd-button.back:hover {
+  background: #43a047;
+  transform: scale(1.05);
+}
+
+/* Progress Bar */
+.ocd-progress-bar {
+  width: 100%;
+  height: 10px;
+  background: #e0e0e0;
+  border-radius: 5px;
+  overflow: hidden;
+}
+.ocd-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4db6ac, #ffd54f);
+  transition: width 0.4s ease-in-out;
+}
+
+/* Finish Section */
+.ocd-finish p,
+.quote {
+  margin: 0;
+  font-size: 1.15rem;
+  color: #333333;
+}
+.quote {
+  font-style: italic;
+  color: #1976d2;
+}

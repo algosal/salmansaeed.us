@@ -17,6 +17,8 @@ const GraphNavPanel = () => {
     { label: "DE Criteria List", path: "/CriteriaList" },
     { label: "Smart Analyzer", path: "/SmartAnalyzer" },
     { label: "Karmic Calculator", path: "/KarmicCalculator" },
+    { label: "OCD Dissolver", path: "/OCDDissolver" },
+    { label: "Alcohol Release", path: "/AlcoholRelease" },
   ];
 
   return (

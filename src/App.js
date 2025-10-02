@@ -31,6 +31,8 @@ import CriteriaList from "./components/CriteriaList";
 import DisregardedClassifier from "./components/DisregardedClassifier";
 import SmartAnalyzer from "./components/SmartAnalyzer";
 import KarmicCalculator from "./components/KarmicCalculator";
+import OCDDissolver from "./components/OCDDissolver/OCDDissolver";
+import AlcoholRelease from "./components/AlcoholRelease/AlcoholRelease";
 
 function App() {
   return (
@@ -73,6 +75,8 @@ function App() {
           path="/DisregardedClassifier"
           element={<DisregardedClassifier />}
         />
+        <Route path="/OCDDissolver" element={<OCDDissolver />} />
+        <Route path="/AlcoholRelease" element={<AlcoholRelease />} />
       </Routes>
     </BrowserRouter>
   );

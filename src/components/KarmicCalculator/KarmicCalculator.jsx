@@ -9,6 +9,7 @@ import {
   ResponsiveContainer,
   Label,
 } from "recharts";
+import { useNavigate } from "react-router-dom";
 
 export default function KarmicQuadrant() {
   const [baseValue, setBaseValue] = useState(50);
@@ -19,6 +20,7 @@ export default function KarmicQuadrant() {
   const [income, setIncome] = useState(0);
   const [eventType, setEventType] = useState("Non-Financial");
   const [amountAsked, setAmountAsked] = useState(0);
+  const navigate = useNavigate();
 
   // const computeContextFactor = (factor, income, amountAsked) => {
   //   const comfortThresholdStruggling = 1000;
@@ -208,6 +210,22 @@ export default function KarmicQuadrant() {
       <h2 style={{ textAlign: "center", color: "#ffd700" }}>
         ⚖️ Karmic Quadrant Analyzer
       </h2>
+
+      <button
+        onClick={() => navigate("/GraphNavPanel")}
+        style={{
+          padding: "0.5rem 1rem",
+          borderRadius: "6px",
+          border: "1px solid #00ffff",
+          background: "#1f2a48",
+          color: "#ffd700",
+          fontWeight: "bold",
+          cursor: "pointer",
+          marginBottom: "1rem",
+        }}
+      >
+        ← Back
+      </button>
 
       {/* Event Type */}
       <div style={{ marginBottom: "1rem" }}>
