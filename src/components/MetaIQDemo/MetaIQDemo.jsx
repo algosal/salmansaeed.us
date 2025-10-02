@@ -112,7 +112,9 @@ Notes: Includes state and metaphysical factors.`;
 
       <div className="controls">
         <div className="control-group">
-          <label>Memory</label>
+          <label>
+            Memory: <strong>{memory}</strong>
+          </label>
           <input
             type="range"
             min="0"
@@ -120,7 +122,10 @@ Notes: Includes state and metaphysical factors.`;
             value={memory}
             onChange={(e) => setMemory(Number(e.target.value))}
           />
-          <label>Reasoning</label>
+
+          <label>
+            Reasoning: <strong>{reasoning}</strong>
+          </label>
           <input
             type="range"
             min="0"
@@ -128,7 +133,10 @@ Notes: Includes state and metaphysical factors.`;
             value={reasoning}
             onChange={(e) => setReasoning(Number(e.target.value))}
           />
-          <label>Processing Speed</label>
+
+          <label>
+            Processing Speed: <strong>{processingSpeed}</strong>
+          </label>
           <input
             type="range"
             min="0"
@@ -136,7 +144,10 @@ Notes: Includes state and metaphysical factors.`;
             value={processingSpeed}
             onChange={(e) => setProcessingSpeed(Number(e.target.value))}
           />
-          <label>Imagination</label>
+
+          <label>
+            Imagination: <strong>{imagination}</strong>
+          </label>
           <input
             type="range"
             min="0"
@@ -156,7 +167,10 @@ Notes: Includes state and metaphysical factors.`;
             <option value="tired">Tired</option>
             <option value="exhausted">Exhausted</option>
           </select>
-          <label>Intoxication (0 = sober)</label>
+
+          <label>
+            Intoxication (0 = sober): <strong>{intoxication}</strong>
+          </label>
           <input
             type="range"
             min="0"
@@ -164,7 +178,10 @@ Notes: Includes state and metaphysical factors.`;
             value={intoxication}
             onChange={(e) => setIntoxication(Number(e.target.value))}
           />
-          <label>Mood</label>
+
+          <label>
+            Mood: <strong>{mood}</strong>
+          </label>
           <input
             type="range"
             min="0"
@@ -172,6 +189,7 @@ Notes: Includes state and metaphysical factors.`;
             value={mood}
             onChange={(e) => setMood(Number(e.target.value))}
           />
+
           <label>
             <input
               type="checkbox"
