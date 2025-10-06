@@ -1,0 +1,100 @@
+/* AttractionParadox.css */
+
+.attraction-paradox-container {
+  max-width: 650px;
+  margin: 2rem auto;
+  background-color: #0a0f24;
+  color: #f8f9fc;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  font-family: Inter, sans-serif;
+}
+
+/* Button group with spacing */
+.button-group {
+  display: flex;
+  gap: 1rem; /* space between buttons */
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.attraction-paradox-container button {
+  padding: 0.5rem 1rem;
+  background-color: #ffd700;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.1s ease, background-color 0.2s ease;
+}
+
+.attraction-paradox-container button:hover {
+  transform: scale(1.05);
+  background-color: #ffc700;
+}
+
+/* Graph container */
+.graph {
+  display: flex;
+  justify-content: space-around;
+  margin: 2rem 0;
+  height: 200px;
+  align-items: flex-end;
+}
+
+/* Graph bars */
+.bar {
+  width: 120px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  color: #0a0f24;
+  font-weight: bold;
+  border-radius: 6px 6px 0 0;
+  transition: height 0.3s ease, background-color 0.3s ease;
+}
+
+/* Real-time and photo bars */
+.bar.real {
+  background-color: cyan;
+}
+
+.bar.photo {
+  background-color: gold;
+}
+
+/* Explanation text */
+.explanation {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-top: 1rem;
+  text-align: left;
+  background-color: #131b3a;
+  padding: 1rem;
+  border-left: 4px solid #ffd700;
+  border-radius: 6px;
+}
+
+/* Go to storyboard button spacing */
+.attraction-paradox-container > button:last-of-type {
+  margin-top: 1.5rem;
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .graph {
+    flex-direction: column;
+    height: 250px;
+  }
+
+  .bar {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}

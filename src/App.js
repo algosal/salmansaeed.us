@@ -35,6 +35,8 @@ import OCDDissolver from "./components/OCDDissolver/OCDDissolver";
 import AlcoholRelease from "./components/AlcoholRelease/AlcoholRelease";
 import { MetaIQDemo } from "./components/MetaIQDemo";
 import ShortMentalTraining from "./components/ShortMentalTraining/ShortMentalTraining";
+import AttractionParadox from "./components/AttractionParadox";
+import AttractionParadoxStoryboard from "./components/AttractionParadoxStoryboard/AttractionParadoxStoryboard";
 
 function App() {
   return (
@@ -81,6 +83,11 @@ function App() {
         <Route path="/AlcoholRelease" element={<AlcoholRelease />} />
         <Route path="/MetaIQDemo" element={<MetaIQDemo />} />
         <Route path="/ShortMentalTraining" element={<ShortMentalTraining />} />
+        <Route path="/AttractionParadox" element={<AttractionParadox />} />
+        <Route
+          path="/AttractionParadoxStoryboard"
+          element={<AttractionParadoxStoryboard />}
+        />
       </Routes>
     </BrowserRouter>
   );

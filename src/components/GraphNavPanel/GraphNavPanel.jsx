@@ -21,6 +21,7 @@ const GraphNavPanel = () => {
     { label: "Alcohol Release", path: "/AlcoholRelease" },
     { label: "Meta IQ Demo", path: "/MetaIQDemo" },
     { label: "Short Mental Training", path: "/ShortMentalTraining" },
+    { label: "Attraction Paradox", path: "/AttractionParadox" },
   ];
 
   return (
