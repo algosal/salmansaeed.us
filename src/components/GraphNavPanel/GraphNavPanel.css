@@ -1,4 +1,10 @@
-/* GraphNavPanel.css */
+/* Reset body margins to avoid extra space */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
 
 /* Wrapper */
 .graph-nav-wrapper {
@@ -20,35 +26,34 @@
 /* Content area */
 .graph-nav-content {
   flex: 1;
-  padding: 0 1rem 1rem 1rem; /* desktop default */
+  padding: 0 1rem 1rem 1rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow-y: auto;
   max-height: 100vh;
-  box-sizing: border-box; /* ensures padding is inside max-height */
+  box-sizing: border-box;
 }
 
 /* Mobile adjustment for hamburger/menu height */
 @media (max-width: 767px) {
   .graph-nav-content {
     padding-top: 3.4rem; /* space for hamburger */
-    padding-bottom: 0.5rem; /* minimal bottom padding to avoid cutoff */
+    padding-bottom: 0.5rem; /* minimal bottom padding */
   }
 }
 
 /* Sticky heading container for full-width sticky */
-/* Sticky heading container for desktop & mobile */
 .graph-nav-heading-container {
   position: sticky;
   top: 0;
-  width: 100%; /* Full width of the content area */
-  max-width: none; /* remove max-width restrictions from parent */
+  width: 100%; /* full width of content area */
+  max-width: none; /* remove restrictions from parent */
   z-index: 10;
   background-color: #1f2a48;
   display: flex;
   justify-content: center;
-  padding: 1.5rem 0;
+  padding: 1rem 0; /* top & bottom padding for spacing */
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -57,7 +62,7 @@
   font-size: 1.75rem;
   font-weight: 600;
   color: #ffd700;
-  margin: 0 0 1.5rem 0; /* only bottom margin */
+  margin: 0; /* remove extra margins */
   text-align: center;
 }
 
@@ -68,7 +73,7 @@
   gap: 1rem;
   width: 100%;
   max-width: 600px;
-  margin-top: 2rem;
+  margin-top: 1rem;
 }
 
 @media (min-width: 500px) {
