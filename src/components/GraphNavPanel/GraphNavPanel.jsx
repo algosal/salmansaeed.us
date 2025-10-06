@@ -27,7 +27,9 @@ const GraphNavPanel = () => {
     <div className="graph-nav-wrapper">
       <Navbar />
       <div className="graph-nav-content">
-        <h2 className="graph-nav-heading">Navigate Deep Mind Constructs</h2>
+        <div className="graph-nav-heading-container">
+          <h2 className="graph-nav-heading">Navigate Deep Mind Constructs</h2>
+        </div>
         <div className="nav-button-grid">
           {sections.map((section, idx) => (
             <button
