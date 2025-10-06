@@ -1,5 +1,5 @@
 .storyboard-container {
-  max-width: 650px;
+  max-width: 700px;
   margin: 2rem auto;
   background-color: #0a0f24;
   color: #f8f9fc;
@@ -9,24 +9,50 @@
   font-family: Inter, sans-serif;
 }
 
+.dropdown {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.graph-info {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  background-color: #131b3a;
+  border-left: 4px solid #00ffff;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  text-align: left;
+}
+
 .graph {
   display: flex;
   justify-content: center;
   margin: 2rem 0;
-  height: 200px;
-  align-items: flex-end;
+  align-items: center;
 }
 
-.bar {
+.pie {
   width: 150px;
-  background-color: cyan;
+  height: 150px;
+  border-radius: 50%;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
-  color: #0a0f24;
   font-weight: bold;
-  border-radius: 6px 6px 0 0;
-  transition: height 0.3s ease;
+  font-size: 1.2rem;
+  color: #f8f9fc;
+  box-shadow: inset -5px -5px 20px rgba(0, 0, 0, 0.5),
+    inset 5px 5px 20px rgba(255, 255, 255, 0.1), 0 5px 15px rgba(0, 0, 0, 0.4);
+  transition: background 0.3s ease;
+}
+
+.trend {
+  margin: 0.5rem 0;
+  font-weight: bold;
+  font-size: 0.95rem;
 }
 
 .description {
@@ -34,14 +60,31 @@
   line-height: 1.5;
   margin-top: 1rem;
   text-align: left;
+  background-color: #131b3a;
+  padding: 1rem;
+  border-left: 4px solid #ffd700;
+  border-radius: 6px;
+}
+
+.controls {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
 .controls button {
-  margin: 1rem 0.5rem;
   padding: 0.5rem 1rem;
   background-color: #ffd700;
   border: none;
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
+  transition: transform 0.1s ease, background-color 0.2s ease;
+}
+
+.controls button:hover {
+  transform: scale(1.05);
+  background-color: #ffc700;
 }

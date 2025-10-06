@@ -1,52 +1,34 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { attractionSteps } from "./steps";
 import "./AttractionParadoxStoryboard.css";
-
-const steps = [
-  {
-    title: "Real-time Attraction",
-    description: "Real life triggers dopamine spike, context enhances appeal.",
-    graphType: "real",
-    graphColor: "cyan",
-  },
-  {
-    title: "Photo Perception Drop",
-    description: "Static photo removes dynamic cues; attraction drops.",
-    graphType: "photo",
-    graphColor: "gold",
-  },
-  {
-    title: "Memory vs Reality",
-    description:
-      "Brain reconstructs idealized memory; static images rarely match.",
-    graphType: "photo",
-    graphColor: "magenta",
-  },
-  {
-    title: "Porn Comparison",
-    description:
-      "Porn creates a distorted baseline via selection, makeup, lighting.",
-    graphType: "photo",
-    graphColor: "orange",
-  },
-  {
-    title: "Personal Growth Takeaway",
-    description: "Observe attraction without over-identifying; channel energy.",
-    graphType: "real",
-    graphColor: "lime",
-  },
-];
 
 export default function AttractionParadoxStoryboard() {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
   const [level, setLevel] = useState(0);
+  const [viewMode, setViewMode] = useState("quick"); // quick or detailed
 
-  const step = steps[currentStep];
+  // Quick steps selection
+  const quickSteps = attractionSteps.filter((step) =>
+    [
+      "Real-time Attraction",
+      "Photo Perception Drop",
+      "Personal Growth Takeaway",
+      "Channeling Inner Energy",
+    ].includes(step.title)
+  );
 
+  const stepsToUse = viewMode === "quick" ? quickSteps : attractionSteps;
+  const current = stepsToUse[currentStep];
+
+  // Graph level simulation
   useEffect(() => {
+    if (!current) return;
+
     let interval;
-    if (step.graphType === "real") {
+
+    if (current.graphType === "real") {
       let lvl = 0;
       interval = setInterval(() => {
         lvl += Math.random() * 10;
@@ -61,42 +43,86 @@ export default function AttractionParadoxStoryboard() {
         setLevel(lvl);
       }, 300);
     }
-    return () => clearInterval(interval);
-  }, [currentStep, step.graphType]);
 
-  const nextStep = () => {
-    setCurrentStep((prev) => (prev + 1 < steps.length ? prev + 1 : prev));
-  };
-  const prevStep = () => {
-    setCurrentStep((prev) => (prev - 1 >= 0 ? prev - 1 : prev));
-  };
+    return () => clearInterval(interval);
+  }, [currentStep, current]);
+
+  if (!current) return <div>Loading...</div>;
+
+  // Dynamic trend color for graph and text
+  const trendColor =
+    current.trend === "rising"
+      ? "#00ffcc"
+      : current.trend === "falling"
+      ? "#ff5555"
+      : "#ffd700";
 
   return (
     <div className="storyboard-container">
-      <h2>{step.title}</h2>
+      <h2>{current.title}</h2>
 
-      <div className="graph">
-        <div
-          className="bar"
-          style={{
-            height: `${level}%`,
-            backgroundColor: step.graphColor,
+      {/* View Mode Dropdown */}
+      <div className="dropdown">
+        <label>View Mode:</label>
+        <select
+          value={viewMode}
+          onChange={(e) => {
+            setViewMode(e.target.value);
+            setCurrentStep(0);
           }}
         >
-          {step.graphType === "real" ? "Real-time Spike" : "Photo Drop"}
+          <option value="quick">Quick Rectification</option>
+          <option value="detailed">Detailed View</option>
+        </select>
+      </div>
+
+      {/* Dynamic Graph Type Info */}
+      <div className="graph-info">
+        <strong>Graph Type Info:</strong> <span>{current.graphInfo}</span>
+      </div>
+
+      {/* Pie Graph */}
+      <div className="graph">
+        <div
+          className="pie"
+          style={{
+            background: `conic-gradient(${trendColor} ${
+              level * 3.6
+            }deg, #1f2a48 0deg)`,
+          }}
+        >
+          <span>{Math.round(level)}%</span>
         </div>
       </div>
 
-      <p className="description">{step.description}</p>
+      {/* Trend + Drive */}
+      <div className={`trend ${current.trend}`} style={{ color: trendColor }}>
+        {current.trend === "rising" && `⬆ Attraction Rising (${current.drive})`}
+        {current.trend === "falling" &&
+          `⬇ Attraction Falling (${current.drive})`}
+        {current.trend === "stable" && `→ Attraction Stable (${current.drive})`}
+      </div>
 
+      {/* Description */}
+      <p className="description">{current.description}</p>
+
+      {/* Controls */}
       <div className="controls">
         <button onClick={() => navigate("/AttractionParadox")}>
           Back to AttractionParadox
         </button>
-        <button onClick={prevStep} disabled={currentStep === 0}>
+        <button
+          onClick={() => setCurrentStep((prev) => Math.max(prev - 1, 0))}
+          disabled={currentStep === 0}
+        >
           Previous
         </button>
-        <button onClick={nextStep} disabled={currentStep === steps.length - 1}>
+        <button
+          onClick={() =>
+            setCurrentStep((prev) => Math.min(prev + 1, stepsToUse.length - 1))
+          }
+          disabled={currentStep === stepsToUse.length - 1}
+        >
           Next
         </button>
       </div>
