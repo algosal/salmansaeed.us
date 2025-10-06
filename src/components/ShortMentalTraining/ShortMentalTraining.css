@@ -1,0 +1,265 @@
+/* ShortMentalTraining.css */
+
+/* Container + Layout */
+.smt-container {
+  background-color: #0a0f24;
+  color: #f8f9fc;
+  font-family: "Inter", sans-serif;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.08);
+  max-width: 900px;
+  margin: 2rem auto;
+}
+
+/* Title */
+.smt-title {
+  text-align: center;
+  color: #00ffff;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #00ffff;
+  padding-bottom: 0.5rem;
+}
+
+/* Layout Columns */
+.smt-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Step List / Sidebar */
+.smt-step-list {
+  flex: 1 1 30%;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 1rem;
+  border-radius: 12px;
+  overflow-y: auto;
+  max-height: 90vh; /* increased height to almost full screen */
+}
+
+/* Step Items */
+.smt-step-item {
+  margin-bottom: 0.8rem;
+  padding: 0.6rem;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+.smt-step-item:hover {
+  background-color: rgba(0, 255, 255, 0.15);
+}
+.smt-step-item.active {
+  background-color: rgba(255, 215, 0, 0.15);
+  border-left: 3px solid #ffd700;
+}
+
+/* Sidebar Buttons (Practice All + Reset) */
+.smt-step-list button {
+  width: 100%;
+  background-color: rgba(0, 255, 255, 0.08);
+  color: #f8f9fc;
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  padding: 0.6rem 0.9rem;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 0.6rem 0; /* added top & bottom margin */
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+.smt-step-list button:hover {
+  background-color: rgba(0, 255, 255, 0.2);
+  border-color: #00ffff;
+}
+
+/* Main Step Area */
+.smt-main {
+  flex: 1 1 65%;
+  background-color: rgba(255, 255, 255, 0.04);
+  border-left: 2px solid #00ffff;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  min-height: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Step Header */
+.smt-step-title {
+  color: #ffd700;
+  font-size: 1.2rem;
+  margin-bottom: 0.4rem;
+}
+
+.smt-description {
+  opacity: 0.9;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.smt-timer {
+  text-align: right;
+  font-family: monospace;
+  color: #00ffff;
+  font-size: 1.4rem;
+  margin-top: -1rem;
+}
+
+/* Controls (Start / Prev / Next / Reset) */
+.smt-controls {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.smt-controls button {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #f8f9fc;
+  border: none;
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  flex: 1 1 auto; /* allows buttons to share space evenly */
+  min-width: 60px;
+}
+
+.smt-controls button:hover {
+  background-color: rgba(0, 255, 255, 0.2);
+}
+
+/* Special handling for the Reset button */
+.smt-controls button.reset-button {
+  flex: 1 1 100%; /* full width */
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Neutral Phrase Section */
+.smt-neutral-box {
+  margin-top: 1rem;
+  background-color: rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.smt-neutral-phrase {
+  background: rgba(0, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 0.5rem;
+  text-align: center;
+  font-weight: 500;
+  color: #00ffff;
+  margin-top: 0.5rem;
+}
+
+.smt-neutral-box button {
+  margin: 0.6rem 0; /* top & bottom margin for spacing */
+  background-color: rgba(0, 255, 255, 0.08);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  color: #f8f9fc;
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.smt-neutral-box button:hover {
+  background-color: rgba(0, 255, 255, 0.2);
+}
+
+/* Log Area */
+.smt-log-box {
+  margin-top: 1rem;
+  background-color: rgba(255, 255, 255, 0.06);
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.smt-log-box textarea {
+  width: 100%;
+  background: rgba(0, 255, 255, 0.05);
+  color: #f8f9fc;
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 0.6rem;
+  resize: none;
+}
+
+.smt-log-box textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.smt-log-box button {
+  background-color: rgba(0, 255, 255, 0.08);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  color: #f8f9fc;
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  margin: 0.4rem 0 0.4rem 0; /* added top & bottom margin */
+  margin-right: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.smt-log-box button:hover {
+  background-color: rgba(0, 255, 255, 0.2);
+}
+
+/* Journal History */
+.smt-journal {
+  margin-top: 1rem;
+  max-height: 150px;
+  overflow-y: auto;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  padding: 0.8rem;
+}
+
+.smt-journal-entry {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+}
+.smt-back-button {
+  background-color: rgba(0, 255, 255, 0.08);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  color: #f8f9fc;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.smt-back-button:hover {
+  background-color: rgba(0, 255, 255, 0.2);
+  border-color: #00ffff;
+}
+.smt-progress-bar-container {
+  width: 100%;
+  height: 8px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  margin-top: 0.5rem;
+}
+
+.smt-progress-bar {
+  height: 100%;
+  background-color: #00ffff;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+/* Optional: smaller gap for mobile buttons row */
+@media (max-width: 600px) {
+  .smt-controls {
+    gap: 0.4rem;
+  }
+  .smt-back-button {
+    margin-top: 1rem;
+  }
+}

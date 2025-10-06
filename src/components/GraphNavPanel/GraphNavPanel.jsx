@@ -20,6 +20,7 @@ const GraphNavPanel = () => {
     { label: "OCD Dissolver", path: "/OCDDissolver" },
     { label: "Alcohol Release", path: "/AlcoholRelease" },
     { label: "Meta IQ Demo", path: "/MetaIQDemo" },
+    { label: "Short Mental Training", path: "/ShortMentalTraining" },
   ];
 
   return (
