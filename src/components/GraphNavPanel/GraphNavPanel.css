@@ -1,4 +1,4 @@
-/* Reset body margins to avoid extra space */
+/* Reset margins */
 html,
 body {
   margin: 0;
@@ -9,21 +9,21 @@ body {
 /* Wrapper */
 .graph-nav-wrapper {
   display: flex;
-  flex-direction: column; /* Stack layout on mobile */
+  flex-direction: column; /* stacked layout for mobile */
   min-height: 100vh;
   background-color: #1f2a48;
   color: #f8f9fc;
   font-family: "Inter", sans-serif;
 }
 
-/* Side-by-side layout for tablets/desktops */
+/* Desktop layout: sidebar + content */
 @media (min-width: 768px) {
   .graph-nav-wrapper {
     flex-direction: row;
   }
 }
 
-/* Content area */
+/* Content section */
 .graph-nav-content {
   flex: 1;
   padding: 0 1rem 1rem 1rem;
@@ -35,38 +35,37 @@ body {
   box-sizing: border-box;
 }
 
-/* Mobile adjustment for hamburger/menu height */
+/* Mobile spacing for navbar height */
 @media (max-width: 767px) {
   .graph-nav-content {
-    padding-top: 3.4rem; /* space for hamburger */
-    padding-bottom: 0.5rem; /* minimal bottom padding */
+    padding-top: 3.4rem; /* space for mobile navbar */
+    padding-bottom: 0.5rem;
   }
 }
 
-/* Sticky heading container for full-width sticky */
+/* Sticky heading */
 .graph-nav-heading-container {
   position: sticky;
   top: 0;
-  width: 100%; /* full width of content area */
-  max-width: none; /* remove restrictions from parent */
+  width: 100%;
   z-index: 10;
   background-color: #1f2a48;
   display: flex;
   justify-content: center;
-  padding: 1rem 0; /* top & bottom padding for spacing */
+  align-items: center;
+  padding: 1rem 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Heading text */
 .graph-nav-heading {
   font-size: 1.75rem;
   font-weight: 600;
   color: #ffd700;
-  margin: 0; /* remove extra margins */
+  margin: 0;
   text-align: center;
 }
 
-/* Button grid */
+/* Grid of buttons */
 .nav-button-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -76,13 +75,14 @@ body {
   margin-top: 1rem;
 }
 
+/* 2-column grid for tablets/desktops */
 @media (min-width: 500px) {
   .nav-button-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* Buttons */
+/* Button styles */
 .nav-button {
   background-color: #1f2a48;
   color: #ffd700;
@@ -94,6 +94,7 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
   width: 100%;
+  text-align: center;
 }
 
 .nav-button:hover {

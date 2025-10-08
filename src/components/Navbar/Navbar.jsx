@@ -6,12 +6,12 @@ function Navbar() {
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // Handle window resize
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
       if (window.innerWidth > 768) setMenuOpen(false);
     };
-
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -19,23 +19,37 @@ function Navbar() {
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
   return (
-    <nav className="navbar">
+    <nav className="nav-wrapper">
+      {/* Mobile Header with Hamburger */}
       {isMobile && (
-        <div className="mobile-header">
+        <div className="nav-mobile-header">
           <button
-            className="hamburger"
+            className="nav-hamburger"
             onClick={toggleMenu}
             aria-label="Toggle menu"
           >
-            <div className={menuOpen ? "bar bar1 open" : "bar bar1"}></div>
-            <div className={menuOpen ? "bar bar2 open" : "bar bar2"}></div>
-            <div className={menuOpen ? "bar bar3 open" : "bar bar3"}></div>
+            <div
+              className={
+                menuOpen ? "nav-bar nav-bar1 open" : "nav-bar nav-bar1"
+              }
+            ></div>
+            <div
+              className={
+                menuOpen ? "nav-bar nav-bar2 open" : "nav-bar nav-bar2"
+              }
+            ></div>
+            <div
+              className={
+                menuOpen ? "nav-bar nav-bar3 open" : "nav-bar nav-bar3"
+              }
+            ></div>
           </button>
         </div>
       )}
 
+      {/* Desktop Sidebar */}
       {!isMobile && (
-        <ul className="nav-links sidebar">
+        <ul className="nav-links nav-sidebar">
           <li>
             <NavLink to="/" end>
               Meet Salman
@@ -55,21 +69,20 @@ function Navbar() {
           </li>
           <li>
             <NavLink to="/intelligence">Intelligence</NavLink>
-          </li>{" "}
+          </li>
           <li>
             <NavLink to="/consciousness">Consciousness</NavLink>
           </li>
           <li>
-            <NavLink to="/GraphNavPanel" onClick={toggleMenu}>
-              Graphs
-            </NavLink>
+            <NavLink to="/GraphNavPanel">Graphs</NavLink>
           </li>
         </ul>
       )}
 
+      {/* Mobile Modal Menu */}
       {isMobile && menuOpen && (
-        <div className="mobile-modal">
-          <ul className="nav-links modal-links">
+        <div className="nav-mobile-modal">
+          <ul className="nav-links nav-modal-links">
             <li>
               <NavLink to="/" end onClick={toggleMenu}>
                 Meet Salman
@@ -99,17 +112,17 @@ function Navbar() {
               <NavLink to="/intelligence" onClick={toggleMenu}>
                 Intelligence
               </NavLink>
-            </li>{" "}
+            </li>
             <li>
-              <NavLink to="/Consciousness" onClick={toggleMenu}>
+              <NavLink to="/consciousness" onClick={toggleMenu}>
                 Consciousness
               </NavLink>
-            </li>{" "}
+            </li>
             <li>
               <NavLink to="/GraphNavPanel" onClick={toggleMenu}>
                 Graphs
               </NavLink>
-            </li>{" "}
+            </li>
           </ul>
         </div>
       )}
