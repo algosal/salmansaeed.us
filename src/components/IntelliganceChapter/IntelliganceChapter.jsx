@@ -13,7 +13,7 @@ const containerStyle = {
 const headerStyle = {
   position: "fixed",
   top: 0,
-  left: 220,
+  left: 220, // desktop sidebar offset
   right: 0,
   backgroundColor: "#121212",
   color: "#ffcc00",
@@ -151,26 +151,33 @@ const IntelligenceChapter = () => {
       <footer style={footerStyle}>© سلمان سعید</footer>
 
       <style>{`
+        html, body {
+          overflow-x: hidden !important; /* prevent horizontal scroll */
+        }
+
         @media (max-width: 768px) {
+          /* Mobile header adjustments */
           .legacy-header {
-            position: fixed !important;
-            top: 50px !important;
             left: 0 !important;
             right: 0 !important;
             width: 100% !important;
             padding: 15px 20px !important;
             font-size: 1.8rem !important;
-            border-bottom: 1px solid #333 !important;
-            z-index: 1500 !important;
             height: auto !important;
             display: flex !important;
             flex-direction: column !important;
-            align-items: flex-start !important;
+            align-items: center !important; /* center header text */
             box-sizing: border-box !important;
+            z-index: 20001 !important;
+            text-align: center;
           }
+
+          /* Push content below mobile header and center */
           .content-style-padding {
-            margin-top: 120px !important;
+            margin: 120px auto 30px auto !important;
+            max-width: 90%; /* shrink slightly on small screens */
           }
+
           footer {
             margin-top: 60px !important;
             margin-bottom: 40px !important;
