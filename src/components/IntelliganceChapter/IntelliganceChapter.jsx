@@ -34,6 +34,7 @@ const contentStyle = {
   padding: "30px",
   maxWidth: "900px",
   margin: "80px auto 30px auto",
+  boxSizing: "border-box",
 };
 
 const cardStyle = {
@@ -161,7 +162,7 @@ const IntelligenceChapter = () => {
             left: 0 !important;
             right: 0 !important;
             width: 100% !important;
-            padding: 15px 20px !important;
+            padding: 15px 10px !important;
             font-size: 1.8rem !important;
             height: auto !important;
             display: flex !important;
@@ -172,18 +173,52 @@ const IntelligenceChapter = () => {
             text-align: center;
           }
 
-          /* Push content below mobile header and center */
+          /* Center content for very narrow screens */
           .content-style-padding {
             margin: 120px auto 30px auto !important;
-            max-width: 90%; /* shrink slightly on small screens */
+            max-width: 90% !important;
+            padding-left: 5px !important;
+            padding-right: 5px !important;
+          }
+
+          /* Shrink headings for small screens */
+          h1 {
+            font-size: 2rem !important;
+          }
+
+          h2 {
+            font-size: 1.4rem !important;
+          }
+
+          p {
+            font-size: 1rem !important;
+            text-indent: 1em !important;
           }
 
           footer {
             margin-top: 60px !important;
             margin-bottom: 40px !important;
             text-align: center !important;
-            font-size: 1rem !important;
+            font-size: 0.9rem !important;
             color: #aaa !important;
+          }
+        }
+
+        /* Ultra-small screens (370px and below) */
+        @media (max-width: 380px) {
+          .content-style-padding {
+            max-width: 95% !important;
+            padding-left: 8px !important;
+            padding-right: 8px !important;
+          }
+          h1 {
+            font-size: 1.6rem !important;
+          }
+          h2 {
+            font-size: 1.2rem !important;
+          }
+          p {
+            font-size: 0.95rem !important;
           }
         }
       `}</style>
