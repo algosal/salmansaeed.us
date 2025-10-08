@@ -8,32 +8,14 @@ const containerStyle = {
   backgroundColor: "#121212",
   color: "#eee",
   fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-};
-
-const headerStyle = {
-  position: "fixed",
-  top: 0,
-  left: 220, // desktop sidebar offset
-  right: 0,
-  backgroundColor: "#121212",
-  color: "#ffcc00",
-  borderBottom: "1px solid #333",
-  padding: "15px 30px",
-  fontSize: "2.5rem",
-  fontWeight: "bold",
-  zIndex: 150,
-  height: 80,
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "space-between",
-  boxSizing: "border-box",
+  overflowX: "hidden",
 };
 
 const contentStyle = {
   flexGrow: 1,
   padding: "30px",
   maxWidth: "900px",
-  margin: "80px auto 30px auto",
+  margin: "100px auto 30px auto",
   boxSizing: "border-box",
 };
 
@@ -92,12 +74,35 @@ const footerStyle = {
 const IntelligenceChapter = () => {
   return (
     <div style={containerStyle}>
+      {/* Navbar with hamburger */}
       <Navbar />
 
-      <header style={headerStyle} className="legacy-header">
-        <div>Intelligence</div>
+      {/* Page header */}
+      <header
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          backgroundColor: "#121212",
+          color: "#ffcc00",
+          borderBottom: "1px solid #333",
+          padding: "15px 30px",
+          fontSize: "2.5rem",
+          fontWeight: "bold",
+          zIndex: 150,
+          height: 80,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          boxSizing: "border-box",
+        }}
+        className="legacy-header"
+      >
+        Intelligence
       </header>
 
+      {/* Content */}
       <div style={contentStyle} className="content-style-padding">
         <div style={cardStyle}>
           <h1 style={headingStyle}>
@@ -151,50 +156,41 @@ const IntelligenceChapter = () => {
 
       <footer style={footerStyle}>© سلمان سعید</footer>
 
+      {/* Mobile responsive styles */}
       <style>{`
         html, body {
-          overflow-x: hidden !important; /* prevent horizontal scroll */
+          overflow-x: hidden !important;
         }
 
         @media (max-width: 768px) {
-          /* Mobile header adjustments */
+          /* Push header below navbar hamburger */
           .legacy-header {
-            left: 0 !important;
-            right: 0 !important;
-            width: 100% !important;
-            padding: 15px 10px !important;
+            margin-top: 60px !important; /* height of navbar hamburger */
             font-size: 1.8rem !important;
             height: auto !important;
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important; /* center header text */
-            box-sizing: border-box !important;
-            z-index: 20001 !important;
+            justify-content: center !important;
             text-align: center;
+            padding: 10px 15px !important;
+            box-sizing: border-box !important;
           }
 
-          /* Center content for very narrow screens */
           .content-style-padding {
-            margin: 120px auto 30px auto !important;
-            max-width: 90% !important;
-            padding-left: 5px !important;
-            padding-right: 5px !important;
+            margin-top: 140px !important; /* header + navbar */
+            max-width: 95% !important;
+            padding-left: 10px !important;
+            padding-right: 10px !important;
           }
 
-          /* Shrink headings for small screens */
           h1 {
             font-size: 2rem !important;
           }
-
           h2 {
             font-size: 1.4rem !important;
           }
-
           p {
             font-size: 1rem !important;
             text-indent: 1em !important;
           }
-
           footer {
             margin-top: 60px !important;
             margin-bottom: 40px !important;
@@ -204,9 +200,9 @@ const IntelligenceChapter = () => {
           }
         }
 
-        /* Ultra-small screens (370px and below) */
         @media (max-width: 380px) {
           .content-style-padding {
+            margin-top: 150px !important; /* slightly larger for tiny screens */
             max-width: 95% !important;
             padding-left: 8px !important;
             padding-right: 8px !important;
