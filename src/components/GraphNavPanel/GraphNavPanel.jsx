@@ -42,6 +42,14 @@ const GraphNavPanel = () => {
               {section.label}
             </button>
           ))}
+          <button
+            className="nav-button"
+            onClick={() =>
+              window.open("https://salmansaeed.us/eidos/", "_blank")
+            }
+          >
+            Eidos
+          </button>
         </div>
       </div>
     </div>
