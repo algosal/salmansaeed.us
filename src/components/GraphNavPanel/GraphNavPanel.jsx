@@ -6,7 +6,8 @@ import "./GraphNavPanel.css";
 const GraphNavPanel = () => {
   const navigate = useNavigate();
 
-  const sections = [
+  // Internal routes
+  const internalSections = [
     { label: "Genius Equation", path: "/GeniusEquationGraph" },
     { label: "Emotional Arcs", path: "/EmotionalArcs" },
     { label: "Social Butterfly Map", path: "/SocialButterflies" },
@@ -24,32 +25,46 @@ const GraphNavPanel = () => {
     { label: "Attraction Paradox", path: "/AttractionParadox" },
   ];
 
+  // External URLs
+  const externalSections = [
+    { label: "Eidos Mind", url: "https://salmansaeed.us/eidos/" },
+    { label: "Operant Power", url: "https://salmansaeed.us/operant/" },
+    { label: "Clarity Engine", url: "https://salmansaeed.us/clarity/" },
+    { label: "EroSync", url: "https://salmansaeed.us/erosync/" },
+    { label: "Meta Sex", url: "https://salmansaeed.us/meta-sex/" },
+  ];
+
   return (
     <div className="graph-nav-wrapper">
       <Navbar />
+
       <div className="graph-nav-content">
         <div className="graph-nav-heading-container">
           <h2 className="graph-nav-heading">Navigate Deep Mind Constructs</h2>
         </div>
 
         <div className="nav-button-grid">
-          {sections.map((section, idx) => (
+          {/* Internal Route Buttons */}
+          {internalSections.map((item, idx) => (
             <button
-              key={idx}
+              key={`int-${idx}`}
               className="nav-button"
-              onClick={() => navigate(section.path)}
+              onClick={() => navigate(item.path)}
             >
-              {section.label}
+              {item.label}
             </button>
           ))}
-          <button
-            className="nav-button"
-            onClick={() =>
-              window.open("https://salmansaeed.us/eidos/", "_blank")
-            }
-          >
-            Eidos
-          </button>
+
+          {/* External Link Buttons */}
+          {externalSections.map((item, idx) => (
+            <button
+              key={`ext-${idx}`}
+              className="nav-button"
+              onClick={() => window.open(item.url, "_blank")}
+            >
+              {item.label}
+            </button>
+          ))}
         </div>
       </div>
     </div>
