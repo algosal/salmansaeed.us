@@ -18,14 +18,14 @@ export const mapNormalizedToInches = (
   answeredIds,
   excludedIds,
   mean = 0,
-  sd = 5
+  sd = 5,
 ) => {
   const activeQuestions = questions.filter((q) => !excludedIds.includes(q.id));
 
   // Total score from answered questions
   const totalScore = activeQuestions.reduce(
-    (acc, q) => acc + (answeredIds.includes(q.id) ? q.weight ?? 1 : 0),
-    0
+    (acc, q) => acc + (answeredIds.includes(q.id) ? (q.weight ?? 1) : 0),
+    0,
   );
 
   // Proportion of active questions to total questions
@@ -52,7 +52,7 @@ export const mapNormalizedToInches = (
       rightTailCut,
       rightTailCut + 10,
       7,
-      18
+      18,
     );
   }
 
