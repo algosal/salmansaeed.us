@@ -32,6 +32,8 @@ const GraphNavPanel = () => {
     { label: "Clarity Engine", url: "https://salmansaeed.us/clarity/" },
     { label: "EroSync", url: "https://salmansaeed.us/erosync/" },
     { label: "Meta Sex", url: "https://salmansaeed.us/meta-sex/" },
+    { label: "Verity", url: "https://salmansaeed.us/verity" },
+    { label: "LifeOS", url: "https://salmansaeed.us/LifeOS" },
   ];
 
   return (
