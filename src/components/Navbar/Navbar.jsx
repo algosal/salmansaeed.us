@@ -55,9 +55,9 @@ function Navbar() {
               Meet Salman
             </NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink to="/corporate">Corporate</NavLink>
-          </li>
+          </li> */}
           <li>
             <NavLink to="/gallery">Gallery</NavLink>
           </li>
@@ -73,9 +73,9 @@ function Navbar() {
           <li>
             <NavLink to="/consciousness">Consciousness</NavLink>
           </li>
-          <li>
+          {/* <li>
             <NavLink to="/GraphNavPanel">Graphs</NavLink>
-          </li>
+          </li> */}
         </ul>
       )}
 
@@ -88,11 +88,11 @@ function Navbar() {
                 Meet Salman
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink to="/corporate" onClick={toggleMenu}>
                 Corporate
               </NavLink>
-            </li>
+            </li> */}
             <li>
               <NavLink to="/gallery" onClick={toggleMenu}>
                 Gallery
@@ -118,11 +118,11 @@ function Navbar() {
                 Consciousness
               </NavLink>
             </li>
-            <li>
+            {/* <li>
               <NavLink to="/GraphNavPanel" onClick={toggleMenu}>
                 Graphs
               </NavLink>
-            </li>
+            </li> */}
           </ul>
         </div>
       )}
