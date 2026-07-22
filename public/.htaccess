@@ -1,5 +1,5 @@
 RewriteEngine On
-RewriteBase /
+RewriteBase /tillOS/tillOS
 
 # Skip rewrite for existing files and directories
 
